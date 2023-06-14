@@ -8,12 +8,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Left } from "@/components/left";
+import png from "/public/bro.png";
+import Image from "next/image";
 
 export default function Reg() {
   return (
     <main className="flex h-screen w-full flex-row justify-center bg-[#181d1f] sm:justify-around">
-      <Left />
+      <section className="my-auto hidden h-5/6 w-1/2 flex-col items-center justify-center sm:flex">
+        <Image
+          className="mx-auto pb-8"
+          src={png}
+          width={360}
+          alt="illustration"
+        />
+        <div className="text-center">
+          <h1
+            className="font-semibold text-[#BA44C5]"
+            style={{ fontSize: "48px" }}
+          >
+            Get likes and followers instantly
+          </h1>
+          <p
+            className="text-white"
+            style={{ fontSize: "32px", marginTop: "10px" }}
+          >
+            Get noticed with #brandname the only app that helps
+            <br />
+            you gain likes and followers of your drearns.
+          </p>
+        </div>
+      </section>
 
       <section className="flex my-auto h-5/6 sm:w-2/6 w-full mx-6 flex-col items-center rounded-lg bg-[#2d3234] text-white pb-24">
         <Select>
