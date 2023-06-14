@@ -43,10 +43,10 @@ export default function Reg() {
           </svg>
           <div className="space-y-6 mx-auto w-full px-6 pt-8">
             <h1 className="text-4xl  text-[#BA44C5]">Registration</h1>
-            <div className="grid items-center">
+            <div className="grid items-center gap-2">
               <Label htmlFor="email-2">Name</Label>
               <Input
-                className=""
+                className="placeholder:text-[#e0e0e0]"
                 type="email"
                 id="email-2"
                 placeholder="Enter Your Name"
