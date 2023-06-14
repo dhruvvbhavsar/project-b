@@ -534,13 +534,13 @@ export default function Reg() {
         <div className="text-center">
           <h1
             className="font-semibold text-[#BA44C5]"
-            style={{ fontSize: "48px" }}
+            style={{ fontSize: "32px" }}
           >
             Get likes and followers instantly
           </h1>
           <p
             className="text-white"
-            style={{ fontSize: "32px", marginTop: "10px" }}
+            style={{ fontSize: "20px", marginTop: "10px" }}
           >
             Get noticed with #brandname the only app that helps
             <br />
