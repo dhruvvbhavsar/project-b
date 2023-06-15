@@ -1,4 +1,3 @@
-"use client";
 import {
   Select,
   SelectContent,
@@ -9,17 +8,49 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { SvgIllustration } from "@/components/svg";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export default function Reg() {
-  // Add a state to track the button click
-  const [isClicked, setIsClicked] = useState(false);
+  async function verify(data: FormData) {
+    "use server";
 
-  // Add a click handler for the button
-  const handleClick = () => {
-    setIsClicked(true);
-  };
+    const num = {
+      number: "7715944948",
+      otp: data.get("otp")?.toString(),
+    };
+    const response = await fetch(
+      "https://project-b-olive.vercel.app/api/signup/verify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(num),
+      }
+    );
+
+    const res = await response.json();
+    console.log(res);
+
+    if (response.ok) {
+      const id = res[0]["data"]["_id"];
+      const currentDate = new Date();
+      const expirationDate = new Date(
+        currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+      );
+      "use client";
+
+      cookies().set({
+        name: "id",
+        value: id,
+        path: "/",
+        maxAge: expirationDate.getTime() - currentDate.getTime(),
+      });
+      redirect("/registration");
+    }
+  }
   return (
     <>
       <main className="flex h-screen w-full flex-row justify-center bg-[#181d1f] sm:justify-around">
@@ -75,37 +106,23 @@ export default function Reg() {
                 <span className="text-blue-700">+91 7715944948</span>
               </p>
             </div>
-            <div className="grid items-center gap-2 px-6">
+            <form action={verify} className="grid items-center gap-2 px-6">
               <Label htmlFor="email-2">Enter 4 Digit OTP</Label>
               <Input
                 className="placeholder:text-[#e0e0e0]"
-                type="email"
-                id="email-2"
+                type="number"
+                name="otp"
                 placeholder="OTP"
               />
               <Button
                 className={`bg-[#BA44C5] w-full`}
                 variant="default"
-                onClick={handleClick}
+                type="submit"
               >
                 Verify
-                {isClicked && (
-                  <span className="ml-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="white"
-                      className="bi bi-patch-check-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
-                    </svg>
-                  </span>
-                )}
               </Button>
               <p className="text-center text-xs">Resend OTP in 15s</p>
-            </div>
+            </form>
           </div>
         </section>
       </main>

@@ -9,8 +9,41 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
+import { redirect } from "next/navigation";
+import { kv } from "@vercel/kv";
+import { cookies } from "next/headers";
 
 export default function Reg() {
+  async function mobileNumber(data: FormData) {
+    "use server";
+    const num = {
+      number: data.get("mobile")?.toString(),
+    };
+    await kv.set("number", data.get("mobile")?.toString());
+    const response = await fetch(
+      "https://project-b-olive.vercel.app/api/client/get-otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(num),
+      }
+    );
+
+    const res = await response.json();
+
+    console.log(res);
+    if (response.ok) {
+      "use client";
+      cookies().set({
+        name: "mobile",
+        value: data.get("mobile")?.toString() ?? " ",
+      });
+      redirect("/verify-otp");
+    }
+  }
+
   return (
     <main className="flex h-screen w-full flex-row justify-center bg-[#181d1f] sm:justify-around">
       <section className="my-auto hidden h-5/6 w-1/2 flex-col items-center justify-center sm:flex">
@@ -63,18 +96,22 @@ export default function Reg() {
             <h1 className="text-4xl  text-[#BA44C5]">Welcome!</h1>
             <p className="text-xs">Enter Your mobile number to get started</p>
           </div>
-          <div className="grid items-center gap-2 px-6">
-            <Label htmlFor="email-2">Mobile Number</Label>
+          <form action={mobileNumber} className="grid items-center gap-2 px-6">
+            <Label>Mobile Number</Label>
             <Input
               className="placeholder:text-[#e0e0e0]"
-              type="email"
-              id="email-2"
+              type="tel"
+              name="mobile"
               placeholder="Enter Your Mobile Number"
             />
-            <Button className="bg-[#BA44C5] w-full" variant="default">
+            <Button
+              type="submit"
+              className="bg-[#BA44C5] w-full"
+              variant="default"
+            >
               Get OTP
             </Button>
-          </div>
+          </form>
         </div>
       </section>
     </main>
