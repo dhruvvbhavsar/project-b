@@ -1,13 +1,48 @@
 "use client";
-
-import ProgressComponent from "./progress";
 import { Button } from "@/components/ui/button";
-import { BarChart2, BellDot, ChevronDown, Plus } from "lucide-react";
+import { BarChart2, ChevronDown, Plus } from "lucide-react";
 import { Card } from "./card";
 import { Nav } from "./nav";
 import { Overview } from "./overview";
 
-export default function Dashboard() {
+import { DropdownMenuDemo } from './socials' 
+
+type Card = {
+  clientId: string;
+  platform: string;
+  activity: string;
+  current: number;
+  goal: number;
+  budget: number;
+};
+
+export default async function Dashboard() {
+  const response = await fetch(
+    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/cards",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const res = await response.json();
+  const clientData = res["data"];
+
+  const cardProps = clientData.map((card: Card) => {
+    return {
+      clientId: card.clientId,
+      platform: card.platform,
+      activity: card.activity,
+      current: card.current,
+      goal: card.goal,
+      budget: card.budget,
+    };
+  });
+
+  console.log(cardProps);
+
   return (
     <>
       <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
@@ -50,6 +85,7 @@ export default function Dashboard() {
             <div className="w-full flex flex-row justify-between mt-4">
               <h1>My Cards</h1>
               <div className="flex gap-3 justify-center  items-center">
+                <DropdownMenuDemo  />
                 <Button className="bg-[#2d3234] ">
                   Social Media
                   <ChevronDown />
@@ -61,7 +97,17 @@ export default function Dashboard() {
             </div>
 
             <div className="w-full flex flex-col gap-8 mt-4">
-              <Card />
+              {cardProps.map((card: Card) => (
+                <Card
+                  key={card.clientId}
+                  clientId={card.clientId}
+                  platform={card.platform}
+                  activity={card.activity}
+                  current={card.current}
+                  goal={card.goal}
+                  budget={card.budget}
+                />
+              ))}
             </div>
           </div>
         </div>
