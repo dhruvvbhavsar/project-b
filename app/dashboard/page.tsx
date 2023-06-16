@@ -1,11 +1,11 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { BarChart2, ChevronDown, Plus } from "lucide-react";
 import { Card } from "./card";
 import { Nav } from "./nav";
 import { Overview } from "./overview";
 
-import { DropdownMenuDemo } from './socials' 
+import { Socials } from './socials' 
+
 
 type Card = {
   clientId: string;
@@ -85,11 +85,7 @@ export default async function Dashboard() {
             <div className="w-full flex flex-row justify-between mt-4">
               <h1>My Cards</h1>
               <div className="flex gap-3 justify-center  items-center">
-                <DropdownMenuDemo  />
-                <Button className="bg-[#2d3234] ">
-                  Social Media
-                  <ChevronDown />
-                </Button>
+                <Socials  />
                 <Button className="bg-[#ba44c5]">
                   <Plus /> Add New Card
                 </Button>

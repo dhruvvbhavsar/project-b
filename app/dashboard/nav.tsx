@@ -1,5 +1,11 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BellDot, ChevronDown } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Navpop } from './navpop'
 
 export const Nav = () => {
   return (
@@ -20,12 +26,18 @@ export const Nav = () => {
         </svg>
       </p>
       <div className="flex w-full flex-row items-center justify-end gap-2">
-        <BellDot className="mr-6" />
+        <Popover>
+          <PopoverTrigger>
+            {" "}
+            <BellDot className="mr-6" />
+          </PopoverTrigger>
+          <PopoverContent>Notifications</PopoverContent>
+        </Popover>
         <Avatar className="h-8 w-8">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <ChevronDown />
+        <Navpop />
       </div>
     </nav>
   );

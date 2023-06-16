@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Instagram } from "lucide-react";
 import ProgressComponent from "./progress";
 
