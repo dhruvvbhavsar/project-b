@@ -1,80 +1,121 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-html {
-  font-family: Poppins;
+body {
+  font-family: "Poppins";
 }
- 
+
+.progress {
+  position: relative;
+  margin: auto;
+  top: 35px;
+  right: 42px;
+  transform: rotate(1.5deg);
+  /* margin: 4px; */
+  /* float: left; */
+  text-align: center;
+
+  scale: 1.7;
+
+
+}
+.barOverflow {
+  /* Wraps the rotating .bar */
+  position: relative;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 90px;
+  height: 45px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+}
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 90px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 14px solid #eee; /* half gray, */
+  border-bottom-color: #BA44C5;
+; /* half azure */
+  border-right-color: #BA44C5;
+;
+}
+
+.some {
+  background: linear-gradient(180deg, #424648 0%, rgba(69, 73, 75, 0.25) 100%);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
- 
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
- 
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
- 
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
- 
+
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
- 
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
- 
+
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
- 
+
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --ring: 215 20.2% 65.1%;
- 
+
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 224 71% 4%;
     --foreground: 213 31% 91%;
- 
+
     --muted: 223 47% 11%;
     --muted-foreground: 215.4 16.3% 56.9%;
- 
+
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
- 
+
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
- 
+
     --border: 216 34% 17%;
     --input: 216 34% 17%;
- 
+
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 1.2%;
- 
+
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
- 
+
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
- 
+
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
- 
+
     --ring: 216 34% 17%;
- 
+
     --radius: 0.5rem;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
