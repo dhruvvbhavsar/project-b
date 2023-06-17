@@ -22,28 +22,25 @@ export default async function Dashboard() {
     <>
       <main className="flex w-full flex-row bg-[#181d1f]">
         {/* sidebar */}
-        <div className="w-0 sm:w-64 bg-[#2d3234]">
-          <div className="flex h-12 w-full flex-row items-center justify-center gap-5 bg-transparent">
+        <div className="w-0 sm:w-56 bg-[#2d3234]">
+          <div className="flex mt-8 w-full flex-row items-center justify-center gap-2 bg-transparent">
             <svg
+              width="57"
+              height="57"
+              viewBox="0 0 57 57"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="white"
-              className="bi bi-heart-fill"
-              viewBox="0 0 16 16"
             >
-              <path
-                fill-rule="evenodd"
-                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-              />
+              <circle cx="28.5" cy="28.5" r="28.5" fill="#181D1F" />
             </svg>
-            <p className="text-[#586266] opacity-0 sm:opacity-100">BrandName</p>
+
+            <p className="text-[#979797] opacity-0 sm:opacity-100">BrandName</p>
           </div>
-          <div className="w-full h-10 flex flex-row justify-center mt-3 opacity-0 sm:opacity-100">
-            <Button className="bg-[#586266] hover:bg-[#202223] space-x-3">
-              <BarChart2 />
-              Dashboard
-              <ChevronRight />
+          <div className="w-full h-12 flex flex-row justify-center mt-9 opacity-0 sm:opacity-100">
+            <Button className="bg-[#586266] hover:bg-[#202223] flex ">
+              <BarChart2 className="h-6 w-6" />
+              <p className="text-sm">Dashboard</p>
+              <ChevronRight className="h-6 w-6" />
             </Button>
           </div>
         </div>
@@ -52,8 +49,8 @@ export default async function Dashboard() {
           <Nav />
           <div className="text-white px-10 h-full w-full">
             <h1 className="text-2xl">Hello, Ritwika!</h1>
-            <p className="mt-4 text-lg">Overview</p>
-            <p className="text-lg mt-3 text-[#B0B0B0] ">
+            <p className="mt-4 text-lg text-[#ba44c5]">Overview</p>
+            <p className="text-sm mt-3 text-[#B0B0B0] ">
               13th June,2023 Tuesday
             </p>
 
@@ -65,10 +62,12 @@ export default async function Dashboard() {
             />
 
             <div className="w-full flex flex-row items-center justify-between mt-4">
-              <p className="text-lg">My Cards ({cardProps ? cardProps.length : "3" })</p>
+              <p className="text-lg text-[#ba44c5]">
+                My Cards ({cardProps ? cardProps.length : "3"})
+              </p>
               <div className="flex gap-3 justify-center  items-center">
                 <Socials />
-                <Button className="bg-[#ba44c5] hover:bg-[#90049D]">
+                <Button className="bg-[#ba44c5] hover:bg-[#90049D] h-12">
                   <Plus className="mr-3" /> Add New Card
                 </Button>
               </div>

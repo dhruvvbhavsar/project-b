@@ -18,7 +18,7 @@ export const Card = (card: Card) => {
     <div className="flex  rounded-md w-full flex-col justify-between pl-5 text-white bg-[#202527]">
       <div className="flex mt-4 items-center gap-3">
         <Insta className={"w-8 h-8"} />
-        <p className="text-2xl">
+        <p className="text-lg">
           {card.platform} {card.activity}
         </p>
       </div>
@@ -38,17 +38,17 @@ export const Card = (card: Card) => {
         </div>
 
         <div className="some flex h-48 rounded-md  w-60 flex-col justify-between pl-5 text-white">
-          <p className="pt-5 text-sm">Allocated Budget</p>
+          <p className="pt-5 text-sm text-[#CACACA]">Allocated Budget</p>
           <p className="pb-16 text-2xl glow">₹{card.budget}</p>
         </div>
 
         <div className="some flex h-48 rounded-md  w-60 flex-col justify-between pl-5 text-white">
-          <p className="pt-5 text-sm">Spent</p>
+          <p className="pt-5 text-sm text-[#CACACA]">Spent</p>
           <p className="pb-16 text-2xl glow">₹{card.current}</p>
         </div>
 
         <div className="some flex h-48 rounded-md  w-60 pl-5 text-white">
-          <p className="pt-5 text-sm ">Progress</p>
+          <p className="pt-5 text-sm text-[#CACACA] ">Progress</p>
           <ProgressComponent
             value={Math.round((card.current / card.goal) * 100)}
           />

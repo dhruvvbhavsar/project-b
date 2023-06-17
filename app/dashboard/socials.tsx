@@ -50,7 +50,9 @@ export function Socials() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-40 justify-between bg-[#2D3234] hover:bg-[#202223] hover:text-white border-transparent hover:border-[#ba68c8]"
+          className={`w-40 h-12 justify-between bg-[#2D3234] hover:bg-[#202223] hover:text-white ${
+            open ? "border-[#ba68c8]" : "border-transparent"
+          }`}
         >
           {value ? (
             <>
