@@ -51,9 +51,9 @@ export default async function Dashboard() {
         <div className="flex w-full flex-col">
           <Nav />
           <div className="text-white px-10 h-full w-full">
-            <h1 className="text-4xl">Hello, Ritika!</h1>
-            <p className="mt-4 text-2xl">Overview</p>
-            <p className="text-xs mt-3 text-gray-500 ">
+            <h1 className="text-2xl">Hello, Ritwika!</h1>
+            <p className="mt-4 text-lg">Overview</p>
+            <p className="text-lg mt-3 text-[#B0B0B0] ">
               13th June,2023 Tuesday
             </p>
 
@@ -64,8 +64,8 @@ export default async function Dashboard() {
               totalCards={userProps.totalCards}
             />
 
-            <div className="w-full flex flex-row justify-between mt-4">
-              <h1>My Cards</h1>
+            <div className="w-full flex flex-row items-center justify-between mt-4">
+              <p className="text-lg">My Cards ({cardProps ? cardProps.length : "3" })</p>
               <div className="flex gap-3 justify-center  items-center">
                 <Socials />
                 <Button className="bg-[#ba44c5] hover:bg-[#90049D]">

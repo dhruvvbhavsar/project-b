@@ -45,7 +45,7 @@ const ProgressComponent: React.FC<ProgressComponentProps> = ({ value }) => {
       <div className="barOverflow">
         <div ref={barRef} className="bar"></div>
       </div>
-      <span className='glow' ref={valRef}></span>
+      <span className='glow text-base' ref={valRef}></span>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Bell, BellDot, ChevronDown } from "lucide-react";
+import { Bell } from "lucide-react";
+
 import {
   Popover,
   PopoverContent,
@@ -31,8 +32,8 @@ export const Nav = () => {
             {" "}
             {/*  */}
             <div className="p-2 mr-6 ring-2 relative ring-[#2D3234] rounded-full">
-              <div className="bg-purple-700 absolute top-0  -right-1 rounded-full w-3 h-3"></div>
-              <Bell />
+              <div className="bg-[#BA44C5] absolute top-0  -right-1 rounded-full w-3 h-3"></div>
+              <Bell  />
             </div>
           </PopoverTrigger>
           <PopoverContent>Notifications</PopoverContent>

@@ -43,6 +43,30 @@
   background: linear-gradient(180deg, #424648 0%, rgba(69, 73, 75, 0.25) 100%);
 }
 
+.imgg {
+  background: linear-gradient(
+    180.41deg,
+    rgba(255, 255, 255, 0.16) 1.04%,
+    rgba(255, 255, 255, 0.16) 1.04%,
+    rgba(5, 5, 5, 0.199292) 89.73%,
+    rgba(0, 0, 0, 0.2) 89.74%
+  );
+  border: 1px solid #474747;
+  box-shadow: 0px 0px 10px rgba(186, 68, 197, 0.2);
+}
+
+.circ {
+  background: linear-gradient(
+    180deg,
+    rgba(44, 44, 44, 0.8) 0%,
+    rgba(255, 255, 255, 0.8) 0.01%,
+    rgba(255, 255, 255, 0.4) 100%,
+    rgba(17, 17, 17, 0.4) 100%
+  );
+  opacity: 0.5;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
