@@ -4,8 +4,7 @@ import { Card } from "./card";
 import { Nav } from "./nav";
 import { Overview } from "./overview";
 
-import { Socials } from './socials' 
-
+import { Socials } from "./socials";
 
 type Card = {
   clientId: string;
@@ -17,32 +16,8 @@ type Card = {
 };
 
 export default async function Dashboard() {
-  const response = await fetch(
-    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/cards",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const res = await response.json();
-  const clientData = res["data"];
-
-  const cardProps = clientData.map((card: Card) => {
-    return {
-      clientId: card.clientId,
-      platform: card.platform,
-      activity: card.activity,
-      current: card.current,
-      goal: card.goal,
-      budget: card.budget,
-    };
-  });
-
-  console.log(cardProps);
-
+  const cardProps = await fetchCards();
+  const userProps = await fetchOverall();
   return (
     <>
       <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
@@ -80,12 +55,17 @@ export default async function Dashboard() {
               13th June,2023 Tuesday
             </p>
 
-            <Overview />
+            <Overview
+              budget={userProps.budget}
+              balance={userProps.balance}
+              progress={userProps.progress}
+              totalCards={userProps.totalCards}
+            />
 
             <div className="w-full flex flex-row justify-between mt-4">
               <h1>My Cards</h1>
               <div className="flex gap-3 justify-center  items-center">
-                <Socials  />
+                <Socials />
                 <Button className="bg-[#ba44c5]">
                   <Plus /> Add New Card
                 </Button>
@@ -110,4 +90,56 @@ export default async function Dashboard() {
       </main>
     </>
   );
+}
+
+async function fetchCards() {
+  const response = await fetch(
+    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/cards",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const res = await response.json();
+  const clientData = res["data"];
+
+  const cardProps = clientData.map((card: Card) => {
+    return {
+      clientId: card.clientId,
+      platform: card.platform,
+      activity: card.activity,
+      current: card.current,
+      goal: card.goal,
+      budget: card.budget,
+    };
+  });
+  return cardProps;
+}
+
+async function fetchOverall() {
+  const response = await fetch(
+    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/overall",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const res = await response.json();
+  const overallData = res[0]["data"];
+
+  const overview = {
+    budget: Math.round(overallData["totalbudget"]),
+    balance: Math.round(overallData["balance"]),
+    progress: Math.round(overallData['totalProgress']),
+    totalCards: Math.round(overallData["totalCards"]),
+  };
+  console.log(overview)
+
+  return overview;
 }

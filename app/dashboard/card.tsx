@@ -16,7 +16,7 @@ export const Card = (card: Card) => {
     <div className="some flex h-full rounded-md w-full flex-col justify-between pl-6 text-white">
       <div className="flex mt-4 items-center gap-3">
         <Instagram className="h-8 w-8" />
-        <p className="text-2xl">{card.platform} {" " + card.activity}</p>
+        <p className="text-2xl">{card.platform} {card.activity}</p>
       </div>
 
       <div className="w-full grid grid-cols-1 sm:grid-cols-4 gap-8 mb-16 mt-4 pr-8">
@@ -42,9 +42,9 @@ export const Card = (card: Card) => {
 
         <div className="some flex h-52 rounded-md  w-full my-auto pl-6 text-white">
           <p className="pt-4 text-sm ">Progress</p>
-          <ProgressComponent value={50} />
+          <ProgressComponent value={Math.round((card.current / card.goal) * 100 )} />
         </div>
       </div>
     </div>
   );
-};
+}

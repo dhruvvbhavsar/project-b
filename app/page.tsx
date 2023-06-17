@@ -18,6 +18,9 @@ export default function Home() {
             <li>
               <Link href="/verify-otp">/Verify-Otp</Link>
             </li>
+            <li>
+              <Link href="/dashboard">/Dashboard</Link>
+            </li>
           </ul>
         </div>
       </main>
