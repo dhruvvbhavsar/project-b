@@ -12,12 +12,12 @@ export const Overview = (data: Overview) => {
     <div className="w-full grid grid-cols-1 sm:grid-cols-4  gap-8 mt-4">
       <div className="some flex h-52 rounded-md w-full flex-col justify-between pl-6 text-white">
         <p className="pt-4 text-sm">Allocated Budget</p>
-        <p className="pb-8 text-4xl">₹{data.budget}</p>
+        <p className="pb-8 text-4xl glow ">₹{data.budget}</p>
       </div>
 
       <div className="some flex h-52 rounded-md  w-full flex-col justify-between pl-6 text-white">
         <p className="pt-4 text-sm">Balance</p>
-        <p className="pb-8 text-4xl">₹{data.balance}</p>
+        <p className="pb-8 text-4xl glow">₹{data.balance}</p>
       </div>
 
       <div className="some flex h-52 rounded-md  w-full pl-6 text-white">
@@ -27,7 +27,7 @@ export const Overview = (data: Overview) => {
 
       <div className="some flex h-52 rounded-md  w-full flex-col justify-between pl-6 text-white">
         <p className="pt-4 text-sm">Total cards</p>
-        <p className="pb-8 text-4xl">{data.totalCards}</p>
+        <p className="pb-8 text-4xl glow">{data.totalCards}</p>
       </div>
     </div>
   );

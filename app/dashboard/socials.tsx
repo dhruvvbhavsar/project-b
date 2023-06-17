@@ -19,9 +19,9 @@ export function Socials() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="bg-[#2d3234] ">
+        <Button className="bg-[#2d3234] hover:bg-[#202223]  ">
           Social Media
-          <ChevronDown />
+          <ChevronDown className="ml-3" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 z-10">

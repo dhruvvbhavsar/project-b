@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { BarChart2, ChevronDown, Plus } from "lucide-react";
+import { BarChart2, ChevronDown, ChevronRight, Plus } from "lucide-react";
 import { Card } from "./card";
 import { Nav } from "./nav";
 import { Overview } from "./overview";
@@ -20,8 +20,9 @@ export default async function Dashboard() {
   const userProps = await fetchOverall();
   return (
     <>
-      <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
-        <div className="h-full hidden w-64 bg-[#2d3234]">
+      <main className="flex w-full flex-row bg-[#181d1f]">
+        {/* sidebar */}
+        <div className="w-0 sm:w-64 bg-[#2d3234]">
           <div className="flex h-12 w-full flex-row items-center justify-center gap-5 bg-transparent">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,12 +37,13 @@ export default async function Dashboard() {
                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
               />
             </svg>
-            <p className="text-[#586266]">BrandName</p>
+            <p className="text-[#586266] opacity-0 sm:opacity-100">BrandName</p>
           </div>
-          <div className="w-full h-10 flex flex-row justify-center mt-3">
-            <Button className="bg-[#586266]">
+          <div className="w-full h-10 flex flex-row justify-center mt-3 opacity-0 sm:opacity-100">
+            <Button className="bg-[#586266] hover:bg-[#202223] space-x-3">
               <BarChart2 />
               Dashboard
+              <ChevronRight />
             </Button>
           </div>
         </div>
@@ -66,8 +68,8 @@ export default async function Dashboard() {
               <h1>My Cards</h1>
               <div className="flex gap-3 justify-center  items-center">
                 <Socials />
-                <Button className="bg-[#ba44c5]">
-                  <Plus /> Add New Card
+                <Button className="bg-[#ba44c5] hover:bg-[#90049D]">
+                  <Plus className="mr-3" /> Add New Card
                 </Button>
               </div>
             </div>
@@ -136,10 +138,10 @@ async function fetchOverall() {
   const overview = {
     budget: Math.round(overallData["totalbudget"]),
     balance: Math.round(overallData["balance"]),
-    progress: Math.round(overallData['totalProgress']),
+    progress: Math.round(overallData["totalProgress"]),
     totalCards: Math.round(overallData["totalCards"]),
   };
-  console.log(overview)
+  console.log(overview);
 
   return overview;
 }

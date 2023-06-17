@@ -1,11 +1,11 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { BellDot, ChevronDown } from "lucide-react";
+import { Bell, BellDot, ChevronDown } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Navpop } from './navpop'
+import { Navpop } from "./navpop";
 
 export const Nav = () => {
   return (
@@ -29,11 +29,15 @@ export const Nav = () => {
         <Popover>
           <PopoverTrigger>
             {" "}
-            <BellDot className="mr-6" />
+            {/*  */}
+            <div className="p-2 mr-6 ring-2 relative ring-[#2D3234] rounded-full">
+              <div className="bg-purple-700 absolute top-0  -right-1 rounded-full w-3 h-3"></div>
+              <Bell />
+            </div>
           </PopoverTrigger>
           <PopoverContent>Notifications</PopoverContent>
         </Popover>
-        <Avatar className="h-8 w-8">
+        <Avatar className="h-10 w-10 ring-2 ring-[#2D3234]">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>

@@ -32,12 +32,12 @@ export const Card = (card: Card) => {
 
         <div className="some flex h-52 rounded-md my-auto  w-full flex-col justify-between pl-6 text-white">
           <p className="pt-4 text-sm">Allocated Budget</p>
-          <p className="my-auto text-4xl">₹{card.budget}</p>
+          <p className="my-auto text-4xl glow">₹{card.budget}</p>
         </div>
 
         <div className="some flex h-52 rounded-md my-auto  w-full flex-col justify-between pl-6 text-white">
           <p className="pt-4 text-sm">Spent</p>
-          <p className="my-auto text-4xl">₹{card.current}</p>
+          <p className="my-auto text-4xl glow">₹{card.current}</p>
         </div>
 
         <div className="some flex h-52 rounded-md  w-full my-auto pl-6 text-white">

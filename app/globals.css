@@ -1,10 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-body {
-  font-family: "Poppins";
+.glow {
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
 .progress {
@@ -18,8 +17,6 @@ body {
   text-align: center;
 
   scale: 1.7;
-
-
 }
 .barOverflow {
   /* Wraps the rotating .bar */
@@ -37,11 +34,9 @@ body {
   height: 90px; /* full circle! */
   border-radius: 50%;
   box-sizing: border-box;
-  border: 14px solid #eee; /* half gray, */
-  border-bottom-color: #BA44C5;
-; /* half azure */
-  border-right-color: #BA44C5;
-;
+  border: 14px solid #7a7a7a; /* half gray, */
+  border-bottom-color: #ba44c5; /* half azure */
+  border-right-color: #ba44c5;
 }
 
 .some {
