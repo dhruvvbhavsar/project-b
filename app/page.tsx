@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 export default function Home() {
   return (
     <>
@@ -20,6 +19,9 @@ export default function Home() {
             </li>
             <li>
               <Link href="/dashboard">/Dashboard</Link>
+            </li>
+            <li>
+              <Link href="/add-card">/Add-Card</Link>
             </li>
           </ul>
         </div>
