@@ -35,12 +35,12 @@ export default function AddCard() {
             <div className="mt-8 border border-[#2D3234] min-w-[326px] max-w-[818px] flex flex-col  rounded-[6px] mb-[55px] pb-8">
               <section className="flex flex-col sm:flex-row w-full">
                 <article>
-                  <div className="ml-4 sm:ml-8 mt-[36px]">
+                  <div className="mx-3 sm:ml-8 mt-[36px]">
                     <p className="text-[#F3F3F3] text-sm">Select Platform</p>
                     <Socials onChange={handlePlatformChange} />
                   </div>
 
-                  <div className="ml-4 sm:ml-8 mt-[32px]">
+                  <div className="mx-3 sm:ml-8 mt-[32px]">
                     <p className="text-[#F3F3F3] text-sm">
                       Paste the URL below
                     </p>
@@ -53,14 +53,14 @@ export default function AddCard() {
                 </article>
 
                 <article>
-                  <div className="ml-4 sm:ml-8 mt-[36px]">
+                  <div className="mx-3 sm:ml-8 mt-[36px]">
                     <p className="text-[#F3F3F3] text-sm">
                       Your goal is to achieve?
                     </p>
                     <Activity platform={selectedPlatform} />
                   </div>
 
-                  <div className="ml-4 sm:ml-8 mt-[32px]">
+                  <div className="mx-3 sm:ml-8 mt-[32px]">
                     <p className="text-[#F3F3F3] text-sm">Target</p>
                     <input
                       type="text"
