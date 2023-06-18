@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import * as React from "react";
 import { ChevronDown, ChevronsUpDown } from "lucide-react";
 
@@ -15,6 +14,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+interface SocialsProps {
+  onChange: (platform: string) => void;
+}
 
 const frameworks = [
   {
@@ -39,25 +42,34 @@ const frameworks = [
   },
 ];
 
-export function Socials() {
+export function Socials({ onChange }: SocialsProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
+  const handlePlatformChange = (platform: string) => {
+    setValue(platform);
+    onChange(platform);
+    setOpen(false);
+  };
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+    <Popover  open={open} onOpenChange={setOpen}>
+      <PopoverTrigger className="min-w-[294px] max-w-[345px]" asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={`w-[345px] h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
+          className={` w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
             open ? "border-[#ba68c8]" : "border-transparent"
           }`}
         >
           {value ? (
             <>
               <span className="ml-2 flex gap-3 text-white text-base items-center">
-              {frameworks.find((framework) => framework.value === value)?.icon}
+                {
+                  frameworks.find((framework) => framework.value === value)
+                    ?.icon
+                }
                 {
                   frameworks.find((framework) => framework.value === value)
                     ?.label
@@ -77,10 +89,7 @@ export function Socials() {
             {frameworks.map((framework) => (
               <CommandItem
                 key={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
+                onSelect={() => handlePlatformChange(framework.value)}
               >
                 <div className="gap-3 flex flex-row">
                   <div className="my-auto">{framework.icon}</div>

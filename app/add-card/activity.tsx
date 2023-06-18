@@ -1,7 +1,13 @@
-"use client";
-
+"use client"
 import * as React from "react";
-import { ChevronDown, Heart, MessageCircle, UserPlus } from "lucide-react";
+import {
+  ChevronDown,
+  Heart,
+  MessageCircle,
+  RefreshCw,
+  Share2,
+  UserPlus,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -11,51 +17,119 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
-  {
-    value: "likes",
-    label: "Likes",
-    icon: <Heart className={"w-4 h-4"} />,
-  },
-  {
-    value: "comments",
-    label: "Comments",
-    icon: <MessageCircle className={"w-4 h-4"} />,
-  },
-  {
-    value: "followers",
-    label: "Followers",
-    icon: <UserPlus className={"w-4 h-4"} />,
-  },
-];
+interface Framework {
+  value: string;
+  label: string;
+  icon: JSX.Element;
+}
 
-export function Activity() {
+// interface ActivityProps {
+//   platform: "instagram" | "twitter" | "youtube" | "facebook";
+// }
+
+const platforms: Record<string, Framework[]> = {
+  instagram: [
+    {
+      value: "likes",
+      label: "Likes",
+      icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
+      value: "followers",
+      label: "Followers",
+      icon: <UserPlus className={"w-4 h-4"} />,
+    },
+    {
+      value: "shares",
+      label: "Shares",
+      icon: <Share2 className={"w-4 h-4"} />,
+    },
+  ],
+  facebook: [
+    {
+      value: "likes",
+      label: "Likes",
+      icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
+      value: "followers",
+      label: "Followers",
+      icon: <UserPlus className={"w-4 h-4"} />,
+    },
+    {
+      value: "shares",
+      label: "Shares",
+      icon: <Share2 className={"w-4 h-4"} />,
+    },
+  ],
+  youtube: [
+    {
+      value: "likes",
+      label: "Likes",
+      icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
+      value: "followers",
+      label: "Followers",
+      icon: <UserPlus className={"w-4 h-4"} />,
+    },
+    {
+      value: "shares",
+      label: "Shares",
+      icon: <Share2 className={"w-4 h-4"} />,
+    },
+  ],
+  twitter: [
+    {
+      value: "likes",
+      label: "Likes",
+      icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
+      value: "retweets",
+      label: "Retweets",
+      icon: <RefreshCw className={"w-4 h-4"} />,
+    },
+    {
+      value: "shares",
+      label: "Shares",
+      icon: <Share2 className={"w-4 h-4"} />,
+    },
+  ],
+};
+
+export function Activity({ platform }: any) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
+  const frameworkData = platforms[platform] || [];
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger className="min-w-[294px] max-w-[345px]" asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={`w-[345px] h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
+          className={` w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
             open ? "border-[#ba68c8]" : "border-transparent"
           }`}
         >
           {value ? (
             <>
               <span className="ml-2 flex gap-3 text-white text-base items-center">
-              {frameworks.find((framework) => framework.value === value)?.icon}
                 {
-                  frameworks.find((framework) => framework.value === value)
+                  frameworkData.find((framework) => framework.value === value)
+                    ?.icon
+                }
+                {
+                  frameworkData.find((framework) => framework.value === value)
                     ?.label
                 }
               </span>
             </>
           ) : (
-            "Likes, Followers etc"
+            "Likes, Followers, etc."
           )}
 
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -64,7 +138,7 @@ export function Activity() {
       <PopoverContent className="w-[345px] p-0 border-[#24292C] rounded-none mt-1 ml-1">
         <Command className="border-[#24292C] rounded-none">
           <CommandGroup className="bg-[#24292C] text-white border-[#24292C] rounded-none">
-            {frameworks.map((framework) => (
+            {frameworkData.map((framework) => (
               <CommandItem
                 key={framework.value}
                 onSelect={(currentValue) => {
