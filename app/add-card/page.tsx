@@ -27,44 +27,44 @@ export default function AddCard() {
         <div className="flex w-full flex-col">
           <Nav />
 
-          <section className="sm:ml-14 mx-4 mt-6 text-white">
-            <p className="text-base sm:text-2xl flex gap-6 items-center">
-              <ChevronLeft className="hidden" />
+          <section className="sm:ml-14 mt-20 mx-4 text-white">
+            <p className="text-base sm:text-2xl flex gap-6">
+              <ChevronLeft className="block sm:hidden" />
               Exciting! Something interesting is going to start...
             </p>
             <div className="mt-8 border border-[#2D3234] min-w-[326px] max-w-[818px] flex flex-col  rounded-[6px] mb-[55px] pb-8">
-              <section className="flex flex-col sm:flex-row w-full">
-                <article>
+              <section className="flex flex-col w-full">
+                <article className="flex flex-col sm:flex-row">
                   <div className="mx-3 sm:ml-8 mt-[36px]">
                     <p className="text-[#F3F3F3] text-sm">Select Platform</p>
                     <Socials onChange={handlePlatformChange} />
                   </div>
 
-                  <div className="mx-3 sm:ml-8 mt-[32px]">
-                    <p className="text-[#F3F3F3] text-sm">
-                      Paste the URL below
-                    </p>
-                    <input
-                      type="text"
-                      className="px-[12px] py-[14px] rounded-[6px] overflow-x-visible h-12 w-full max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4 placeholder:text-[#878787]"
-                      placeholder="Copy and paste the text here"
-                    />
-                  </div>
-                </article>
-
-                <article>
                   <div className="mx-3 sm:ml-8 mt-[36px]">
                     <p className="text-[#F3F3F3] text-sm">
                       Your goal is to achieve?
                     </p>
                     <Activity platform={selectedPlatform} />
                   </div>
+                </article>
 
-                  <div className="mx-3 sm:ml-8 mt-[32px]">
+                <article className="flex flex-col sm:flex-row">
+                  <div className="flex flex-col mx-3 sm:ml-8 mt-[32px]">
+                    <p className="text-[#F3F3F3] text-sm">
+                      Paste the URL below
+                    </p>
+                    <input
+                      type="text"
+                      className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4 placeholder:text-[#878787] placeholder:text-xs"
+                      placeholder="Copy and paste the text here"
+                    />
+                  </div>
+
+                  <div className="flex flex-col mx-3 sm:ml-8 mt-[32px]">
                     <p className="text-[#F3F3F3] text-sm">Target</p>
                     <input
                       type="text"
-                      className="px-[12px] py-[14px] rounded-[6px] overflow-x-visible h-12 w-full max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4  placeholder:text-[#878787]"
+                      className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4  placeholder:text-[#878787] placeholder:text-xs"
                       placeholder="500 Likes"
                     />
                   </div>

@@ -7,11 +7,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Navpop } from "../../app/dashboard/navpop";
+import { Navpop } from "./navpop";
 
 export const Nav = () => {
   return (
-    <nav className="flex mt-4 h-12 w-full flex-row items-center bg-transparent px-3  sm:px-12 text-white">
+    <nav className="fixed top-0 right-0 bg-[#181d1f] sm:bg-transparent pt-4 z-10 flex h-12 w-full flex-row items-center px-3  sm:px-12 text-white">
       <p className=" md:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -59,7 +59,7 @@ export function Socials({ onChange }: SocialsProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={` w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
+          className={`text-xs w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
             open ? "border-[#ba68c8]" : "border-transparent"
           }`}
         >
@@ -83,17 +83,17 @@ export function Socials({ onChange }: SocialsProps) {
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[340px] sm:w-[294px] p-0 border-[#24292C] rounded-none mt-1">
-        <Command className="border-[#24292C] rounded-none">
-          <CommandGroup className="bg-[#24292C] text-white border-[#24292C] rounded-none">
+      <PopoverContent className="min-w-[294px] max-w-[345px] p-0 border-[#ba68c8]  mt-1">
+        <Command className="">
+          <CommandGroup className="bg-[#24292C] text-white ">
             {frameworks.map((framework) => (
               <CommandItem
                 key={framework.value}
                 onSelect={() => handlePlatformChange(framework.value)}
               >
-                <div className="gap-3 flex flex-row">
+                <div className="gap-3 flex items-center h-12 flex-row">
                   <div className="my-auto">{framework.icon}</div>
-                  <div>{framework.label}</div>
+                  <div className="text-sm">{framework.label}</div>
                 </div>
               </CommandItem>
             ))}

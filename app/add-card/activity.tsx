@@ -111,7 +111,7 @@ export function Activity({ platform }: any) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={` w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
+          className={`text-xs w-full h-12 mt-4 text-[#878787] hover:text-white justify-between bg-[#24292C] hover:bg-[#202223] ${
             open ? "border-[#ba68c8]" : "border-transparent"
           }`}
         >
@@ -148,7 +148,7 @@ export function Activity({ platform }: any) {
               >
                 <div className="gap-3 flex flex-row">
                   <div className="my-auto">{framework.icon}</div>
-                  <div>{framework.label}</div>
+                  <div className="text-sm">{framework.label}</div>
                 </div>
               </CommandItem>
             ))}
