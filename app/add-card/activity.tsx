@@ -1,11 +1,16 @@
-"use client"
+"use client";
 import * as React from "react";
 import {
+  Bell,
   ChevronDown,
   Heart,
   MessageCircle,
+  MessageSquare,
+  PlusSquare,
   RefreshCw,
+  Repeat,
   Share2,
+  ThumbsUp,
   UserPlus,
 } from "lucide-react";
 
@@ -30,9 +35,9 @@ interface Framework {
 const platforms: Record<string, Framework[]> = {
   instagram: [
     {
-      value: "likes",
-      label: "Likes",
-      icon: <Heart className={"w-4 h-4"} />,
+      value: "comments",
+      label: "Comments",
+      icon: <MessageSquare className={"w-4 h-4"} />,
     },
     {
       value: "followers",
@@ -40,46 +45,56 @@ const platforms: Record<string, Framework[]> = {
       icon: <UserPlus className={"w-4 h-4"} />,
     },
     {
-      value: "shares",
-      label: "Shares",
-      icon: <Share2 className={"w-4 h-4"} />,
+      value: "likes",
+      label: "Likes",
+      icon: <Heart className={"w-4 h-4"} />,
     },
   ],
   facebook: [
     {
-      value: "likes",
-      label: "Likes",
-      icon: <Heart className={"w-4 h-4"} />,
+      value: "comments",
+      label: "Comments",
+      icon: <MessageSquare className={"w-4 h-4"} />,
     },
     {
       value: "followers",
       label: "Followers",
-      icon: <UserPlus className={"w-4 h-4"} />,
+      icon: <PlusSquare className={"w-4 h-4"} />,
     },
     {
-      value: "shares",
-      label: "Shares",
-      icon: <Share2 className={"w-4 h-4"} />,
+      value: "likes",
+      label: "Likes",
+      icon: <ThumbsUp className={"w-4 h-4"} />,
     },
   ],
   youtube: [
     {
+      value: "comments",
+      label: "Comments",
+      icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
       value: "likes",
       label: "Likes",
       icon: <Heart className={"w-4 h-4"} />,
+    },
+    {
+      value: "subscribers",
+      label: "Subscribers",
+      icon: <Bell className={"w-4 h-4"} />,
+    },
+  ],
+  twitter: [
+    {
+      value: "comments",
+      label: "Comments",
+      icon: <MessageCircle className={"w-4 h-4"} />,
     },
     {
       value: "followers",
       label: "Followers",
       icon: <UserPlus className={"w-4 h-4"} />,
     },
-    {
-      value: "shares",
-      label: "Shares",
-      icon: <Share2 className={"w-4 h-4"} />,
-    },
-  ],
-  twitter: [
     {
       value: "likes",
       label: "Likes",
@@ -88,12 +103,7 @@ const platforms: Record<string, Framework[]> = {
     {
       value: "retweets",
       label: "Retweets",
-      icon: <RefreshCw className={"w-4 h-4"} />,
-    },
-    {
-      value: "shares",
-      label: "Shares",
-      icon: <Share2 className={"w-4 h-4"} />,
+      icon: <Repeat className={"w-4 h-4"} />,
     },
   ],
 };
@@ -135,7 +145,7 @@ export function Activity({ platform }: any) {
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-[294px] max-w-[345px] p-0 border-[#ba68c8]  mt-1">
+      <PopoverContent className="p-0 border-none w-[345px] sm:w-[294px] rounded-md mt-1">
         <Command className="">
           <CommandGroup className="bg-[#24292C] text-white ">
             {frameworkData.map((framework) => (
@@ -146,7 +156,7 @@ export function Activity({ platform }: any) {
                   setOpen(false);
                 }}
               >
-                <div className="gap-3 flex items-center h-12 flex-row">
+                <div className="gap-3 flex  items-center h-12 flex-row">
                   <div className="my-auto">{framework.icon}</div>
                   <div className="text-sm">{framework.label}</div>
                 </div>

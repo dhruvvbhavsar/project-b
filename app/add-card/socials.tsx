@@ -83,7 +83,7 @@ export function Socials({ onChange }: SocialsProps) {
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-[294px] max-w-[345px] p-0 border-[#ba68c8]  mt-1">
+      <PopoverContent className="w-[345px] sm:w-[294px] p-0 border-[#ba68c8]  mt-1">
         <Command className="">
           <CommandGroup className="bg-[#24292C] text-white ">
             {frameworks.map((framework) => (

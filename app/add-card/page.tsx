@@ -28,7 +28,7 @@ export default function AddCard() {
           <Nav />
 
           <section className="sm:ml-14 mt-20 mx-4 text-white">
-            <p className="text-base sm:text-2xl flex gap-6">
+            <p className="text-lg sm:text-2xl flex gap-6">
               <ChevronLeft className="block sm:hidden" />
               Exciting! Something interesting is going to start...
             </p>
