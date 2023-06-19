@@ -84,7 +84,7 @@ export default function AddCard() {
                       Proceed to payment
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[349px] sm:max-h-[280px] bg-[#181D1F] text-white">
+                  <DialogContent className="bottom-0 sm:max-w-[349px] sm:max-h-[280px] bg-[#181D1F] text-white">
                     <div className="flex items-center gap-6">
                       <svg
                         width="47"
