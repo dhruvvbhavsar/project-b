@@ -71,7 +71,7 @@ const platforms: Record<string, Framework[]> = {
     {
       value: "comments",
       label: "Comments",
-      icon: <Heart className={"w-4 h-4"} />,
+      icon: <MessageSquare className={"w-4 h-4"} />,
     },
     {
       value: "likes",
@@ -142,10 +142,26 @@ export function Activity({ platform }: any) {
             "Likes, Followers, etc."
           )}
 
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          {/* <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clip-path="url(#clip0_683_1347)">
+              <path d="M7 10L12 15L17 10H7Z" fill="white" />
+            </g>
+            <defs>
+              <clipPath id="clip0_683_1347">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 border-none w-[345px] sm:w-[294px] rounded-md mt-1">
+      <PopoverContent className="p-0 border w-[345px] sm:w-[294px] rounded-md mt-1">
         <Command className="">
           <CommandGroup className="bg-[#24292C] text-white ">
             {frameworkData.map((framework) => (

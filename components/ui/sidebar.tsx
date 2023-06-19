@@ -16,9 +16,9 @@ export const SideBar = () => {
                     <circle cx="28.5" cy="28.5" r="28.5" fill="#181D1F" />
                   </svg>
       
-                  <p className="text-[#979797] opacity-0 sm:opacity-100">BrandName</p>
+                  <p className="text-[#979797] hidden sm:block">BrandName</p>
                 </div>
-                <div className="w-full h-12 flex flex-row justify-center mt-9 opacity-0 sm:opacity-100">
+                <div className="w-full h-12 sm:flex flex-row justify-center mt-9 hidden">
                   <Button className="bg-[#586266] hover:bg-[#202223] flex ">
                     <BarChart2 className="h-6 w-6" />
                     <p className="text-sm">Dashboard</p>

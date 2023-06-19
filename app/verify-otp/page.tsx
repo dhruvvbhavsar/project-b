@@ -21,7 +21,7 @@ export default function Reg() {
       otp: data.get("otp")?.toString(),
     };
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/signup/verify",
+      "https://project-b-olive.vercel.app/api/client/verify-otp",
       {
         method: "POST",
         headers: {

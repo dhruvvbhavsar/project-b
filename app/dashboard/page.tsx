@@ -74,7 +74,7 @@ export default async function Dashboard() {
 
 async function fetchCards() {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/cards",
+    "https://project-b-olive.vercel.app/api/client/648aac96fc4cc18a693c2523/cards",
     {
       method: "GET",
       headers: {
@@ -101,7 +101,7 @@ async function fetchCards() {
 
 async function fetchOverall() {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/client/648aa9bffc4cc18a693c2514/overall",
+    "https://project-b-olive.vercel.app/api/client/648aac96fc4cc18a693c2523/overall",
     {
       method: "GET",
       headers: {

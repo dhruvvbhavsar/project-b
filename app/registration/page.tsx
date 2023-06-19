@@ -16,19 +16,20 @@ export default function Reg() {
   async function name(data: FormData) {
     "use server";
 
-    const name = {
+    const clientName = {
       name: data.get("name")?.toString(),
     };
-    const id = cookies().get('id')?.value
-
+    const id = cookies().get("id")?.value
+    console.log(clientName.name)
+    console.log(id)
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/client/${id?.toString()}/set-name`,
+      `https://project-b-olive.vercel.app/api/client/${id}/set-name`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(name),
+        body: JSON.stringify(clientName),
       }
     );
 
@@ -36,6 +37,22 @@ export default function Reg() {
     console.log(res);
 
     if (response.ok) {
+      const clientName = res[0]["data"]["username"];
+      const userToken = res[0]["token"];
+      "use client";
+
+      cookies().set({
+        name: "name",
+        value: clientName,
+        path: "/",
+      });
+
+      cookies().set({
+        name: "userToken",
+        value: userToken,
+        path: "/",
+      });
+
       redirect("/dashboard");
     }
   }
@@ -49,7 +66,7 @@ export default function Reg() {
             className="font-semibold text-[#BA44C5]"
             style={{ fontSize: "32px" }}
           >
-            Get likes and followers instantly
+            Get likes and followers 
           </h1>
           <p
             className="text-white"
@@ -91,7 +108,7 @@ export default function Reg() {
           <form action={name} className="space-y-6 mx-auto w-full px-6 pt-8">
             <h1 className="text-4xl  text-[#BA44C5]">Registration</h1>
             <div className="grid items-center gap-2">
-              <Label htmlFor="email-2">Name</Label>
+              <Label>Name</Label>
               <Input
                 className="placeholder:text-[#e0e0e0]"
                 type="text"
