@@ -18,10 +18,13 @@ export default function Home() {
               <Link href="/verify-otp">/Verify-Otp</Link>
             </li>
             <li>
-              <Link href="/dashboard">/Dashboard</Link>
+              <Link href="/dashboard">/Dashboard(Not Responsive)</Link>
             </li>
             <li>
               <Link href="/add-card">/Add-Card</Link>
+            </li>
+            <li>
+              <Link href="/create-card">/Create-Card</Link>
             </li>
           </ul>
         </div>
