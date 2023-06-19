@@ -1,7 +1,5 @@
 import {
   ChevronDown,
-  Facebook,
-  Instagram,
   LogOut,
 } from "lucide-react";
 
