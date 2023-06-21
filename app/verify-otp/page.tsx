@@ -13,16 +13,18 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export default function Reg() {
+  var number = cookies().get("mobile")?.value;
   async function verify(data: FormData) {
     "use server";
-
+    var number = cookies().get("mobile")?.value;
     const num = {
-      number: "7715944948",
+      number: number?.toString(),
       otp: data.get("otp")?.toString(),
     };
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/client/verify-otp",
+      "https://project-b-olive.vercel.app/api/verify-otp",
       {
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,19 +37,19 @@ export default function Reg() {
     console.log(res);
 
     if (response.ok) {
-      const id = res[0]["data"]["_id"];
-      const currentDate = new Date();
-      const expirationDate = new Date(
-        currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
-      );
-      "use client";
+      // const id = res[0]["data"]["_id"];
+      // const currentDate = new Date();
+      // const expirationDate = new Date(
+      //   currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+      // );
+      // ("use client");
 
-      cookies().set({
-        name: "id",
-        value: id,
-        path: "/",
-        maxAge: expirationDate.getTime() - currentDate.getTime(),
-      });
+      // cookies().set({
+      //   name: "id",
+      //   value: id,
+      //   path: "/",
+      //   maxAge: expirationDate.getTime() - currentDate.getTime(),
+      // });
       redirect("/registration");
     }
   }
@@ -102,8 +104,7 @@ export default function Reg() {
             <div className="space-y-1 mx-auto w-full px-6 pt-8">
               <h1 className="text-4xl  text-[#BA44C5]">Verify Details</h1>
               <p className="text-xs">
-                OTP sent on{" "}
-                <span className="text-blue-700">+91 7715944948</span>
+                OTP sent on <span className="text-blue-700">{number}</span>
               </p>
             </div>
             <form action={verify} className="grid items-center gap-2 px-6">

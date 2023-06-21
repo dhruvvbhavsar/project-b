@@ -18,11 +18,13 @@ export default function Reg() {
     "use server";
     const num = {
       number: data.get("mobile")?.toString(),
+      signature: ""
     };
-    await kv.set("number", data.get("mobile")?.toString());
+    // await kv.set("number", data.get("mobile")?.toString());
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/client/get-otp",
+      "https://project-b-olive.vercel.app/api/get-otp",
       {
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +37,6 @@ export default function Reg() {
 
     console.log(res);
     if (response.ok) {
-      "use client";
       cookies().set({
         name: "mobile",
         value: data.get("mobile")?.toString() ?? " ",

@@ -6,6 +6,7 @@ import { Insta } from "@/components/icons/insta";
 import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,8 +16,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import { Input } from "postcss";
+import Confetti from "react-confetti";
+
 
 export default function AddCard() {
   return (
@@ -141,8 +142,11 @@ export default function AddCard() {
                       <div className=" w-[245px] mt-6 border-[#383838] border"></div>
                     </div>
                     <DialogFooter>
-                      <Button type="submit" className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]">
-                        Proceed to payment
+                      <Button
+                        type="submit"
+                        className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]"
+                      >
+                        Go to Dashboard
                       </Button>
                     </DialogFooter>
                   </DialogContent>

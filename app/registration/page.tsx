@@ -12,18 +12,22 @@ import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export default function Reg() {
+export default async function Reg() {
+  "use server";
+  const number = cookies().get("mobile")?.value
   async function name(data: FormData) {
     "use server";
-
+    var number = cookies().get("mobile")?.value;
     const clientName = {
       name: data.get("name")?.toString(),
+      number: number?.toString()
+
     };
-    const id = cookies().get("id")?.value
-    console.log(clientName.name)
-    console.log(id)
+    // const id = cookies().get("id")?.value
+    // console.log(clientName.name)
+    // console.log(id)
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/client/${id}/set-name`,
+      `https://project-b-olive.vercel.app/api/client/register`,
       {
         method: "POST",
         headers: {
@@ -37,9 +41,21 @@ export default function Reg() {
     console.log(res);
 
     if (response.ok) {
-      const clientName = res[0]["data"]["username"];
-      const userToken = res[0]["token"];
+      const clientName = res[0]["data"]["client"]["name"];
+      const userToken = res[0]["data"]["token"];
+      const id = res[0]["data"]["client"]["_id"];
+      const currentDate = new Date();
+      const expirationDate = new Date(
+        currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+      );
       "use client";
+
+      cookies().set({
+        name: "id",
+        value: id,
+        path: "/",
+        maxAge: expirationDate.getTime() - currentDate.getTime(),
+      });
 
       cookies().set({
         name: "name",

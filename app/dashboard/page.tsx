@@ -26,8 +26,8 @@ export default async function Dashboard() {
 
         <div className="flex w-full flex-col">
           <Nav />
-          <div className="text-white px-10 h-full w-full">
-            <h1 className="text-2xl">Hello, Ritwika!</h1>
+          <div className="text-white mt-[70px] px-10 h-full w-full">
+            <h1 className="text-[22px]">Hello, Ritwika!</h1>
             <p className="mt-4 text-lg text-[#ba44c5]">Overview</p>
             <p className="text-sm mt-3 text-[#B0B0B0] ">
               13th June,2023 Tuesday

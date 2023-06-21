@@ -161,7 +161,7 @@ export function Activity({ platform }: any) {
           </svg>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 border w-[345px] sm:w-[294px] rounded-md mt-1">
+      <PopoverContent className="p-0 border-orange-500 w-[345px] sm:w-[294px] rounded-md mt-1">
         <Command className="">
           <CommandGroup className="bg-[#24292C] text-white ">
             {frameworkData.map((framework) => (
