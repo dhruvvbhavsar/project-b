@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import { ChevronDown, ChevronsUpDown } from "lucide-react";
 
 import { Insta } from "@/components/icons/insta";
 import { Twitter } from "@/components/icons/twitter";

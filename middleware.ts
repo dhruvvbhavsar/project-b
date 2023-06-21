@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  if (req.cookies.has("id")) {
-    return NextResponse.next();
-  } else if(!req.cookies.has("id")) {
-    return NextResponse.redirect(new URL("/welcome", req.url));
+  const cookie = req.cookies.has("id") 
+  if(cookie) {
+    return NextResponse.redirect(new URL("/dashboard", req.url))
   }
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: ["/dashboard", "/"],
-};
+  matcher: ["/", "/welcome", "/verify-otp", "/registration"]
+} 

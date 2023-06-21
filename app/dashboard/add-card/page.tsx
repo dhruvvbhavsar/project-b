@@ -10,6 +10,7 @@ import { ChevronLeft } from "lucide-react";
 export default function AddCard() {
   const [isClicked, setisClicked] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
+  const [budget, setBudget] = useState(0);
 
   function handleClick() {
     setisClicked(!isClicked);
@@ -17,6 +18,7 @@ export default function AddCard() {
 
   function handlePlatformChange(platform: string) {
     setSelectedPlatform(platform);
+    console.log(selectedPlatform);
   }
 
   return (

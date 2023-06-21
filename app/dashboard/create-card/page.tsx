@@ -16,6 +16,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 
 export default function AddCard() {

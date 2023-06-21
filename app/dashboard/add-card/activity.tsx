@@ -2,14 +2,11 @@
 import * as React from "react";
 import {
   Bell,
-  ChevronDown,
   Heart,
   MessageCircle,
   MessageSquare,
   PlusSquare,
-  RefreshCw,
   Repeat,
-  Share2,
   ThumbsUp,
   UserPlus,
 } from "lucide-react";

@@ -41,7 +41,7 @@ export default function Reg() {
         name: "mobile",
         value: data.get("mobile")?.toString() ?? " ",
       });
-      redirect("/verify-otp");
+      throw redirect("/verify-otp");
     }
   }
 

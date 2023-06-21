@@ -14,6 +14,32 @@ import { cookies } from "next/headers";
 
 export default function Reg() {
   var number = cookies().get("mobile")?.value;
+
+  async function mobileNumber(data: FormData) {
+    "use server";
+    var number = cookies().get("mobile")?.value;
+    const num = {
+      number: number?.toString(),
+      signature: "",
+    };
+    // await kv.set("number", data.get("mobile")?.toString());
+    const response = await fetch(
+      "https://project-b-olive.vercel.app/api/get-otp",
+      {
+        cache: "no-store",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(num),
+      }
+    );
+
+    const res = await response.json();
+
+    console.log(res);
+  }
+
   async function verify(data: FormData) {
     "use server";
     var number = cookies().get("mobile")?.value;
@@ -37,20 +63,51 @@ export default function Reg() {
     console.log(res);
 
     if (response.ok) {
-      // const id = res[0]["data"]["_id"];
-      // const currentDate = new Date();
-      // const expirationDate = new Date(
-      //   currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
-      // );
-      // ("use client");
+      const isExist = await fetch(
+        "https://project-b-olive.vercel.app/api/check-client",
+        {
+          cache: "no-store",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ number: number?.toString() }),
+        }
+      );
+      const x = await isExist.json();
+      console.log(x);
+      if (x[0]["isExist"]) {
+        const clientName = x[0]["data"]["name"];
+        // const userToken = x[0]["data"]["token"];
+        const id = x[0]["data"]["_id"];
+        const currentDate = new Date();
+        const expirationDate = new Date(
+          currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+        );
+        ("use client");
 
-      // cookies().set({
-      //   name: "id",
-      //   value: id,
-      //   path: "/",
-      //   maxAge: expirationDate.getTime() - currentDate.getTime(),
-      // });
-      redirect("/registration");
+        cookies().set({
+          name: "id",
+          value: id,
+          path: "/",
+          maxAge: expirationDate.getTime() - currentDate.getTime(),
+        });
+
+        cookies().set({
+          name: "name",
+          value: clientName,
+          path: "/",
+        });
+
+        // cookies().set({
+        //   name: "userToken",
+        //   value: userToken,
+        //   path: "/",
+        // });
+        redirect("/dashboard");
+      } else {
+        redirect("/registration");
+      }
     }
   }
   return (
@@ -122,7 +179,9 @@ export default function Reg() {
               >
                 Verify
               </Button>
-              <p className="text-center text-xs">Resend OTP in 15s</p>
+              <button formAction={mobileNumber}>
+                <p className="text-center text-xs">Resend OTP in 15s</p>
+              </button>
             </form>
           </div>
         </section>
