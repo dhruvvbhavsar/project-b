@@ -7,7 +7,6 @@ import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import {PointConfetti} from '@/components/confetti'
 import {
   Dialog,
   DialogContent,
