@@ -18,10 +18,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
+import { hasCookie } from "cookies-next";
 
 export default function AddCard() {
+  const router = useRouter();
+  if (!hasCookie("id")) {
+    router.push("/welcome");
+  }
   return (
     <>
       <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
@@ -43,7 +48,13 @@ export default function AddCard() {
                 </p>
                 <div className="w-[284px] create-card max-w-[306px] relative h-[414px]  max-h-[446px] rounded-[16px] mt-5 bg-white">
                   {/* <Confetti /> */}
-                  <ConfettiExplosion particleSize={6} className="mx-32 w-full" colors={["#DFB722"]} force={0.4} duration={3000} />
+                  <ConfettiExplosion
+                    particleSize={6}
+                    className="mx-32 w-full"
+                    colors={["#DFB722"]}
+                    force={0.4}
+                    duration={3000}
+                  />
                   <Image
                     src={picture}
                     className="rounded-[16px]"
