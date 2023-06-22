@@ -99,6 +99,11 @@ export default function Reg() {
           path: "/",
         });
 
+        cookies().set({
+          name: "verified",
+          value: "true",
+        });
+
         // cookies().set({
         //   name: "userToken",
         //   value: userToken,

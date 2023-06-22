@@ -6,8 +6,8 @@ import { Overview } from "./overview";
 
 import { Socials } from "./socials";
 import { SideBar } from "@/components/ui/sidebar";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { hasCookie } from "cookies-next";
 
 type Card = {
   clientId: string;
@@ -19,9 +19,9 @@ type Card = {
 };
 
 export default async function Dashboard() {
-  const cookie = cookies().has("id")
-  if(!cookie) {
-    throw redirect("/welcome")
+  const router = useRouter()
+  if(!hasCookie("id")){
+    router.push("/welcome")
   }
   const cardProps = await fetchCards();
   const userProps = await fetchOverall();

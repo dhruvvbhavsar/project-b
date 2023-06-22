@@ -6,8 +6,14 @@ import { Activity } from "./activity";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/router";
+import { hasCookie } from "cookies-next";
 
 export default function AddCard() {
+  const router = useRouter()
+  if(!hasCookie("id")){
+    router.push("/welcome")
+  }
   const [isClicked, setisClicked] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [budget, setBudget] = useState(0);

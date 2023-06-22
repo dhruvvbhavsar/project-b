@@ -14,6 +14,9 @@ import { cookies } from "next/headers";
 
 export default async function Reg() {
   "use server";
+  if(cookies().has("verified")) {
+    throw redirect("/welcome")
+  }
   const number = cookies().get("mobile")?.value
   async function name(data: FormData) {
     "use server";
