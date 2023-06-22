@@ -7,6 +7,7 @@ import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import Confetti from "react-confetti";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import ConfettiExplosion from "react-confetti-explosion";
 
 export default function AddCard() {
   return (
@@ -40,7 +41,9 @@ export default function AddCard() {
                 <p className="text-[#ba44c5] text-sm text-center sm:text-lg mt-12">
                   Take a look at how you card will appear in the app.
                 </p>
-                <div className="w-[284px] create-card max-w-[306px] relative h-[414px] max-h-[446px] rounded-[16px] mt-5 bg-white">
+                <div className="w-[284px] create-card max-w-[306px] relative h-[414px]  max-h-[446px] rounded-[16px] mt-5 bg-white">
+                  {/* <Confetti /> */}
+                  <ConfettiExplosion particleSize={6} className="mx-32 w-full" force={0.4} duration={3000} />
                   <Image
                     src={picture}
                     className="rounded-[16px]"
@@ -82,7 +85,7 @@ export default function AddCard() {
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#90049d]">
+                    <Button className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#B827C6]">
                       Proceed to payment
                     </Button>
                   </DialogTrigger>

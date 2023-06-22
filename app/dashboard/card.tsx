@@ -3,7 +3,8 @@ import { Insta } from "@/components/icons/insta";
 import ProgressComponent from "./progress";
 import { Like } from "@/components/icons/like";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
-
+import  Image  from  "next/image"
+ 
 type Card = {
   clientId: string;
   platform: string;
@@ -25,11 +26,16 @@ export const Card = (card: Card) => {
 
       <div className="w-full grid grid-cols-1 sm:grid-cols-4 gap-8 mb-2 mt-7 pr-8">
         <div className="flex h-56 rounded-md w-44 flex-col text-white relative">
-          <img
+          {/* <img
             className="imgg object-cover object-top h-48 w-full rounded-md "
             src="https://images.unsplash.com/photo-1636139565467-fa3e429261ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=385&q=80"
             alt="photo"
-          ></img>
+          ></img> */}
+          <Image
+            src={picture}
+            className="imgg object-cover h-48 w-full rounded-md"
+            alt="card picture"
+          />
           {/* <Heart className="absolute bottom-2 right-2" /> */}
           <div className="absolute h-8 w-8 rounded-full circ bottom-10 right-3 flex justify-center items-center">
             <Like className={"w-5 h-5"} />
