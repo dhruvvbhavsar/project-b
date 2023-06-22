@@ -43,7 +43,7 @@ export default function AddCard() {
                 </p>
                 <div className="w-[284px] create-card max-w-[306px] relative h-[414px]  max-h-[446px] rounded-[16px] mt-5 bg-white">
                   {/* <Confetti /> */}
-                  <ConfettiExplosion particleSize={6} className="mx-32 w-full" force={0.4} duration={3000} />
+                  <ConfettiExplosion particleSize={6} className="mx-32 w-full" colors={["#DFB722"]} force={0.4} duration={3000} />
                   <Image
                     src={picture}
                     className="rounded-[16px]"
