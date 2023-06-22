@@ -6,13 +6,12 @@ import { Activity } from "./activity";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { hasCookie } from "cookies-next";
+import { redirect } from "next/navigation";
 
 export default function AddCard() {
-  const router = useRouter()
   if(!hasCookie("id")){
-    router.push("/welcome")
+    redirect("/welcome")
   }
   const [isClicked, setisClicked] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");

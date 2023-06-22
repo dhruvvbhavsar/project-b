@@ -18,14 +18,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cookies } from "next/headers";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
 
 export default function AddCard() {
-  const router = useRouter();
   if (!hasCookie("id")) {
-    router.push("/welcome");
+    redirect("/welcome");
   }
   return (
     <>
