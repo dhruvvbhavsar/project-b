@@ -122,7 +122,7 @@ export default function AddCard() {
                 </article>
               </section>
 
-              {isClicked && setBudget && (
+              {isClicked && (
                 <section id="isDone" className="mt-[50px] flex flex-col">
                   <p className="text-base sm:text-lg text-center">
                     Here is your estimate budget
@@ -142,7 +142,7 @@ export default function AddCard() {
                       />
                     )}
                   </div>
-                  <CreateCardButton setBudget={setBudget} />
+                  <CreateCardButton />
                 </section>
               )}
 
