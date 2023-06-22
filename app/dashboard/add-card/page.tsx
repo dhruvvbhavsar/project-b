@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { hasCookie } from "cookies-next";
 import { redirect } from "next/navigation";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function AddCard() {
   if (!hasCookie("id")) {
@@ -17,7 +18,7 @@ export default function AddCard() {
   const [isClicked, setisClicked] = useState(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedActivity, setSelectedActivity] = useState("");
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState(null);
   const [targetValue, setTargetValue] = useState("");
 
   useEffect(() => {
@@ -50,16 +51,19 @@ export default function AddCard() {
   function handlePlatformChange(platform: string) {
     setSelectedPlatform(platform);
     setisClicked(false);
+    setBudget(null)
   }
 
   function handleActivityChange(activity: string) {
     setSelectedActivity(activity);
     setisClicked(false);
+    setBudget(null)
   }
 
   function handleTargetValueChange(value: any) {
     setTargetValue(value);
     setisClicked(false);
+    setBudget(null)
   }
 
   return (
@@ -124,9 +128,19 @@ export default function AddCard() {
                     Here is your estimate budget
                   </p>
                   <div className="min-h-[56px] min-w-[74px] max-w-[110px] max-h-[74px] rounded-[6px] flex justify-center items-center p-3 mt-5 bg-[#24292C] mx-auto">
-                    <p className="text-2xl glow font-medium text-[#BA44C5]">
-                      ₹{budget}
-                    </p>
+                    {budget ? (
+                      <p className="text-2xl glow font-medium text-[#BA44C5]">
+                        ₹{budget}
+                      </p>
+                    ) : (
+                      <RotatingLines
+                        strokeColor="#BA44C5"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        width="40"
+                        visible={true}
+                      />
+                    )}
                   </div>
                   <CreateCardButton setBudget={setBudget} />
                 </section>
