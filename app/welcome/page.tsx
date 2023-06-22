@@ -10,10 +10,16 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
-import { kv } from "@vercel/kv";
 import { cookies } from "next/headers";
 
 export default function Reg() {
+  if(cookies().has("verified")) {
+    throw redirect("/registration")
+  }
+
+  if(cookies().has("mobile")) {
+    throw redirect("/verify-otp")
+  }
   async function mobileNumber(data: FormData) {
     "use server";
     const num = {

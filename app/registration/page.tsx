@@ -14,17 +14,20 @@ import { cookies } from "next/headers";
 
 export default async function Reg() {
   "use server";
-  if(cookies().has("verified")) {
-    throw redirect("/welcome")
+  if (!cookies().has("verified")) {
+    throw redirect("/welcome");
   }
-  const number = cookies().get("mobile")?.value
+
+  if (cookies().has("registered")) {
+    throw redirect("/dashboard");
+  }
+  const number = cookies().get("mobile")?.value;
   async function name(data: FormData) {
     "use server";
     var number = cookies().get("mobile")?.value;
     const clientName = {
       name: data.get("name")?.toString(),
-      number: number?.toString()
-
+      number: number?.toString(),
     };
     // const id = cookies().get("id")?.value
     // console.log(clientName.name)
@@ -51,7 +54,7 @@ export default async function Reg() {
       const expirationDate = new Date(
         currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
       );
-      "use client";
+      ("use client");
 
       cookies().set({
         name: "id",
@@ -85,7 +88,7 @@ export default async function Reg() {
             className="font-semibold text-[#BA44C5]"
             style={{ fontSize: "32px" }}
           >
-            Get likes and followers 
+            Get likes and followers
           </h1>
           <p
             className="text-white"

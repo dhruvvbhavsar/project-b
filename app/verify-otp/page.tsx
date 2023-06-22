@@ -13,6 +13,17 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export default function Reg() {
+  if (!cookies().has("mobile")) {
+    throw redirect("/welcome");
+  }
+
+  if (cookies().has("registered")) {
+    throw redirect("/dashboard");
+  }
+
+  if (cookies().has("verified")) {
+    throw redirect("/registration");
+  }
   var number = cookies().get("mobile")?.value;
 
   async function mobileNumber(data: FormData) {
@@ -100,17 +111,17 @@ export default function Reg() {
         });
 
         cookies().set({
+          name: "registered",
+          value: "true",
+          path: "/",
+        });
+
+        redirect("/dashboard");
+      } else {
+        cookies().set({
           name: "verified",
           value: "true",
         });
-
-        // cookies().set({
-        //   name: "userToken",
-        //   value: userToken,
-        //   path: "/",
-        // });
-        redirect("/dashboard");
-      } else {
         redirect("/registration");
       }
     }
