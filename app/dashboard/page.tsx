@@ -1,12 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { BarChart2, ChevronDown, ChevronRight, Plus } from "lucide-react";
 import { Card } from "./card";
 import { Nav } from "../../components/ui/nav";
 import { Overview } from "./overview";
-
+import  AddCardButton  from "./addCardButton";
 import { Socials } from "./socials";
 import { SideBar } from "@/components/ui/sidebar";
-import {redirect} from 'next/navigation';
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 type Card = {
@@ -19,8 +18,8 @@ type Card = {
 };
 
 export default async function Dashboard() {
-  if(!cookies().has("id")) {
-    redirect("/welcome ")
+  if(!cookies().has("id")){
+    throw redirect("/welcome")
   }
   const cardProps = await fetchCards();
   const userProps = await fetchOverall();
@@ -51,9 +50,7 @@ export default async function Dashboard() {
               </p>
               <div className="flex gap-3 justify-center  items-center">
                 <Socials />
-                <Button className="bg-[#ba44c5] hover:bg-[#90049D] h-12">
-                  <Plus className="mr-3" /> Add New Card
-                </Button>
+                <AddCardButton />
               </div>
             </div>
 

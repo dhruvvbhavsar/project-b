@@ -24,7 +24,7 @@ import { hasCookie } from "cookies-next";
 
 export default function AddCard() {
   if (!hasCookie("id")) {
-    redirect("/welcome");
+    throw redirect("/welcome");
   }
   return (
     <>

@@ -25,9 +25,10 @@ interface Framework {
   icon: JSX.Element;
 }
 
-// interface ActivityProps {
-//   platform: "instagram" | "twitter" | "youtube" | "facebook";
-// }
+interface ActivityProps {
+  platform: string;
+  onChange: (activity: string) => void;
+}
 
 const platforms: Record<string, Framework[]> = {
   instagram: [
@@ -105,7 +106,10 @@ const platforms: Record<string, Framework[]> = {
   ],
 };
 
-export function Activity({ platform }: any) {
+export function Activity({ platform, onChange }: ActivityProps) {
+  function handleActivityChange(activity: string) {
+    onChange(activity); // Call the onChange prop to update the selected activity
+  }
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -164,9 +168,10 @@ export function Activity({ platform }: any) {
             {frameworkData.map((framework) => (
               <CommandItem
                 key={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                onSelect={() => {
+                  setValue(framework.value);
                   setOpen(false);
+                  handleActivityChange(framework.value);
                 }}
               >
                 <div className="gap-3 flex  items-center h-12 flex-row">
