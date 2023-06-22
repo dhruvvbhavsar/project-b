@@ -1,9 +1,12 @@
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
     <>
-      <p>Loading...</p>
+      <div className="bg-black grid place-items-center h-screen w-full">
+        <h1 className="text-2xl text-white">Loading...</h1>
+      </div>
     </>
   );
 }
