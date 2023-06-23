@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
 import { Success, Fail, Process } from "./success";
@@ -33,6 +33,7 @@ export default async function AddCard() {
   if (!search) {
     throw redirect("/dashboard/add-card");
   }
+  const router = useRouter()
   const [paymentStatus, setPaymentStatus] = useState("process"); // Payment status state variable
   const card = {
     platform: results["selectedPlatform"],
@@ -183,6 +184,7 @@ export default async function AddCard() {
                     </div>
                     <DialogFooter>
                       <Button
+                        onClick={() => router.replace("/dashboard")}
                         disabled={paymentStatus === "process"}
                         type="submit"
                         className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]"
