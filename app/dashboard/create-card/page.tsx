@@ -7,7 +7,6 @@ import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
 import React from "react";
-import Confetti from "react-confetti";
 import {
   Dialog,
   DialogContent,
@@ -17,15 +16,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
 
-export default function AddCard() {
+export default async function AddCard() {
   if (!hasCookie("id")) {
     throw redirect("/welcome");
   }
+
+  const searchParams = useSearchParams()
+  const search =  searchParams.get('card')
+  const results = JSON.parse(search? search : "loll")
+  
+  const card = {
+    platform: results["selectedPlatform"],
+    activity: results["selectedActivity"],
+    budget: results["budget"],
+    url: results["taskUrl"],
+    target: results["target"]
+  }
+
   return (
     <>
       <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
@@ -83,15 +94,15 @@ export default function AddCard() {
                   </ul>
 
                   <ul className="flex flex-col gap-4">
-                    <li>Instagram</li>
+                    <li>{card.platform}</li>
                     <li>Reel</li>
-                    <li>500 Likes</li>
+                    <li>{card.target} {card.activity}</li>
                   </ul>
                 </div>
                 <div className="max-w-[288px] sm:max-w-[200px] mt-8 border-[#383838] border"></div>
                 <div className="flex w-full justify-between text-xs mt-9">
                   <p>Total:</p>
-                  <p className="mr-4 text-base">₹1000</p>
+                  <p className="mr-4 text-base">₹{card.budget}</p>
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>

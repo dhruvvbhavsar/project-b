@@ -20,6 +20,7 @@ export default function AddCard() {
   const [selectedActivity, setSelectedActivity] = useState("");
   const [budget, setBudget] = useState(null);
   const [targetValue, setTargetValue] = useState("");
+  const [taskUrl, settaskUrl] = useState("");
 
   useEffect(() => {
     console.log(selectedPlatform, selectedActivity);
@@ -66,6 +67,12 @@ export default function AddCard() {
     setBudget(null)
   }
 
+  function handleUrlValueChange(value: any) {
+    settaskUrl(value);
+    setisClicked(false);
+    setBudget(null)
+  }
+
   return (
     <>
       <main className="flex h-screen w-full flex-row bg-[#181d1f] overflow-y-scroll">
@@ -105,6 +112,7 @@ export default function AddCard() {
                     </p>
                     <input
                       type="text"
+                      onChange={(e) => handleUrlValueChange(e.target.value)}
                       className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4 placeholder:text-[#878787] placeholder:text-xs"
                       placeholder="Copy and paste the text here"
                     />
@@ -142,7 +150,7 @@ export default function AddCard() {
                       />
                     )}
                   </div>
-                  <CreateCardButton />
+                  <CreateCardButton platform={selectedPlatform} activity={selectedActivity} target={targetValue} budget={budget} url={taskUrl} />
                 </section>
               )}
 
