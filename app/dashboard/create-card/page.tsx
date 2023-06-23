@@ -1,12 +1,12 @@
 "use client";
 import { Nav } from "@/components/ui/nav";
 import { SideBar } from "@/components/ui/sidebar";
-import { ArrowLeft, ChevronLeft, Edit, Heart } from "lucide-react";
+import { ArrowLeft, Edit, Heart } from "lucide-react";
 import { Insta } from "@/components/icons/insta";
 import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,23 +19,39 @@ import {
 import { redirect, useSearchParams } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
+import { Success, Fail, Process } from "./success";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
     throw redirect("/welcome");
   }
 
-  const searchParams = useSearchParams()
-  const search =  searchParams.get('card')
-  const results = JSON.parse(search? search : "loll")
-  
+  const searchParams = useSearchParams();
+  const search = searchParams.get("card");
+  const results = JSON.parse(search ? search : "loll");
+
+  if (!search) {
+    throw redirect("/dashboard/add-card");
+  }
+  const [paymentStatus, setPaymentStatus] = useState("process"); // Payment status state variable
   const card = {
     platform: results["selectedPlatform"],
     activity: results["selectedActivity"],
     budget: results["budget"],
     url: results["taskUrl"],
-    target: results["target"]
-  }
+    target: results["target"],
+  };
+
+  // Function to simulate the payment process
+  const processPayment = () => {
+    // Simulating payment process by using setTimeout
+    setPaymentStatus("process"); // Update payment status to "process"
+
+    setTimeout(() => {
+      // Simulating payment success after 2 seconds
+      setPaymentStatus("success"); // Update payment status to "success"
+    }, 2000);
+  };
 
   return (
     <>
@@ -96,7 +112,9 @@ export default async function AddCard() {
                   <ul className="flex flex-col gap-4">
                     <li>{card.platform}</li>
                     <li>Reel</li>
-                    <li>{card.target} {card.activity}</li>
+                    <li>
+                      {card.target} {card.activity}
+                    </li>
                   </ul>
                 </div>
                 <div className="max-w-[288px] sm:max-w-[200px] mt-8 border-[#383838] border"></div>
@@ -106,68 +124,66 @@ export default async function AddCard() {
                 </div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#B827C6]">
+                    <Button
+                      onClick={processPayment}
+                      className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#B827C6]"
+                    >
                       Proceed to payment
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bottom-0 sm:bottom-52 sm:max-w-[349px] sm:max-h-[280px] bg-[#181D1F] text-white">
-                    <div className="flex items-center gap-6">
+                  <DialogContent className="bottom-0 sm:bottom-1/4 sm:max-w-[349px] sm:max-h-[453px] bg-[#181D1F] text-white">
+                    {/* <div className="mx-auto">
+                      <ConfettiExplosion
+                        className="z-50"
+                        force={0.4}
+                        duration={3000}
+                      />
                       <svg
-                        width="47"
-                        height="44"
-                        viewBox="0 0 47 44"
+                        width="101"
+                        height="101"
+                        viewBox="0 0 101 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <rect
-                          x="1"
-                          y="1"
-                          width="33"
-                          height="33"
-                          rx="5"
-                          stroke="white"
-                          stroke-width="2"
+                        <circle cx="50" cy="51" r="38" fill="#BA44C5" />
+                        <path
+                          d="M101 50.5C101 78.3904 78.3904 101 50.5 101C22.6096 101 0 78.3904 0 50.5C0 22.6096 22.6096 0 50.5 0C78.3904 0 101 22.6096 101 50.5Z"
+                          fill="#BA44C5"
+                          fill-opacity="0.2"
                         />
                         <path
-                          d="M22.918 13.1094L22.3789 14.9609H11.5039L12.043 13.1094H22.918ZM18.043 26L11.8438 18.7578L11.832 17.3047H14.6914C15.5195 17.3047 16.2031 17.168 16.7422 16.8945C17.2891 16.6133 17.6992 16.2344 17.9727 15.7578C18.2461 15.2812 18.3828 14.7461 18.3828 14.1523C18.3828 13.4883 18.2539 12.9062 17.9961 12.4062C17.7383 11.8984 17.332 11.5039 16.7773 11.2227C16.2305 10.9336 15.5117 10.7891 14.6211 10.7891H11.5273L12.0781 8.9375H14.6211C15.9805 8.9375 17.1016 9.14453 17.9844 9.55859C18.875 9.96484 19.5391 10.5586 19.9766 11.3398C20.4141 12.1211 20.6328 13.0664 20.6328 14.1758C20.6328 15.1289 20.4492 15.9844 20.082 16.7422C19.7227 17.4922 19.125 18.082 18.2891 18.5117C17.4609 18.9414 16.3438 19.1562 14.9375 19.1562L20.7031 25.8594V26H18.043ZM22.918 8.9375L22.3789 10.7891H13.6133L14.1523 8.9375H22.918Z"
-                          fill="white"
-                        />
-                        <rect
-                          x="26"
-                          y="23"
-                          width="20"
-                          height="20"
-                          rx="10"
-                          fill="#34A853"
-                        />
-                        <path
-                          d="M41.5 29.334L33.9375 36.6673L30.5 33.334"
+                          d="M64.8327 39.75L45.1243 59.4583L36.166 50.5"
                           stroke="white"
-                          stroke-width="2"
+                          stroke-width="6"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         />
-                        <rect
-                          x="26"
-                          y="23"
-                          width="20"
-                          height="20"
-                          rx="10"
-                          stroke="#34A853"
-                          stroke-width="2"
-                        />
                       </svg>
+                    </div> */}
 
-                      <p className="text-xl">Payment Successful</p>
+                    <div className="flex items-center gap-6">
+                      {paymentStatus === "process" && <Process />}{" "}
+                      {/* Render the Process component when payment is in process */}
+                      {paymentStatus === "fail" && <Fail />}{" "}
+                      {/* Render the Fail component when payment fails */}
+                      {paymentStatus === "success" && <Success />}{" "}
+                      {/* Render the Success component when payment is successful */}
+                      <p className="text-xl">
+                        {paymentStatus === "process" && "Payment in Process"}
+                        {paymentStatus === "fail" && "Payment Failed"}
+                        {paymentStatus === "success" && "Payment Successful"}
+                      </p>
                     </div>
+
                     <div className="mt-4 flex flex-col items-center">
                       <p className="text-lg">
-                        Paid: <span className="text-[#BA68C8]">₹1000</span>
+                        Amount: <span className="text-[#BA68C8]">₹1000</span>
                       </p>
                       <div className=" w-[245px] mt-6 border-[#383838] border"></div>
                     </div>
                     <DialogFooter>
                       <Button
+                        disabled={paymentStatus === "process"}
                         type="submit"
                         className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]"
                       >
