@@ -20,7 +20,6 @@ import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
 import { Success, Fail, Process } from "./success";
-import axios from "axios";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
@@ -51,9 +50,7 @@ export default async function AddCard() {
     setPaymentStatus("process"); // Update payment status to "process"
     await displayRazorpay();
 
-    // setTimeout(() => {
-    //   setPaymentStatus("success");
-    // }, 2000);
+    
   };
 
   function loadScript(src) {
@@ -90,6 +87,7 @@ export default async function AddCard() {
         body: JSON.stringify({
           amount: card.budget,
         }),
+        cache: "no-cache",
       }
     );
 
@@ -124,14 +122,15 @@ export default async function AddCard() {
               razorpay_order_id: data.razorpayOrderId,
               razorpay_signature: data.razorpaySignature,
             }),
+            cache: "no-cache",
           }
         );
 
         const resss = await result.json();
         console.log(await resss);
         setPaymentStatus("success");
-        if(result.ok) {
-          router.replace("/dashboard")
+        if (result.ok) {
+          router.replace("/dashboard");
         }
       },
       prefill: {
