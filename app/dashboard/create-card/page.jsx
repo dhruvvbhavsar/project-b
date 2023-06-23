@@ -20,6 +20,7 @@ import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
 import { Success, Fail, Process } from "./success";
+import axios from "axios";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
@@ -33,7 +34,8 @@ export default async function AddCard() {
   if (!search) {
     throw redirect("/dashboard/add-card");
   }
-  const router = useRouter()
+
+  const router = useRouter();
   const [paymentStatus, setPaymentStatus] = useState("process"); // Payment status state variable
   const card = {
     platform: results["selectedPlatform"],
@@ -44,15 +46,110 @@ export default async function AddCard() {
   };
 
   // Function to simulate the payment process
-  const processPayment = () => {
+  const processPayment = async () => {
     // Simulating payment process by using setTimeout
     setPaymentStatus("process"); // Update payment status to "process"
+    await displayRazorpay();
 
-    setTimeout(() => {
-      // Simulating payment success after 2 seconds
-      setPaymentStatus("success"); // Update payment status to "success"
-    }, 2000);
+    // setTimeout(() => {
+    //   setPaymentStatus("success");
+    // }, 2000);
   };
+
+  function loadScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  }
+
+  async function displayRazorpay() {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const result = await fetch(
+      "https://project-b-olive.vercel.app/api/checkOut",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: card.budget,
+        }),
+      }
+    );
+
+    const ress = await result.json();
+
+    const options = {
+      key: "rzp_test_0m2WFdxXP6eco1", // Enter the Key ID generated from the Dashboard
+      amount: ress[0]["data"]["amount"],
+      currency: ress[0]["data"]["currency"],
+      name: "Project B",
+      description: "Test Transaction",
+      image:
+        "https://www.freeiconspng.com/thumbs/payment-icon/cash-payment-icon-5.png",
+      order_id: ress[0]["data"]["id"],
+      handler: async function (response) {
+        const data = {
+          orderCreationId: ress[0]["data"]["id"],
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature,
+        };
+
+        const result = await fetch(
+          "https://project-b-olive.vercel.app/api/paymentVerification",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              razorpay_payment_id: data.razorpayPaymentId,
+              razorpay_order_id: data.razorpayOrderId,
+              razorpay_signature: data.razorpaySignature,
+            }),
+          }
+        );
+
+        const resss = await result.json();
+        console.log(await resss);
+        setPaymentStatus("success");
+        if(result.ok) {
+          router.replace("/dashboard")
+        }
+      },
+      prefill: {
+        name: "Soumya Dey",
+        email: "SoumyaDey@example.com",
+        contact: "9999999999",
+      },
+      notes: {
+        address: "Soumya Dey Corporate Office",
+      },
+      theme: {
+        color: "#61dafb",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  }
 
   return (
     <>
