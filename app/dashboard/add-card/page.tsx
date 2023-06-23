@@ -21,6 +21,7 @@ export default function AddCard() {
   const [budget, setBudget] = useState(null);
   const [targetValue, setTargetValue] = useState("");
   const [taskUrl, settaskUrl] = useState("");
+  const [isValidUrl, setIsValidUrl] = useState(true);
 
   useEffect(() => {
     console.log(selectedPlatform, selectedActivity);
@@ -52,25 +53,28 @@ export default function AddCard() {
   function handlePlatformChange(platform: string) {
     setSelectedPlatform(platform);
     setisClicked(false);
-    setBudget(null)
+    setBudget(null);
   }
 
   function handleActivityChange(activity: string) {
     setSelectedActivity(activity);
     setisClicked(false);
-    setBudget(null)
+    setBudget(null);
   }
 
   function handleTargetValueChange(value: any) {
     setTargetValue(value);
     setisClicked(false);
-    setBudget(null)
+    setBudget(null);
   }
 
   function handleUrlValueChange(value: any) {
     settaskUrl(value);
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    const isValid = urlPattern.test(value);
+    setIsValidUrl(isValid);
     setisClicked(false);
-    setBudget(null)
+    setBudget(null);
   }
 
   return (
@@ -113,7 +117,9 @@ export default function AddCard() {
                     <input
                       type="text"
                       onChange={(e) => handleUrlValueChange(e.target.value)}
-                      className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4 placeholder:text-[#878787] placeholder:text-xs"
+                      className={`px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4 placeholder:text-[#878787] placeholder:text-xs ${
+                        isValidUrl ? "" : "border border-red-500"
+                      }`}
                       placeholder="Copy and paste the text here"
                     />
                   </div>
@@ -150,12 +156,19 @@ export default function AddCard() {
                       />
                     )}
                   </div>
-                  <CreateCardButton platform={selectedPlatform} activity={selectedActivity} target={targetValue} budget={budget} url={taskUrl} />
+                  <CreateCardButton
+                    platform={selectedPlatform}
+                    activity={selectedActivity}
+                    target={targetValue}
+                    budget={budget}
+                    url={taskUrl}
+                  />
                 </section>
               )}
 
               {!isClicked && (
                 <Button
+                  disabled = {!isValidUrl}
                   onClick={handleClick}
                   className="mt-11 purple-glow w-[212px] self-center h-12 px-[36px] py-[12px bg-[#BA44C5] hover:bg-[#90049D]"
                 >
