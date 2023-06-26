@@ -70,7 +70,9 @@ export default function AddCard() {
 
   function handleUrlValueChange(value: any) {
     settaskUrl(value);
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    const urlPattern = /^(https?:\/\/)?(www\.)?instagram\.com\//
+    ;
+
     const isValid = urlPattern.test(value);
     setIsValidUrl(isValid);
     setisClicked(false);

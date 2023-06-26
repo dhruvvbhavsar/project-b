@@ -52,8 +52,8 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      {/* <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <svg
+      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        {/* <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -76,8 +76,8 @@ const DialogContent = React.forwardRef<
           />
         </svg>
 
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close> */}
+        <span className="sr-only">Close</span> */}
+      </DialogPrimitive.Close>
     </DialogPrimitive.Content>
   </DialogPortal>
 ));

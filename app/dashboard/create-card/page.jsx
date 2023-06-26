@@ -19,7 +19,8 @@ import {
 import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { hasCookie } from "cookies-next";
-import { Success, Fail, Process } from "./success";
+import { Success, Fail, Process } from "@/components/ui/success";
+import { eventNames } from "process";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
@@ -35,7 +36,7 @@ export default async function AddCard() {
   }
 
   const router = useRouter();
-  const [paymentStatus, setPaymentStatus] = useState("process"); // Payment status state variable
+  const [paymentStatus, setPaymentStatus] = useState("success"); // Payment status state variable
   const card = {
     platform: results["selectedPlatform"],
     activity: results["selectedActivity"],
@@ -44,13 +45,29 @@ export default async function AddCard() {
     target: results["target"],
   };
 
+  var flag = 0;
+
+  // const obj = {
+  //   taskUrl: card.url
+  // }
+
+  // console.log(JSON.stringify(obj))
+
+  // const response = await fetch('https://project-b-olive.vercel.app/api/image-url', {
+  //   method: 'POST',
+  //   body: JSON.stringify(obj),
+  //   cache: 'no-store'
+  // })
+  // const data = await response.json()
+  // console.log(data)
+
+  // const imageUrl = data ["data"]["imageUrl"]
+
   // Function to simulate the payment process
   const processPayment = async () => {
     // Simulating payment process by using setTimeout
     setPaymentStatus("process"); // Update payment status to "process"
     await displayRazorpay();
-
-    
   };
 
   function loadScript(src) {
@@ -128,9 +145,11 @@ export default async function AddCard() {
 
         const resss = await result.json();
         console.log(await resss);
-        setPaymentStatus("success");
-        if (result.ok) {
-          router.replace("/dashboard");
+        console.log(response);
+        if (response.ok) {
+          setPaymentStatus("success");
+        } else {
+          setPaymentStatus("fail");
         }
       },
       prefill: {
@@ -148,6 +167,11 @@ export default async function AddCard() {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
+    paymentObject.on("payment.failed", function (response) {
+      console.log(response);
+      paymentObject.close()
+      setPaymentStatus('fail')
+    })
   }
 
   return (
@@ -225,70 +249,54 @@ export default async function AddCard() {
                       onClick={processPayment}
                       className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#B827C6]"
                     >
-                      Proceed to payment
+                      Proceed to Payment
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bottom-0 sm:bottom-1/4 sm:max-w-[349px] sm:max-h-[453px] bg-[#181D1F] text-white">
-                    {/* <div className="mx-auto">
-                      <ConfettiExplosion
-                        className="z-50"
-                        force={0.4}
-                        duration={3000}
-                      />
-                      <svg
-                        width="101"
-                        height="101"
-                        viewBox="0 0 101 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="50" cy="51" r="38" fill="#BA44C5" />
-                        <path
-                          d="M101 50.5C101 78.3904 78.3904 101 50.5 101C22.6096 101 0 78.3904 0 50.5C0 22.6096 22.6096 0 50.5 0C78.3904 0 101 22.6096 101 50.5Z"
-                          fill="#BA44C5"
-                          fill-opacity="0.2"
-                        />
-                        <path
-                          d="M64.8327 39.75L45.1243 59.4583L36.166 50.5"
-                          stroke="white"
-                          stroke-width="6"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div> */}
+                  {(paymentStatus === "success" ||
+                    paymentStatus === "fail") && (
+                    <DialogContent
+                      onInteractOutside={(event) => event.preventDefault()}
+                      className="bottom-0 sm:bottom-1/4 sm:max-w-[349px] sm:max-h-[453px] bg-[#181D1F] text-white"
+                    >
+                      <div className="flex items-center gap-6">
+                        {paymentStatus === "process" && <Process />}{" "}
+                        {/* Render the Process component when payment is in process */}
+                        {paymentStatus === "fail" && <Fail />}{" "}
+                        {/* Render the Fail component when payment fails */}
+                        {paymentStatus === "success" && <Success />}{" "}
+                        {/* Render the Success component when payment is successful */}
+                        <p className="text-xl">
+                          {paymentStatus === "process" && "Payment in Process"}
+                          {paymentStatus === "fail" && "Payment Failed"}
+                          {paymentStatus === "success" && "Payment Successful"}
+                        </p>
+                      </div>
 
-                    <div className="flex items-center gap-6">
-                      {paymentStatus === "process" && <Process />}{" "}
-                      {/* Render the Process component when payment is in process */}
-                      {paymentStatus === "fail" && <Fail />}{" "}
-                      {/* Render the Fail component when payment fails */}
-                      {paymentStatus === "success" && <Success />}{" "}
-                      {/* Render the Success component when payment is successful */}
-                      <p className="text-xl">
-                        {paymentStatus === "process" && "Payment in Process"}
-                        {paymentStatus === "fail" && "Payment Failed"}
-                        {paymentStatus === "success" && "Payment Successful"}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 flex flex-col items-center">
-                      <p className="text-lg">
-                        Amount: <span className="text-[#BA68C8]">₹1000</span>
-                      </p>
-                      <div className=" w-[245px] mt-6 border-[#383838] border"></div>
-                    </div>
-                    <DialogFooter>
-                      <Button
-                        onClick={() => router.replace("/dashboard")}
-                        disabled={paymentStatus === "process"}
-                        type="submit"
-                        className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]"
-                      >
-                        Go to Dashboard
-                      </Button>
-                    </DialogFooter>
-                  </DialogContent>
+                      <div className="mt-4 flex flex-col items-center">
+                        <p className="text-lg">
+                          Amount: <span className="text-[#BA68C8]">₹1000</span>
+                        </p>
+                        <div className=" w-[245px] mt-6 border-[#383838] border"></div>
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          onClick={async () => {
+                            if(paymentStatus === 'success') {
+                              router.replace("/dashboard")
+                            } else {
+                              processPayment()
+                            }
+                          }}
+                          disabled={paymentStatus === "process"}
+                          type="submit"
+                          className="h-12 mx-auto w-[191px] mt-8 purple-button hover:bg-[#90049d]"
+                        >
+                          {paymentStatus === "success" && "Go to Dashboard"}
+                          {paymentStatus === "fail" && "Try Again"}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  )}
                 </Dialog>
               </div>
             </section>
@@ -298,3 +306,17 @@ export default async function AddCard() {
     </>
   );
 }
+
+// async function fetchImageUrl(url) {
+//   const obj = {
+//     taskUrl: url.toString()
+//   }
+
+//   const response = await fetch('https://project-b-olive.vercel.app/api/image-url', {
+//     method: 'POST',
+//     body: JSON.stringify(obj)
+//   })
+//   const data = await response.json()
+//   console.log(data)
+//   return data["data"]["imageUrl"]
+// }
