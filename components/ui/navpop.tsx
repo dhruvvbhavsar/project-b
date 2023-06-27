@@ -15,7 +15,11 @@ import { useRouter } from 'next/navigation'
 export function Navpop() {
   const router = useRouter()
   function logout() {
-    deleteCookie('id');    
+    deleteCookie('id');
+    deleteCookie('name');   
+    deleteCookie('mobile'); 
+    deleteCookie('registered');
+    deleteCookie('verified');
     router.refresh()
   }
   return (

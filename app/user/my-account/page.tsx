@@ -11,7 +11,7 @@ export default function MyAccount() {
 
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImage(file);
   };
 
   return (

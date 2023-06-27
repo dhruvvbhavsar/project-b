@@ -16,7 +16,7 @@ const CreateCardButton = ({ platform, activity,url, target, budget }) => {
       pathname: "/dashboard/create-card",
       query: {card: JSON.stringify(cardDets)}
     }}>
-      <Button className="bg-[#ba44c5] hover:bg-[#90049D] h-12 mt-11 purple-glow w-[212px] self-center px-[36px] py-[12px]">
+      <Button disabled={!budget} className="bg-[#ba44c5] hover:bg-[#90049D] h-12 mt-11 purple-glow w-[212px] self-center px-[36px] py-[12px]">
         Create Card
       </Button>
     </Link>

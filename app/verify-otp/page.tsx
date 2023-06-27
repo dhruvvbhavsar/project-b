@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import LoadingButton from './loadingButton'
 
 export default function Reg() {
   if (!cookies().has("mobile")) {
@@ -188,13 +189,7 @@ export default function Reg() {
                 name="otp"
                 placeholder="OTP"
               />
-              <Button
-                className={`bg-[#BA44C5] w-full`}
-                variant="default"
-                type="submit"
-              >
-                Verify
-              </Button>
+              <LoadingButton />
               <button formAction={mobileNumber}>
                 <p className="text-center text-xs">Resend OTP in 15s</p>
               </button>

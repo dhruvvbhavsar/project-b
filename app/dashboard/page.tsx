@@ -1,8 +1,7 @@
-import { BarChart2, ChevronDown, ChevronRight, Plus } from "lucide-react";
 import { Card } from "./card";
 import { Nav } from "../../components/ui/nav";
 import { Overview } from "./overview";
-import  AddCardButton  from "./addCardButton";
+import AddCardButton from "./addCardButton";
 import { Socials } from "./socials";
 import { SideBar } from "@/components/ui/sidebar";
 import { redirect } from "next/navigation";
@@ -18,24 +17,31 @@ type Card = {
 };
 
 export default async function Dashboard() {
-  if(!cookies().has("id")){
-    throw redirect("/welcome")
+  if (!cookies().has("id")) {
+    throw redirect("/welcome");
   }
-  const cardProps = await fetchCards();
-  const userProps = await fetchOverall();
+
+  const cookie = cookies().get("id")?.value;
+  const name = cookies().get("name")?.value;
+  const cardProps = await fetchCards(cookie);
+  const userProps = await fetchOverall(cookie);
+
+  const today = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   return (
     <>
       <main className="flex w-full flex-row bg-[#181d1f]">
         <SideBar />
 
-        <div className="flex w-full flex-col">
+        <div className="flex w-full min-h-screen flex-col">
           <Nav />
           <div className="text-white mt-[70px] px-10 h-full w-full">
-            <h1 className="text-[22px]">Hello, Ritwika!</h1>
+            <h1 className="text-[22px]">Hello, {name}!</h1>
             <p className="mt-4 text-lg text-[#ba44c5]">Overview</p>
-            <p className="text-sm mt-3 text-[#B0B0B0] ">
-              13th June,2023 Tuesday
-            </p>
+            <p className="text-sm mt-3 text-[#B0B0B0] ">{today}</p>
 
             <Overview
               budget={userProps.budget}
@@ -55,17 +61,23 @@ export default async function Dashboard() {
             </div>
 
             <div className="w-full flex flex-col gap-8 mt-4">
-              {cardProps.map((card: Card) => (
-                <Card
-                  key={card.clientId}
-                  clientId={card.clientId}
-                  platform={card.platform}
-                  activity={card.activity}
-                  current={card.current}
-                  goal={card.goal}
-                  budget={card.budget}
-                />
-              ))}
+              {cardProps.length === 0 ? (
+                <p className="text-center text-2xl mt-8 glow">
+                  No new cards available.
+                </p>
+              ) : (
+                cardProps.map((card: Card) => (
+                  <Card
+                    key={card.clientId}
+                    clientId={card.clientId}
+                    platform={card.platform}
+                    activity={card.activity}
+                    current={card.current}
+                    goal={card.goal}
+                    budget={card.budget}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -74,14 +86,15 @@ export default async function Dashboard() {
   );
 }
 
-async function fetchCards() {
+async function fetchCards(id: any) {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/client/648aac96fc4cc18a693c2523/cards",
+    `https://project-b-olive.vercel.app/api/client/${id}/cards`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      
     }
   );
 
@@ -98,17 +111,19 @@ async function fetchCards() {
       budget: card.budget,
     };
   });
+  console.log(cardProps);
   return cardProps;
 }
 
-async function fetchOverall() {
+async function fetchOverall(id: any) {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/client/648aac96fc4cc18a693c2523/overall",
+    `https://project-b-olive.vercel.app/api/client/${id}/overall`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+      cache: 'no-store'
     }
   );
 

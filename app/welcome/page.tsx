@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import LoadingButton from "./loadingButton";
 
 export default function Reg() {
   if(cookies().has("verified")) {
@@ -111,13 +112,7 @@ export default function Reg() {
               name="mobile"
               placeholder="Enter Your Mobile Number"
             />
-            <Button
-              type="submit"
-              className="bg-[#BA44C5] w-full"
-              variant="default"
-            >
-              Get OTP
-            </Button>
+            <LoadingButton />
           </form>
         </div>
       </section>

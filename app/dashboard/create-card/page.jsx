@@ -18,9 +18,8 @@ import {
 } from "@/components/ui/dialog";
 import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
-import { hasCookie } from "cookies-next";
+import { getCookie, hasCookie } from "cookies-next";
 import { Success, Fail, Process } from "@/components/ui/success";
-import { eventNames } from "process";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
@@ -35,6 +34,8 @@ export default async function AddCard() {
     throw redirect("/dashboard/add-card");
   }
 
+  const cookie = getCookie("id");
+
   const router = useRouter();
   const [paymentStatus, setPaymentStatus] = useState("success"); // Payment status state variable
   const card = {
@@ -45,23 +46,31 @@ export default async function AddCard() {
     target: results["target"],
   };
 
-  var flag = 0;
-
-  // const obj = {
-  //   taskUrl: card.url
-  // }
-
-  // console.log(JSON.stringify(obj))
-
-  // const response = await fetch('https://project-b-olive.vercel.app/api/image-url', {
-  //   method: 'POST',
-  //   body: JSON.stringify(obj),
-  //   cache: 'no-store'
-  // })
-  // const data = await response.json()
-  // console.log(data)
-
-  // const imageUrl = data ["data"]["imageUrl"]
+  async function createCard() {
+    console.log(card);
+    const response = await fetch(
+      `https://project-b-olive.vercel.app/api/${cookie}/create-card`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          platform: card.platform,
+          activity: card.activity,
+          imageUrl: "https://unsplash.com/photos/LsMxdW1zWEQ",
+          taskUrl: card.url,
+          goal: parseInt(card.target),
+          budget: parseInt(card.budget),
+        }),
+        cache: "no-store",
+      }
+    );
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+    console.log(card);
+  }
 
   // Function to simulate the payment process
   const processPayment = async () => {
@@ -146,11 +155,8 @@ export default async function AddCard() {
         const resss = await result.json();
         console.log(await resss);
         console.log(response);
-        if (response.ok) {
-          setPaymentStatus("success");
-        } else {
-          setPaymentStatus("fail");
-        }
+        await createCard(card);
+        setPaymentStatus("success");
       },
       prefill: {
         name: "Soumya Dey",
@@ -169,9 +175,9 @@ export default async function AddCard() {
     paymentObject.open();
     paymentObject.on("payment.failed", function (response) {
       console.log(response);
-      paymentObject.close()
-      setPaymentStatus('fail')
-    })
+      paymentObject.close();
+      setPaymentStatus("fail");
+    });
   }
 
   return (
@@ -248,8 +254,11 @@ export default async function AddCard() {
                     <Button
                       onClick={processPayment}
                       className="h-12 mx-auto w-[191px] mt-10 purple-button hover:bg-[#B827C6]"
+                      disabled={paymentStatus === "process"}
                     >
-                      Proceed to Payment
+                      {paymentStatus === "process"
+                        ? "Payment in process"
+                        : "Proceed to Payment"}
                     </Button>
                   </DialogTrigger>
                   {(paymentStatus === "success" ||
@@ -274,17 +283,17 @@ export default async function AddCard() {
 
                       <div className="mt-4 flex flex-col items-center">
                         <p className="text-lg">
-                          Amount: <span className="text-[#BA68C8]">₹1000</span>
+                          Amount: <span className="text-[#BA68C8]">₹{card.budget}</span>
                         </p>
                         <div className=" w-[245px] mt-6 border-[#383838] border"></div>
                       </div>
                       <DialogFooter>
                         <Button
                           onClick={async () => {
-                            if(paymentStatus === 'success') {
-                              router.replace("/dashboard")
+                            if (paymentStatus === "success") {
+                              router.replace("/dashboard");
                             } else {
-                              processPayment()
+                              processPayment();
                             }
                           }}
                           disabled={paymentStatus === "process"}

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import LoadingButton from './loadingButton'
 
 export default async function Reg() {
   "use server";
@@ -138,9 +139,7 @@ export default async function Reg() {
                 placeholder="Enter Your Name"
               />
             </div>
-            <Button className="bg-[#BA44C5] w-full" variant="default">
-              Save
-            </Button>
+            <LoadingButton />
           </form>
         </div>
       </section>
