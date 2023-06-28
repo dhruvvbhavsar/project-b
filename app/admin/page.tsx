@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import {
   Table,
   TableBody,
@@ -12,8 +13,10 @@ import AdminOveriew from "./adminOverview";
 import AdminSidebar from "./adminSidebar";
 import Search from "./search";
 
-export default function Admin() {
+export default async function Admin() {
   const today = new Date().toDateString();
+  const allCards = await fetchAllCards();
+  console.log(allCards)
 
   return (
     <>
@@ -44,38 +47,25 @@ export default function Admin() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">1</TableCell>
-                  <TableCell>John Stone</TableCell>
-                  <TableCell>2023-06-01</TableCell>
-                  <TableCell>$500.00</TableCell>
-                  <TableCell>$350.00</TableCell>
-                  <TableCell>Facebook</TableCell>
-                  <TableCell>Ad Campaign</TableCell>
-                  <TableCell>Paid</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell className="font-medium">2</TableCell>
-                  <TableCell>John Stone</TableCell>
-                  <TableCell>2023-06-05</TableCell>
-                  <TableCell>$300.00</TableCell>
-                  <TableCell>$280.00</TableCell>
-                  <TableCell>Google Ads</TableCell>
-                  <TableCell>Search Ads</TableCell>
-                  <TableCell>Paid</TableCell>
-                </TableRow>
-
-                <TableRow>
-                  <TableCell className="font-medium">3</TableCell>
-                  <TableCell>John Stone</TableCell>
-                  <TableCell>2023-06-10</TableCell>
-                  <TableCell>$200.00</TableCell>
-                  <TableCell>$150.00</TableCell>
-                  <TableCell>Instagram</TableCell>
-                  <TableCell>Influencer Promotion</TableCell>
-                  <TableCell>Paid</TableCell>
-                </TableRow>
+                {allCards.length === 0 ? (
+                <p className="text-center text-2xl mt-8 glow">
+                  No new cards available.
+                </p>
+              ) : (
+                allCards.map((card: any, index: number) => (
+                  <TableRow>
+                    <TableCell className="font-medium">{index+1}</TableCell>
+                    <TableCell>{card["clientId"]["name"]}</TableCell>
+                    {/* <TableCell>John Cena</TableCell> */}
+                    <TableCell>2023-06-01</TableCell>
+                    <TableCell>₹{card["budget"]}</TableCell>
+                    <TableCell>₹{card["spent"]}</TableCell>
+                    <TableCell>{card["platform"]}</TableCell>
+                    <TableCell>{card["activity"]}</TableCell>
+                    <TableCell>{card["status"]}</TableCell>
+                  </TableRow>
+                ))
+              )}
               </TableBody>
             </Table>
             {/* <div className="w- full flex flex-col gap-8 mt-4">
@@ -102,4 +92,19 @@ export default function Admin() {
       </main>
     </>
   );
+}
+
+async function fetchAllCards() {
+  const response = await fetch(
+    "https://project-b-olive.vercel.app/api/admin/client/all-cards",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const result = await response.json();
+  return result[0]["data"];
 }
