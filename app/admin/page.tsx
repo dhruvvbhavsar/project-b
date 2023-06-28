@@ -56,10 +56,9 @@ export default async function Admin() {
                   <TableRow>
                     <TableCell className="font-medium">{index+1}</TableCell>
                     <TableCell>{card["clientId"]["name"]}</TableCell>
-                    {/* <TableCell>John Cena</TableCell> */}
                     <TableCell>2023-06-01</TableCell>
                     <TableCell>₹{card["budget"]}</TableCell>
-                    <TableCell>₹{card["spent"]}</TableCell>
+                    <TableCell>₹{card["totalSpent"]}</TableCell>
                     <TableCell>{card["platform"]}</TableCell>
                     <TableCell>{card["activity"]}</TableCell>
                     <TableCell>{card["status"]}</TableCell>
@@ -106,5 +105,5 @@ async function fetchAllCards() {
     }
   );
   const result = await response.json();
-  return result[0]["data"];
+  return result[0]["data"]['cardDetails'];
 }
