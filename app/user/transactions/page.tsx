@@ -4,11 +4,12 @@ import { SideBar } from "@/components/ui/sidebar";
 import { ArrowLeft } from "lucide-react";
 import TransactionCard from "./transactionCard";
 import { cookies } from "next/headers";
+import { Button } from "@/components/ui/button";
 
 export default async function Transactions() {
   const cookie = cookies().get("id")?.value;
-  // const cards = await getTransactions(cookie);
-  console.log(cookie);
+  const cards = await getTransactions(cookie);
+  console.log(cards);
 
   return (
     <>
@@ -19,41 +20,44 @@ export default async function Transactions() {
             <ArrowLeft className="sm:hidden block" />
             Transactions
           </p>
-          {/* {cards.map((card: any) => ( */}
-          <TransactionCard
-            state={""}
-            imageUrl={""}
-            platform={""}
-            activity={""}
-            quantity={""}
-            budget={0}
-          />
-          {/* ))} */}
+
+          <div className="w-full flex flex-col rounded-[6px] mt-6 gap-3  p-3 sm:border sm:border-[#5B5B5B] ">
+            <Button className="mb-4 w-32 self-end">Sort By</Button>
+            {cards.length === 0 ? (
+              <p className="text-center text-2xl mt-8 glow">
+                No new transactions available.
+              </p>
+            ) : (
+              cards.map((card: any) => (
+                <TransactionCard
+                  state={card["taskId"]["status"]}
+                  imageUrl={card["taskId"]["imageUrl"]}
+                  platform={card["taskId"]["platform"]}
+                  activity={card["taskId"]["activity"]}
+                  quantity={card["taskId"]["goal"]}
+                  budget={card["taskId"]["budget"]}
+                />
+              ))
+            )}
+          </div>
         </section>
       </main>
     </>
   );
 }
 
-// async function getTransactions(id: any) {
-//   const response = await fetch(
-//     `https://project-b-olive.vercel.app/api/client/${id}/transactions`,
-//     {
-//       method: "GET",
-//       cache: "no-store",
-//     }
-//   );
+async function getTransactions(id: any) {
+  const response = await fetch(
+    `https://project-b-olive.vercel.app/api/client/${id}/transactions`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
 
-//   const cards = await response.json();
-//   const transactionData = cards.map(())=> {
-//     return {
-//       state: card.data.status,
-//       imageUrl: card.data.taskId.imageUrl,
-//       platform: card.data.taskId.platform,
-//       activity: card.data.taskId.activity,
-//       quantity: card.data.taskId.goal,
-//       budget: card.data.taskId.budget,
-//     };
-//   });
-//   return transactionData
-// }
+  const cards = await response.json();
+  return cards[0]["data"];
+}

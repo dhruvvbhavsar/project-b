@@ -10,20 +10,20 @@ type TransactionCard = {
   platform: string;
   activity: string;
   quantity: string;
-  budget: number;
+  budget: string;
 };
 
 export default async function TransactionCard(card: TransactionCard) {
   console.log(card);
   return (
     <>
-      <div className="h-screen rounded-[6px] mt-6  p-3 sm:border sm:border-[#5B5B5B] ">
-        <Button className="mb-4">Sort By</Button>
         <div className="w-full h-72  sm:bg-[#24292C] border border-[#5B5B5B] rounded-[6px] p-4">
           <div className="h-1/4 flex items-center">
-            <Success />
+            {card.state === "success" ? <Success /> : <Fail />}
             <div className="ml-2 text-white">
-              <p className="text-base font-medium">Payment Successful</p>
+              <p className="text-base font-medium">
+                Payment {card.state === "success" ? "Successful" : "Failed"}
+              </p>
               <p className="text-sm font-medium text-[#B0B0B0]">
                 17th May 2002
               </p>
@@ -42,11 +42,13 @@ export default async function TransactionCard(card: TransactionCard) {
             </div>
             <div className="flex flex-col sm:flex-row justify-center items-start sm:items-center w-full sm:justify-between px-3 text-white">
               <div>
-                <p className="text-sm">Instagram Reel</p>
-                <p className="text-xs text-[#B0B0B0]">Quantity: 500 Likes</p>
+                <p className="text-sm">{card.platform} Reels</p>
+                <p className="text-xs text-[#B0B0B0]">
+                  Quantity: {card.quantity} {card.activity}
+                </p>
               </div>
               <div>
-                <p className="text-green-500 text-lg">₹2,000</p>
+                <p className="text-green-500 text-lg">₹{card.budget}</p>
               </div>
             </div>
           </section>
@@ -54,7 +56,6 @@ export default async function TransactionCard(card: TransactionCard) {
             View Details
           </p>
         </div>
-      </div>
     </>
   );
 }

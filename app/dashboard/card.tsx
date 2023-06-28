@@ -41,18 +41,18 @@ export const Card = (card: Card) => {
 
         <div className="flex gap-5 col-span-2 flex-wrap sm:flex-nowrap mx-auto w-full my-6 sm:my-0">
           <div className="flex space-x-5 mx-auto">
-            <div className="some flex w-32 h-20 sm:h-48 rounded-md  sm:w-60 flex-col  justify-between text-white">
+            <div className="some flex w-32 sm:w-52 h-20 sm:h-48 rounded-md  flex-col  justify-between text-white">
               <p className="pt-2 sm:pt-5 pl-3 text-xs sm:text-sm text-[#CACACA]">Allocated Budget</p>
               <p className="pb-2 pl-3 sm:pb-16 text-base sm:text-2xl glow">₹{card.budget}</p>
             </div>
 
-            <div className="some flex w-32 h-20 sm:h-48 rounded-md  sm:w-60 flex-col justify-between text-white">
+            <div className="some flex w-32 sm:w-52 h-20 sm:h-48 rounded-md  flex-col justify-between text-white">
               <p className="pt-2 sm:pt-5 pl-3 text-xs sm:text-sm text-[#CACACA]">Spent</p>
               <p className="pb-2 pl-3 sm:pb-16 text-base sm:text-2xl glow">₹{card.current}</p>
             </div>
           </div>
 
-          <div className="some flex mx-auto h-40 w-52 sm:h-48 rounded-md  sm:w-60 text-white">
+          <div className="some flex mx-auto h-40 w-52 sm:h-48 rounded-md  text-white">
             <p className="pt-2 sm:pt-5 pl-3 text-xs sm:text-sm text-[#CACACA] ">Progress</p>
             <ProgressComponent
               value={Math.round((card.current / card.goal) * 100)}
