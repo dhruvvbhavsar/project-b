@@ -1,5 +1,4 @@
 import { Card } from "./card";
-import { Nav } from "../../components/ui/nav";
 import { Overview } from "./overview";
 import AddCardButton from "./addCardButton";
 import { Socials } from "./socials";
@@ -33,12 +32,11 @@ export default async function Dashboard() {
   });
   return (
     <>
-      <main className="flex w-full flex-row bg-[#181d1f]">
+      <main className="flex relative min-h-screen w-full bg-[#181d1f]">
         <SideBar />
 
-        <div className="flex w-full min-h-screen flex-col">
-          <Nav />
-          <div className="text-white mt-[70px] px-10 h-full w-full">
+        <div className="w-full min-h-screen ">
+          <div className="text-white mt-[70px] px-4 sm:px-10 mb-4">
             <h1 className="text-[22px]">Hello, {name}!</h1>
             <p className="mt-4 text-lg text-[#ba44c5]">Overview</p>
             <p className="text-sm mt-3 text-[#B0B0B0] ">{today}</p>
@@ -55,7 +53,7 @@ export default async function Dashboard() {
                 My Cards ({cardProps ? cardProps.length : "3"})
               </p>
               <div className="flex gap-3 justify-center  items-center">
-                <Socials />
+                {/* <Socials /> */}
                 <AddCardButton />
               </div>
             </div>
@@ -94,7 +92,6 @@ async function fetchCards(id: any) {
       headers: {
         "Content-Type": "application/json",
       },
-      
     }
   );
 
@@ -123,7 +120,7 @@ async function fetchOverall(id: any) {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: 'no-store'
+      cache: "no-store",
     }
   );
 

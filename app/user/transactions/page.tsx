@@ -12,28 +12,24 @@ export default async function Transactions() {
 
   return (
     <>
-      <main className="flex w-full min-h-screen flex-row bg-[#181d1f]">
+      <main className="flex relative min-h-screen w-full bg-[#181d1f]">
         <SideBar />
-
-        <div className="flex w-full flex-col">
-          <Nav />
-          <section className="mx-auto w-full sm:w-2/3 mt-[92px]">
-            <p className="text-[22px] font-medium text-white text-center sm:text-start flex items-center gap-2 px-2">
-              <ArrowLeft className="sm:hidden block" />
-              Transactions
-            </p>
-            {/* {cards.map((card: any) => ( */}
-              <TransactionCard
-                state={""}
-                imageUrl={""}
-                platform={""}
-                activity={""}
-                quantity={""}
-                budget={0}
-              />
-            {/* ))} */}
-          </section>
-        </div>
+        <section className="mx-auto w-full sm:w-2/3 mt-[92px]">
+          <p className="text-[22px] font-medium text-white text-center sm:text-start flex items-center gap-2 px-2">
+            <ArrowLeft className="sm:hidden block" />
+            Transactions
+          </p>
+          {/* {cards.map((card: any) => ( */}
+          <TransactionCard
+            state={""}
+            imageUrl={""}
+            platform={""}
+            activity={""}
+            quantity={""}
+            budget={0}
+          />
+          {/* ))} */}
+        </section>
       </main>
     </>
   );

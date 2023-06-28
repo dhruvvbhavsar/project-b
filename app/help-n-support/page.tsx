@@ -6,11 +6,8 @@ import { ArrowLeft, Mail, PhoneCall } from "lucide-react";
 export default function MyAccount() {
   return (
     <>
-      <main className="flex w-full min-h-screen flex-row bg-[#181d1f]">
+      <main className="flex relative min-h-screen w-full bg-[#181d1f]">
         <SideBar />
-
-        <div className="flex w-full flex-col justify-center">
-          <Nav />
           <section className="mx-auto sm:mt-[92px]">
             <p className="text-[22px] font-medium text-white text-center sm:text-start flex items-center gap-2 px-2">
               <ArrowLeft className="sm:hidden block" />
@@ -51,7 +48,6 @@ export default function MyAccount() {
               </div>
             </div>
           </section>
-        </div>
       </main>
     </>
   );

@@ -109,6 +109,15 @@
   opacity: 0.5;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
+
+@media (max-width: 641px) {
+  .mobile-button {
+    position: fixed;
+    z-index: 10;
+    bottom: 16px;
+    right: 12px;
+  }
+}
  
 @layer base {
   :root {
