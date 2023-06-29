@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { X, BarChart2, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export default function AdminSidebar() {
   return (
@@ -20,12 +21,20 @@ export default function AdminSidebar() {
 
           <p className="text-[#979797]">BrandName</p>
         </div>
-        <div className="w-full h-12 flex flex-row justify-center mt-9">
-          <Button className="bg-[#586266] hover:bg-[#202223] flex ">
-            <BarChart2 className="h-6 w-6" />
-            <p className="text-sm">Dashboard</p>
-            <ChevronRight className="h-6 w-6" />
-          </Button>
+        <div className="mt-8 h-64 flex flex-col gap-6 items-center text-white">
+          <p className="flex items-center">
+            <BarChart2 className="h-4 w-4" />
+            Dashboard
+          </p>
+          <Link href={"/admin/clients"}>
+            <p className="flex items-center hover:text-xl">Clients</p>
+          </Link>
+          <Link href={"/admin/users"}>
+            <p className="flex items-center hover:text-xl">Users</p>
+          </Link>
+          <Link href={"/admin/clients/pending"}>
+            <p className="flex items-center hover:text-xl">Pending</p>
+          </Link>
         </div>
       </div>
     </>

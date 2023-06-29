@@ -2,7 +2,6 @@ import { Like } from "@/components/icons/like";
 import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Success, Fail } from "@/components/ui/success";
-import { Button } from "@/components/ui/button";
 
 type TransactionCard = {
   state: string;
