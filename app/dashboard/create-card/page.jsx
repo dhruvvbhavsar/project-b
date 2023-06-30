@@ -168,7 +168,7 @@ export default async function AddCard() {
         address: "Soumya Dey Corporate Office",
       },
       theme: {
-        color: "#61dafb",
+        color: "#ba44c5",
       },
     };
 

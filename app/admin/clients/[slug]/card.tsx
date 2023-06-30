@@ -165,7 +165,7 @@ export default function Cage(card: AdminCard) {
 
 async function sendStatus(status: string, taskId: string) {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/admin/client/card/${taskId}/status`,
+    `${process.env.API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
     {
       method: "PUT",
       headers: {
