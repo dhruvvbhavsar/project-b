@@ -9,5 +9,4 @@ export default function Redirect() {
     router.push("/landing-page/index.html");
   });
 
-  return null; 
 }
