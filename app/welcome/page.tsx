@@ -28,7 +28,7 @@ export default function Reg() {
     };
     // await kv.set("number", data.get("mobile")?.toString());
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/get-otp",
+      `${process.env.API_ENDPOINT}/api/get-otp`,
       {
         cache: "no-store",
         method: "POST",

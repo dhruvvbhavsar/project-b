@@ -69,7 +69,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 async function fetchCardDetails(taskId: string, clientId: string) {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/admin/client/${clientId}/cards`,
+    `${process.env.API_ENDPOINT}/api/admin/client/${clientId}/cards`,
     {
       method: "POST",
       headers: {

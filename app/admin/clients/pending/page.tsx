@@ -46,7 +46,7 @@ export default async function Page() {
 
 async function fetchCardDetails() {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/admin/client/cards/pending`,
+    `${process.env.API_ENDPOINT}/api/admin/client/cards/pending`,
     {
       method: "GET",
       cache: 'no-store'
