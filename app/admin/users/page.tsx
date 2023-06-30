@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+'use client'
 import {
   Table,
   TableBody,
@@ -10,8 +11,14 @@ import {
 import AdminOveriew from "./adminOverview";
 import AdminSidebar from "../adminSidebar";
 import Search from "./search";
+import { useRouter } from "next/navigation";
+import { hasCookie } from "cookies-next";
 
 export default async function Admin() {
+  const router = useRouter();
+  if (!hasCookie("admin")) {
+    router.push("/admin");
+  }
   const today = new Date().toDateString();
   const allCards = await fetchAllUsers();
   console.log(allCards)

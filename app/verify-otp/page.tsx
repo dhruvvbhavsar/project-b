@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { SvgIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
@@ -200,3 +199,5 @@ export default function Reg() {
     </>
   );
 }
+
+

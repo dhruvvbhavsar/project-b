@@ -1,10 +1,15 @@
-/* eslint-disable @next/next/no-img-element */
+"use client"
+import { useRouter } from "next/navigation";
 import AdminSidebar from "../../adminSidebar";
 import Cage from "../[slug]/card";
+import { hasCookie } from "cookies-next";
 
 export default async function Page() {
-  const cards = await fetchCardDetails();
-  // console.log("HI", cards);
+  const pendingCards = await fetchCardDetails();
+  const router = useRouter();
+  if (!hasCookie("admin")) {
+    router.push("/admin");
+  }
   return (
     <>
       <main className="flex relative min-h-screen w-full bg-[#181d1f]">
@@ -18,18 +23,18 @@ export default async function Page() {
             </p>
           </div>
           <div className="space-y-6 py-4">
-            {cards.map((card: any) => {
+            {pendingCards.map((card: any) => {
               <Cage
-                platform={card.platform}
-                activity={card.activity}
-                taskUrl={card.cardUrl}
-                goal={card.goal}
-                budget={card.budget}
-                imageUrl={card.imageUrl}
-                status={card.status}
-                totalSpent={card.totalSpent}
-                name={card.clientId.name}
-                taskId={card._id}
+                platform={card["platform"]}
+                activity={card["activity"]}
+                taskUrl={card["cardUrl"]}
+                goal={card["goal"]}
+                budget={card["budget"]}
+                imageUrl={card["imageUrl"]}
+                status={card["status"]}
+                totalSpent={card['totalSpent']}
+                name={card["clientId"]["name"]}
+                taskId={card["_id"]}
               />;
             })}
           </div>
@@ -44,9 +49,7 @@ async function fetchCardDetails() {
     `https://project-b-olive.vercel.app/api/admin/client/cards/pending`,
     {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      cache: 'no-store'
     }
   );
 

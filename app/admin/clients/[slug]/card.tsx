@@ -1,13 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
-import Image from "next/image";
 import { Like } from "@/components/icons/like";
 import { Progress } from "@/components/ui/progress";
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type AdminCard = {
@@ -23,35 +20,14 @@ type AdminCard = {
   totalSpent: number;
 };
 export default function Cage(card: AdminCard) {
-  const [status, setStatus] = useState(card.status);
-  const router = useRouter();
-  async function sendStatus(status: string) {
-    const response = await fetch(
-      `https://project-b-olive.vercel.app/api/admin/client/card/${card.taskId}/status`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-        body: JSON.stringify({
-          status: status,
-        }),
-      }
-    );
-    const data = await response.json();
-    console.log(data);
-    if (response.ok) {
-      setStatus('success')
-    } else {
-      setStatus('rejected')
-    }
-  }
+  const [isLoading, setIsLoading] = useState(false);
+  const stat = card.status
+  const [cardStatus, setCardStatus] = useState(stat)
   return (
     <>
       <section
         className={`bg-[#202527] mx-14 rounded-[6px] ${
-          card.status === "success" ? "h-96" : ""
+          cardStatus === "success" ? "h-96" : ""
         } p-3`}
       >
         <div className="flex justify-between">
@@ -68,41 +44,64 @@ export default function Cage(card: AdminCard) {
               </p>
             </div>
           </div>
-          {(card.status === "success" || card.status === "rejected") && (
+          {(cardStatus === "success" || cardStatus === "rejected") && (
             <div className="justify-self-end approved w-40 grid place-items-center">
               <p
                 className={`text-sm ${
-                  card.status === "success" ? "text-[#3FE025]" : "text-red-500"
+                  cardStatus === "success" ? "text-[#3FE025]" : "text-red-500"
                 }`}
               >
-                {card.status === "success" ? "Card Approved" : "Card Failed"}
+                {cardStatus === "success" ? "Card Approved" : "Card Failed"}
               </p>
             </div>
           )}
-          {card.status === "pending" && (
-            <div className="justify-self-end w-36 flex gap-3">
-              <Button
-                onClick={() => sendStatus("success")}
-                className="approved hover:bg-sky-100 w-full grid place-items-center"
-              >
-                <Check className="text-green-500" />
-              </Button>
-              <Button
-                onClick={() => sendStatus("rejected")}
-                className="approved hover:bg-sky-100 w-full grid place-items-center"
-              >
-                <X className="text-red-500" />
-              </Button>
-              <div></div>
-            </div>
+          {isLoading ? (
+            <div className="text-white">loading</div>
+          ) : (
+            cardStatus === "pending" && (
+              <div className="justify-self-end w-36 flex gap-3">
+                <Button
+                  onClick={async () => {
+                    setIsLoading(true);
+                    const status = await sendStatus("success", card.taskId);
+                    console.log(status)
+                    if (status) {
+                      console.log(status)
+                      setIsLoading(false);
+                      setCardStatus(status)
+                      console.log(cardStatus)
+                    }
+                  }}
+                  className="approved hover:bg-sky-100 w-full grid place-items-center"
+                >
+                  <Check className="text-green-500" />
+                </Button>
+                <Button
+                  onClick={async () => {
+                    setIsLoading(true);
+                    const status = await sendStatus("rejected", card.taskId);
+                    console.log(status)
+                    if (status === "rejected") {
+                      setIsLoading(false);
+                      setCardStatus(status)
+                      console.log(cardStatus)
+                    }
+                  }}
+                  className="approved hover:bg-sky-100 w-full grid place-items-center"
+                >
+                  <X className="text-red-500" />
+                </Button>
+                <div></div>
+              </div>
+            )
           )}
         </div>
 
         <article className="flex gap-6 items-center">
           <div className="flex rounded-md w-fit mt-8  flex-col text-white relative">
-            <Image
-              src={picture}
-              className="imgg object-cover h-full w-48 sm:w-28 rounded-md"
+            <img
+              src={card.imageUrl}
+              className="imgg object-cover h-40 sm:w-28 rounded-md"
               alt="card picture"
             />
             <div className="absolute h-5 w-5 rounded-full circ bottom-2 right-2 flex justify-center items-center">
@@ -133,7 +132,7 @@ export default function Cage(card: AdminCard) {
           </div>
         </article>
 
-        {card.status === "success" && (
+        {cardStatus === "success" && (
           <article className="grid grid-cols-3 w-full h-1/3 mt-4 gap-6">
             <div className="bg-[#181D1F] w-full h-full rounded-[6px] pt-4 pl-6">
               <p className="text-sm text-[#A3A3A3]">Allocated Budget</p>
@@ -162,4 +161,23 @@ export default function Cage(card: AdminCard) {
       </section>
     </>
   );
+}
+
+async function sendStatus(status: string, taskId: string) {
+  const response = await fetch(
+    `https://project-b-olive.vercel.app/api/admin/client/card/${taskId}/status`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      cache: "no-store",
+      body: JSON.stringify({
+        status: status,
+      }),
+    }
+  );
+  const data = await response.json();
+  return data[0]["data"]["status"];
 }

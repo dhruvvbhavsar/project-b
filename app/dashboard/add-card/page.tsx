@@ -52,21 +52,21 @@ export default function AddCard() {
 
   function handlePlatformChange(platform: string) {
     setSelectedPlatform(platform);
-    localStorage.setItem('platform', platform);
+    // localStorage.setItem("platform", platform);
     setisClicked(false);
     setBudget(null);
   }
 
   function handleActivityChange(activity: string) {
     setSelectedActivity(activity);
-    localStorage.setItem('activity', activity);
+    // localStorage.setItem("activity", activity);
     setisClicked(false);
     setBudget(null);
   }
 
   function handleTargetValueChange(value: any) {
     setTargetValue(value);
-    localStorage.setItem('goal', value);
+    // localStorage.setItem("goal", value);
     setisClicked(false);
     setBudget(null);
   }
@@ -76,7 +76,7 @@ export default function AddCard() {
     const urlPattern = /^(https?:\/\/)?(www\.)?instagram\.com\//;
     const isValid = urlPattern.test(value);
     setIsValidUrl(isValid);
-    localStorage.setItem('url', value);
+    // localStorage.setItem("url", value);
     setisClicked(false);
     setBudget(null);
   }
@@ -119,8 +119,11 @@ export default function AddCard() {
                       isValidUrl ? "" : "border border-red-500"
                     }`}
                     placeholder="Copy and paste the text here"
-                    value={localStorage.getItem('url') || ""}
+                    // value={localStorage.getItem("url") || ""}
                   />
+                  {!isValidUrl && taskUrl.length > 3 && (
+                    <p className="text-red-500 text-sm mt-1">Invalid URL</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col mx-3 sm:ml-8 mt-[32px]">
@@ -130,7 +133,7 @@ export default function AddCard() {
                     onChange={(e) => handleTargetValueChange(e.target.value)}
                     className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4  placeholder:text-[#878787] placeholder:text-xs"
                     placeholder="500 likes"
-                    value={localStorage.getItem('goal') || ""}
+                    // value={localStorage.getItem("goal") || ""}
                   />
                 </div>
               </article>

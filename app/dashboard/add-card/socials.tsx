@@ -24,21 +24,21 @@ const frameworks = [
     label: "Instagram",
     icon: <Insta className={"w-4 h-4"} />,
   },
-  {
-    value: "twitter",
-    label: "Twitter",
-    icon: <Twitter className={"w-4 h-4"} />,
-  },
-  {
-    value: "facebook",
-    label: "Facebook",
-    icon: <Facebook className={"w-4 h-4"} />,
-  },
-  {
-    value: "youtube",
-    label: "Youtube",
-    icon: <Youtube className={"w-4 h-4"} />,
-  },
+  // {
+  //   value: "twitter",
+  //   label: "Twitter",
+  //   icon: <Twitter className={"w-4 h-4"} />,
+  // },
+  // {
+  //   value: "facebook",
+  //   label: "Facebook",
+  //   icon: <Facebook className={"w-4 h-4"} />,
+  // },
+  // {
+  //   value: "youtube",
+  //   label: "Youtube",
+  //   icon: <Youtube className={"w-4 h-4"} />,
+  // },
 ];
 
 export function Socials({ onChange }: SocialsProps) {

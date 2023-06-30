@@ -7,28 +7,22 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SvgIllustration } from "@/components/svg";
+import { AdminIllustration } from "@/components/svg";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import LoadingButton from "./loadingButton";
 
 export default function Reg() {
-  if(cookies().has("verified")) {
-    throw redirect("/registration")
-  }
-
-  if(cookies().has("mobile")) {
-    throw redirect("/verify-otp")
+  if (cookies().has("admin")) {
+    throw redirect("/admin/clients");
   }
   async function mobileNumber(data: FormData) {
     "use server";
     const num = {
       number: data.get("mobile")?.toString(),
-      signature: ""
     };
-    // await kv.set("number", data.get("mobile")?.toString());
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/get-otp",
+      "https://project-b-olive.vercel.app/api/admin/login",
       {
         cache: "no-store",
         method: "POST",
@@ -44,31 +38,31 @@ export default function Reg() {
     console.log(res);
     if (response.ok) {
       cookies().set({
-        name: "mobile",
-        value: data.get("mobile")?.toString() ?? " ",
+        name: "admin",
+        value: res[0]['data']['_id']
       });
-      throw redirect("/verify-otp");
+      throw redirect("/admin/clients");
     }
   }
 
   return (
     <main className="flex h-screen w-full flex-row justify-center bg-[#181d1f] sm:justify-around">
       <section className="my-auto hidden h-5/6 w-1/2 flex-col items-center justify-center sm:flex">
-        <SvgIllustration />
+        <AdminIllustration />
         <div className="text-center">
           <h1
             className="font-semibold text-[#BA44C5]"
             style={{ fontSize: "32px" }}
           >
-            Get likes and followers instantly
+            Efficiency at your fingertips.
           </h1>
           <p
             className="text-white"
             style={{ fontSize: "20px", marginTop: "10px" }}
           >
-            Get noticed with #brandname the only app that helps
+            Admins, where the magic happens... and by magic, we mean
             <br />
-            you gain likes and followers of your drearns.
+            all the behind-the-scenes chaos we tidy up for you
           </p>
         </div>
       </section>

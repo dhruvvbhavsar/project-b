@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+"use client";
 import {
   Table,
   TableBody,
@@ -11,10 +12,16 @@ import {
 import AdminOveriew from "./adminOverview";
 import AdminSidebar from "../adminSidebar";
 import Search from "./search";
-import { Check, Eye, X } from "lucide-react";
+import { Check, CircleDashed, Eye, X } from "lucide-react";
 import Link from "next/link";
+import { hasCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export default async function Admin() {
+  const router = useRouter();
+  if (!hasCookie("admin")) {
+    router.push("/admin");
+  }
   const today = new Date().toDateString();
   const allCards = await fetchAllCards();
   console.log(allCards);
@@ -65,10 +72,14 @@ export default async function Admin() {
                       <TableCell className="flex gap-2">
                         {card["status"] === "success" ? (
                           <Check className="text-green-500" />
+                        ) : card["status"] === "pending" ? (
+                          <CircleDashed className="text-yellow-400" />
                         ) : (
                           <X className="text-red-600" />
                         )}
-                        <Link href={`/admin/clients/${card["_id"]}_${card['clientId']['_id']}_${card["clientId"]["name"]}`}>
+                        <Link
+                          href={`/admin/clients/${card["_id"]}_${card["clientId"]["_id"]}`}
+                        >
                           <Eye className="text-blue-600 hover:text-blue-200 scale-75" />
                         </Link>
                       </TableCell>

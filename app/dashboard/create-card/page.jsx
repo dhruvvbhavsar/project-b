@@ -1,10 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import { Nav } from "@/components/ui/nav";
 import { SideBar } from "@/components/ui/sidebar";
 import { ArrowLeft, Edit, Heart } from "lucide-react";
 import { Insta } from "@/components/icons/insta";
-import Image from "next/image";
-import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import {
@@ -35,6 +33,7 @@ export default async function AddCard() {
   }
 
   const cookie = getCookie("id");
+  const name = getCookie("name");
 
   const router = useRouter();
   const [paymentStatus, setPaymentStatus] = useState("success"); // Payment status state variable
@@ -45,6 +44,8 @@ export default async function AddCard() {
     url: results["taskUrl"],
     target: results["target"],
   };
+
+  const imageUrl = await fetchImageUrl(card.url);
 
   async function createCard() {
     console.log(card);
@@ -58,7 +59,7 @@ export default async function AddCard() {
         body: JSON.stringify({
           platform: card.platform,
           activity: card.activity,
-          imageUrl: "https://unsplash.com/photos/LsMxdW1zWEQ",
+          imageUrl: imageUrl,
           taskUrl: card.url,
           goal: parseInt(card.target),
           budget: parseInt(card.budget),
@@ -77,7 +78,6 @@ export default async function AddCard() {
     // Simulating payment process by using setTimeout
     setPaymentStatus("process"); // Update payment status to "process"
     await displayRazorpay();
-    localStorage.clear()
   };
 
   function loadScript(src) {
@@ -187,13 +187,16 @@ export default async function AddCard() {
         <SideBar />
 
         <div className="grid grid-cols-1 pb-24 sm:pb-0 sm:grid-cols-3">
-          <section className="sm:ml-[120px] col-span-2 sm:mt-12 mt-20 mx-4 min-h-[541px] max-h-[561px] min-w-[328px] max-w-[549px] text-white">
+          <section className="sm:ml-[120px] col-span-2 sm:mt-14 mt-20 mx-4 min-h-[541px] max-h-[561px] min-w-[328px] max-w-[549px] text-white">
             <p className="text-base sm:text-2xl flex flex-col items-center  gap-4">
               <ArrowLeft className="block sm:hidden self-start" />
               Yippiee! You have created a card.... 🎉
             </p>
             <div className="mt-5 sm:mt-8 border  border-[#2D3234] relative  flex flex-col items-center rounded-[6px] mb-[55px] pb-8">
-              <Edit className="absolute top-4 right-4" />
+              <Edit
+                onClick={() => router.back()}
+                className="absolute top-4 right-4"
+              />
               <p className="text-[#ba44c5] text-sm text-center sm:text-lg mt-12">
                 Take a look at how you card will appear in the app.
               </p>
@@ -206,15 +209,15 @@ export default async function AddCard() {
                   force={0.4}
                   duration={3000}
                 />
-                <Image
-                  src={picture}
-                  className="rounded-[16px]"
+                <img
+                  src={imageUrl}
+                  className="rounded-[16px] h-full object-cover"
                   alt="card picture"
                 />
                 <div className="absolute bottom-4 left-4 flex flex-col gap-1 justify-start">
-                  <p className="text-base font-semibold">Ritwika Khurana</p>
+                  <p className="text-base font-semibold">{name}</p>
                   <p className="text-xs flex items-center gap-1">
-                    <Insta className={"w-4 h-4"} /> Reel on Instagram
+                    <Insta className={"w-4 h-4"} /> {card.activity} on {card.platform}
                   </p>
                 </div>
                 <div className="rounded-full w-12 h-12 like-button grid place-content-around absolute right-4 bottom-4 ">
@@ -313,16 +316,23 @@ export default async function AddCard() {
   );
 }
 
-// async function fetchImageUrl(url) {
-//   const obj = {
-//     taskUrl: url.toString()
-//   }
+async function fetchImageUrl(url) {
+  const obj = {
+    taskUrl: url,
+  };
 
-//   const response = await fetch('https://project-b-olive.vercel.app/api/image-url', {
-//     method: 'POST',
-//     body: JSON.stringify(obj)
-//   })
-//   const data = await response.json()
-//   console.log(data)
-//   return data["data"]["imageUrl"]
-// }
+  const response = await fetch(
+    "https://project-b-olive.vercel.app/api/image-url",
+    {
+      method: "POST",
+      body: JSON.stringify(obj),
+      headers: {
+        "Content-Type": " application/json",
+      },
+      cache: "no-store",
+    }
+  );
+  const data = await response.json();
+  console.log(data);
+  return data[0]["data"]["imageUrl"];
+}

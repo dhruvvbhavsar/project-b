@@ -13,6 +13,8 @@ type Card = {
   current: number;
   goal: number;
   budget: number;
+  imageUrl: string;
+  status: string;
 };
 
 export default async function Dashboard() {
@@ -72,8 +74,7 @@ export default async function Dashboard() {
                     activity={card.activity}
                     current={card.current}
                     goal={card.goal}
-                    budget={card.budget}
-                  />
+                    budget={card.budget} imageUrl={card.imageUrl} status={card.status}                 />
                 ))
               )}
             </div>
@@ -106,6 +107,8 @@ async function fetchCards(id: any) {
       current: card.current,
       goal: card.goal,
       budget: card.budget,
+      imageUrl: card.imageUrl,
+      status: card.status,
     };
   });
   console.log(cardProps);

@@ -29,11 +29,11 @@ export function Navpop() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60 z-10 navpop mr-12 mt-3 p-0">
         <DropdownMenuGroup>
-        <DropdownMenuItem className="focus:bg-[#191E1F] h-12 text-white" onClick={() => router.push('/my-account')}>
+        <DropdownMenuItem className="focus:bg-[#191E1F] h-12 text-white" onClick={() => router.push('/user/my-account')}>
             <User2 className="mr-2 h-4 w-4" />
             <span>My Account</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="focus:bg-[#191E1F] h-12 text-white" >
+          <DropdownMenuItem className="focus:bg-[#191E1F] h-12 text-white" onClick={() => router.push('/user/transactions')} >
             <Wallet className="mr-2 h-4 w-4" />
             <span>Transactions</span>
           </DropdownMenuItem>

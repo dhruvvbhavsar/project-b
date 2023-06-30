@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Like } from "@/components/icons/like";
 import Image from "next/image";
 import picture from "@/components/icons/unsplash_LsMxdW1zWEQ.png";
@@ -30,8 +31,8 @@ export default async function TransactionCard(card: TransactionCard) {
           </div>
           <section className="bg-[#181D1F] w-full h-2/3 mt-2 p-4 flex rounded-[6px]">
             <div className="flex rounded-md  flex-col text-white relative">
-              <Image
-                src={picture}
+              <img
+                src={card.imageUrl}
                 className="imgg object-cover h-full w-48 sm:w-28 rounded-md"
                 alt="card picture"
               />

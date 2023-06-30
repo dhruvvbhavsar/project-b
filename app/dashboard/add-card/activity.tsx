@@ -32,62 +32,11 @@ interface ActivityProps {
 
 const platforms: Record<string, Framework[]> = {
   instagram: [
-    {
-      value: "comments",
-      label: "Comments",
-      icon: <MessageSquare className={"w-4 h-4"} />,
-    },
-    {
-      value: "followers",
-      label: "Followers",
-      icon: <UserPlus className={"w-4 h-4"} />,
-    },
-    {
-      value: "likes",
-      label: "Likes",
-      icon: <Heart className={"w-4 h-4"} />,
-    },
-  ],
-  facebook: [
-    {
-      value: "comments",
-      label: "Comments",
-      icon: <MessageSquare className={"w-4 h-4"} />,
-    },
-    {
-      value: "followers",
-      label: "Followers",
-      icon: <PlusSquare className={"w-4 h-4"} />,
-    },
-    {
-      value: "likes",
-      label: "Likes",
-      icon: <ThumbsUp className={"w-4 h-4"} />,
-    },
-  ],
-  youtube: [
-    {
-      value: "comments",
-      label: "Comments",
-      icon: <MessageSquare className={"w-4 h-4"} />,
-    },
-    {
-      value: "likes",
-      label: "Likes",
-      icon: <Heart className={"w-4 h-4"} />,
-    },
-    {
-      value: "subscribers",
-      label: "Subscribers",
-      icon: <Bell className={"w-4 h-4"} />,
-    },
-  ],
-  twitter: [
-    {
-      value: "comments",
-      label: "Comments",
-      icon: <MessageCircle className={"w-4 h-4"} />,
-    },
+    // {
+    //   value: "comments",
+    //   label: "Comments",
+    //   icon: <MessageSquare className={"w-4 h-4"} />,
+    // },
     {
       value: "followers",
       label: "Followers",
@@ -98,12 +47,63 @@ const platforms: Record<string, Framework[]> = {
       label: "Likes",
       icon: <Heart className={"w-4 h-4"} />,
     },
-    {
-      value: "retweets",
-      label: "Retweets",
-      icon: <Repeat className={"w-4 h-4"} />,
-    },
   ],
+  // facebook: [
+  //   {
+  //     value: "comments",
+  //     label: "Comments",
+  //     icon: <MessageSquare className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "followers",
+  //     label: "Followers",
+  //     icon: <PlusSquare className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "likes",
+  //     label: "Likes",
+  //     icon: <ThumbsUp className={"w-4 h-4"} />,
+  //   },
+  // ],
+  // youtube: [
+  //   {
+  //     value: "comments",
+  //     label: "Comments",
+  //     icon: <MessageSquare className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "likes",
+  //     label: "Likes",
+  //     icon: <Heart className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "subscribers",
+  //     label: "Subscribers",
+  //     icon: <Bell className={"w-4 h-4"} />,
+  //   },
+  // ],
+  // twitter: [
+  //   {
+  //     value: "comments",
+  //     label: "Comments",
+  //     icon: <MessageCircle className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "followers",
+  //     label: "Followers",
+  //     icon: <UserPlus className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "likes",
+  //     label: "Likes",
+  //     icon: <Heart className={"w-4 h-4"} />,
+  //   },
+  //   {
+  //     value: "retweets",
+  //     label: "Retweets",
+  //     icon: <Repeat className={"w-4 h-4"} />,
+  //   },
+  // ],
 };
 
 export function Activity({ platform, onChange }: ActivityProps) {
