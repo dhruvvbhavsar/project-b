@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-'use client'
 import {
   Table,
   TableBody,
@@ -13,10 +12,11 @@ import AdminSidebar from "../adminSidebar";
 import Search from "./search";
 import { useRouter } from "next/navigation";
 import { hasCookie } from "cookies-next";
+import { cookies } from "next/headers";
 
 export default async function Admin() {
   const router = useRouter();
-  if (!hasCookie("admin")) {
+  if (!cookies().has("admin")) {
     router.push("/admin");
   }
   const today = new Date().toDateString();

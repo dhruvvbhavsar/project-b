@@ -1,15 +1,8 @@
-"use client"
-import { useRouter } from "next/navigation";
 import AdminSidebar from "../../adminSidebar";
 import Cage from "../[slug]/card";
-import { hasCookie } from "cookies-next";
 
 export default async function Page() {
   const pendingCards = await fetchCardDetails();
-  const router = useRouter();
-  if (!hasCookie("admin")) {
-    router.push("/admin");
-  }
   return (
     <>
       <main className="flex relative min-h-screen w-full bg-[#181d1f]">

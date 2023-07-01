@@ -13,8 +13,8 @@ import { Camera } from "lucide-react";
 import { useState } from "react";
 
 export default function MyAccount() {
-  const clientNumber = getCookie("mobile").valueOf();
-  const id = getCookie("id").valueOf();
+  const clientNumber = getCookie("mobile")
+  const id = getCookie("id")
   const [name, setName] = useState(getCookie("name"));
   const [newMobileNumber, setNewMobileNumber] = useState(clientNumber);
   const [selectedImage, setSelectedImage] = useState(null);
