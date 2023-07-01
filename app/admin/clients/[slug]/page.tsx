@@ -1,16 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-"use client";
-import { ArrowLeft } from "lucide-react";
 import AdminSidebar from "../../adminSidebar";
 import Cage from "./card";
-import { hasCookie } from "cookies-next";
-import { useSearchParams,useRouter } from "next/navigation";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-
-export default async function Paage({ params }: { params: { slug: string } }) {
-  const router = useRouter();
-  if (!hasCookie("admin")) {
-     router.push("/admin");
+export default async function Page({ params }: { params: { slug: string } }) {
+  if (!cookies().has("admin")) {
+    redirect("/admin");
   }
   const [taskId, clientId] = params.slug.split("_");
   const cards = await fetchCardDetails(taskId, clientId);
@@ -25,7 +21,7 @@ export default async function Paage({ params }: { params: { slug: string } }) {
           <div className="text-white mt-[70px] px-4 sm:px-10 mb-4">
             <h1 className="text-[22px]">Hello, Admin!</h1>
             <p className="mt-4 text-lg text-[#ba44c5] flex gap-2 items-center">
-              <ArrowLeft className="text-white" />
+              {/* <ArrowLeft className="text-white" /> */}
               Client Requirements
             </p>
           </div>

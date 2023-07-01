@@ -22,6 +22,7 @@ type AdminCard = {
 export default function Cage(card: AdminCard) {
   const [isLoading, setIsLoading] = useState(false);
   const stat = card.status
+  const cardId = card.taskId
   const [cardStatus, setCardStatus] = useState(stat)
   return (
     <>
@@ -63,7 +64,7 @@ export default function Cage(card: AdminCard) {
                 <Button
                   onClick={async () => {
                     setIsLoading(true);
-                    const status = await sendStatus("success", card.taskId);
+                    const status = await sendStatus("success", cardId);
                     console.log(status)
                     if (status) {
                       console.log(status)
@@ -79,7 +80,7 @@ export default function Cage(card: AdminCard) {
                 <Button
                   onClick={async () => {
                     setIsLoading(true);
-                    const status = await sendStatus("rejected", card.taskId);
+                    const status = await sendStatus("rejected", cardId);
                     console.log(status)
                     if (status === "rejected") {
                       setIsLoading(false);
@@ -170,14 +171,14 @@ async function sendStatus(status: string, taskId: string) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-
       },
       cache: "no-store",
       body: JSON.stringify({
-        status: status,
+        status: status.toString(),
       }),
     }
   );
   const data = await response.json();
+  console.log(data)
   return data[0]["data"]["status"];
 }
