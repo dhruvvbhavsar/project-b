@@ -105,7 +105,7 @@ export default async function AddCard() {
     }
 
     const result = await fetch(
-      `${process.env.API_ENDPOINT}/api/checkOut`,
+      `https://project-b-olive.vercel.app/api/checkOut`,
       {
         method: "POST",
         headers: {
@@ -138,7 +138,7 @@ export default async function AddCard() {
         };
 
         const result = await fetch(
-          `${process.env.API_ENDPOINT}/api/paymentVerification`,
+          `https://project-b-olive.vercel.app/api/paymentVerification`,
           {
             method: "POST",
             headers: {
