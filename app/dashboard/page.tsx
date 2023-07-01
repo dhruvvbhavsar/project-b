@@ -117,7 +117,7 @@ async function fetchCards(id: any) {
 
 async function fetchOverall(id: any) {
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/client/${id}/overall`,
+    `https://project-b-olive.vercel.app/api/client/${id}/overall`,
     {
       method: "GET",
       headers: {

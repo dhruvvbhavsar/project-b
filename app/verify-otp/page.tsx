@@ -75,7 +75,7 @@ export default function Reg() {
 
     if (response.ok) {
       const isExist = await fetch(
-        `${process.env.API_ENDPOINT}/api/check-client`,
+        `https://project-b-olive.vercel.app/api/check-client`,
         {
           cache: "no-store",
           method: "POST",
