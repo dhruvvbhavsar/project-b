@@ -10,14 +10,12 @@ import {
 import AdminOveriew from "./adminOverview";
 import AdminSidebar from "../adminSidebar";
 import Search from "./search";
-import { useRouter } from "next/navigation";
-import { hasCookie } from "cookies-next";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Admin() {
-  const router = useRouter();
   if (!cookies().has("admin")) {
-    router.push("/admin");
+    redirect("/admin");
   }
   const today = new Date().toDateString();
   const allCards = await fetchAllUsers();
