@@ -22,7 +22,7 @@ export default function Reg() {
       number: data.get("mobile")?.toString(),
     };
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/admin/login`,
+      "https://project-b-olive.vercel.app/api/admin/login",
       {
         cache: "no-store",
         method: "POST",

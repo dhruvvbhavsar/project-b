@@ -95,7 +95,7 @@ export default async function Admin() {
 
 async function fetchAllCards() {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/admin/client/all-cards`,
+    "https://project-b-olive.vercel.app/api/admin/client/all-cards",
     {
       method: "GET",
       headers: {
