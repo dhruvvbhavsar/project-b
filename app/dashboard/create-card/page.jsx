@@ -50,7 +50,7 @@ export default async function AddCard() {
   async function createCard() {
     console.log(card);
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/${cookie}/create-card",
+      `https://project-b-olive.vercel.app/api/${cookie}/create-card`,
       {
         method: "POST",
         headers: {
