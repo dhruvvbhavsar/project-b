@@ -3,13 +3,14 @@
 import { ArrowLeft } from "lucide-react";
 import AdminSidebar from "../../adminSidebar";
 import Cage from "./card";
-import { useRouter } from "next/navigation";
 import { hasCookie } from "cookies-next";
+import { useSearchParams,useRouter } from "next/navigation";
 
-export default async function Page({ params }: { params: { slug: string } }) {
+
+export default async function Paage({ params }: { params: { slug: string } }) {
   const router = useRouter();
   if (!hasCookie("admin")) {
-    router.push("/admin");
+     router.push("/admin");
   }
   const [taskId, clientId] = params.slug.split("_");
   const cards = await fetchCardDetails(taskId, clientId);

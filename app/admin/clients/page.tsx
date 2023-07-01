@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-"use client";
 import {
   Table,
   TableBody,
@@ -14,13 +13,12 @@ import AdminSidebar from "../adminSidebar";
 import Search from "./search";
 import { Check, CircleDashed, Eye, X } from "lucide-react";
 import Link from "next/link";
-import { hasCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Admin() {
-  const router = useRouter();
-  if (!hasCookie("admin")) {
-    router.push("/admin");
+  if (!cookies().has("admin")) {
+    redirect("/admin");
   }
   const today = new Date().toDateString();
   const allCards = await fetchAllCards();
