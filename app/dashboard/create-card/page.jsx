@@ -322,7 +322,7 @@ async function fetchImageUrl(url) {
   };
 
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/image-url`,
+    `https://project-b-olive.vercel.app/api/image-url`,
     {
       method: "POST",
       body: JSON.stringify(obj),
