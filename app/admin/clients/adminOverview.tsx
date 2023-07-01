@@ -15,7 +15,7 @@ export default async function AdminOveriew() {
             Total Clients
           </p>
           <div className="space-y-1 pb-3">
-            <p className="text-lg sm:text-2xl glow ">₹{overview.totalClients}</p>
+            <p className="text-lg sm:text-2xl glow ">{overview.totalClients}</p>
             <p className="text-sm text-green-500">+10</p>
           </div>
         </div>
