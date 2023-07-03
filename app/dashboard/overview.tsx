@@ -1,6 +1,4 @@
 import { Progress } from "@/components/ui/progress";
-import ProgressComponent from "./progress";
-
 type Overview = {
   budget: number;
   balance: number;
