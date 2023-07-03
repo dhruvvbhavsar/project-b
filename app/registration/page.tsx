@@ -34,7 +34,7 @@ export default async function Reg() {
     // console.log(clientName.name)
     // console.log(id)
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/client/register`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/client/register`,
       {
         method: "POST",
         headers: {

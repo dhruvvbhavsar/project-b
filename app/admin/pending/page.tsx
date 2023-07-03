@@ -1,8 +1,10 @@
-import AdminSidebar from "../../adminSidebar";
-import Cage from "../[slug]/card";
+/* eslint-disable react/jsx-key */
+import AdminSidebar from "../adminSidebar";
+import Cage from "../clients/[slug]/card";
 
 export default async function Page() {
   const pendingCards = await fetchCardDetails();
+  console.log(pendingCards);
   return (
     <>
       <main className="flex relative min-h-screen w-full bg-[#181d1f]">
@@ -17,18 +19,20 @@ export default async function Page() {
           </div>
           <div className="space-y-6 py-4">
             {pendingCards.map((card: any) => {
-              <Cage
-                platform={card["platform"]}
-                activity={card["activity"]}
-                taskUrl={card["cardUrl"]}
-                goal={card["goal"]}
-                budget={card["budget"]}
-                imageUrl={card["imageUrl"]}
-                status={card["status"]}
-                totalSpent={card['totalSpent']}
-                name={card["clientId"]["name"]}
-                taskId={card["_id"]}
-              />;
+              return (
+                <Cage
+                  platform={card["platform"]}
+                  activity={card["activity"]}
+                  taskUrl={card["taskUrl"]}
+                  goal={card["goal"]}
+                  budget={card["budget"]}
+                  imageUrl={card["imageUrl"]}
+                  status={card["status"]}
+                  totalSpent={card["totalSpent"]}
+                  name={card["clientId"]["name"]}
+                  taskId={card["_id"]}
+                />
+              );
             })}
           </div>
         </div>
@@ -39,10 +43,10 @@ export default async function Page() {
 
 async function fetchCardDetails() {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/admin/client/cards/pending",
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/cards/pending`,
     {
       method: "GET",
-      cache: 'no-store'
+      cache: "no-store",
     }
   );
 

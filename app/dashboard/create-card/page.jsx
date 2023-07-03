@@ -50,7 +50,7 @@ export default async function AddCard() {
   async function createCard() {
     console.log(card);
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/${cookie}/create-card`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/${cookie}/create-card`,
       {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ export default async function AddCard() {
     }
 
     const result = await fetch(
-      `https://project-b-olive.vercel.app/api/checkOut`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/checkOut`,
       {
         method: "POST",
         headers: {
@@ -121,7 +121,7 @@ export default async function AddCard() {
     const ress = await result.json();
 
     const options = {
-      key: "rzp_test_0m2WFdxXP6eco1", // Enter the Key ID generated from the Dashboard
+      key:  `${process.env.NEXT_PUBLIC_RAZORPAY_SECRET}`, // Enter the Key ID generated from the Dashboard
       amount: ress[0]["data"]["amount"],
       currency: ress[0]["data"]["currency"],
       name: "Project B",
@@ -138,7 +138,7 @@ export default async function AddCard() {
         };
 
         const result = await fetch(
-          `https://project-b-olive.vercel.app/api/paymentVerification`,
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/paymentVerification`,
           {
             method: "POST",
             headers: {
@@ -322,7 +322,7 @@ async function fetchImageUrl(url) {
   };
 
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/image-url`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/image-url`,
     {
       method: "POST",
       body: JSON.stringify(obj),

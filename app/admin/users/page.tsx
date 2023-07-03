@@ -75,7 +75,7 @@ export default async function Admin() {
 
 async function fetchAllUsers() {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/admin/user/all-users`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/user/all-users`,
     {
       method: "GET",
       headers: {
