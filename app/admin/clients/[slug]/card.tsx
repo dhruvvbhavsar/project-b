@@ -52,7 +52,7 @@ export default function Cage(card: AdminCard) {
                   cardStatus === "success" ? "text-[#3FE025]" : "text-red-500"
                 }`}
               >
-                {cardStatus === "success" ? "Card Approved" : "Card Failed"}
+                {cardStatus === "success" ? "Card Approved" : "Card Rejected"}
               </p>
             </div>
           )}
@@ -82,7 +82,7 @@ export default function Cage(card: AdminCard) {
                     setIsLoading(true);
                     const status = await sendStatus("rejected", cardId);
                     console.log(status)
-                    if (status === "rejected") {
+                    if (status === "success") {
                       setIsLoading(false);
                       setCardStatus(status)
                       console.log(cardStatus)
@@ -164,18 +164,19 @@ export default function Cage(card: AdminCard) {
   );
 }
 
-async function sendStatus(status: string, taskId: string) {
+async function sendStatus(setStatus: string, taskId: string) {
+  const obj = {
+    status: setStatus,
+  }
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       cache: "no-store",
-      body: JSON.stringify({
-        status: status.toString(),
-      }),
+      body: JSON.stringify(obj),
     }
   );
   const data = await response.json();

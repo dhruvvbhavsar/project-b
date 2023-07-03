@@ -95,7 +95,7 @@ export default async function Admin() {
 
 async function fetchAllCards() {
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/client/all-cards`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/all-cards`,
     {
       method: "GET",
       headers: {

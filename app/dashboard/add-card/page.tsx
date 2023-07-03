@@ -29,7 +29,7 @@ export default function AddCard() {
 
   async function handleClick() {
     setisClicked(!isClicked);
-    const apiUrl = `${process.env.API_ENDPOINT}/api/client/get`;
+    const apiUrl = `https://api-project-b.vercel.app/api/client/get-budget`;
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
