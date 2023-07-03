@@ -32,7 +32,7 @@ export default function AdminSidebar() {
           <Link href={"/admin/users"}>
             <p className="flex items-center hover:text-xl">Users</p>
           </Link>
-          <Link href={"/admin/clients/pending"}>
+          <Link href={"/admin/pending"}>
             <p className="flex items-center hover:text-xl">Pending</p>
           </Link>
         </div>

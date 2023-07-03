@@ -35,7 +35,7 @@ export default function Reg() {
     };
     // await kv.set("number", data.get("mobile")?.toString());
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/get-otp`,
+      `${process.env.API_ENDPOINT}/api/get-otp`,
       {
         cache: "no-store",
         method: "POST",
@@ -59,7 +59,7 @@ export default function Reg() {
       otp: data.get("otp")?.toString(),
     };
     const response = await fetch(
-      "https://project-b-olive.vercel.app/api/verify-otp",
+      `${process.env.API_ENDPOINT}/api/verify-otp`,
       {
         cache: "no-store",
         method: "POST",
@@ -75,7 +75,7 @@ export default function Reg() {
 
     if (response.ok) {
       const isExist = await fetch(
-        `https://project-b-olive.vercel.app/api/check-client`,
+        `${process.env.API_ENDPOINT}/api/check-client`,
         {
           cache: "no-store",
           method: "POST",

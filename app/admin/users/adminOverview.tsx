@@ -59,7 +59,7 @@ export default async function AdminOveriew() {
 
 async function fetchUserOverview() {
   const response = await fetch(
-    "https://project-b-olive.vercel.app/api/admin/user/overall",
+    `${process.env.API_ENDPOINT}/api/admin/user/overall`,
     {
       method: "GET",
       headers: {

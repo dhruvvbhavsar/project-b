@@ -98,7 +98,7 @@ export default function MyAccount() {
 
     try {
       const response = await fetch(
-        `https://project-b-olive.vercel.app/api/client/${id}/edit-profile`,
+        `${process.env.API_ENDPOINT}/api/client/${id}/edit-profile`,
         {
           method: "PUT",
           headers: {

@@ -48,7 +48,7 @@ export default async function Transactions() {
 
 async function getTransactions(id: any) {
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/client/${id}/transactions`,
+    `${process.env.API_ENDPOINT}/api/client/${id}/transactions`,
     {
       method: "GET",
       headers: {

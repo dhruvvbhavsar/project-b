@@ -50,7 +50,7 @@ export default async function AddCard() {
   async function createCard() {
     console.log(card);
     const response = await fetch(
-      `https://project-b-olive.vercel.app/api/${cookie}/create-card`,
+      `${process.env.API_ENDPOINT}/api/${cookie}/create-card`,
       {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ export default async function AddCard() {
     }
 
     const result = await fetch(
-      `https://project-b-olive.vercel.app/api/checkOut`,
+      `${process.env.API_ENDPOINT}/api/checkOut`,
       {
         method: "POST",
         headers: {
@@ -138,7 +138,7 @@ export default async function AddCard() {
         };
 
         const result = await fetch(
-          `https://project-b-olive.vercel.app/api/paymentVerification`,
+          `${process.env.API_ENDPOINT}/api/paymentVerification`,
           {
             method: "POST",
             headers: {
@@ -322,7 +322,7 @@ async function fetchImageUrl(url) {
   };
 
   const response = await fetch(
-    `https://project-b-olive.vercel.app/api/image-url`,
+    `${process.env.API_ENDPOINT}/api/image-url`,
     {
       method: "POST",
       body: JSON.stringify(obj),
