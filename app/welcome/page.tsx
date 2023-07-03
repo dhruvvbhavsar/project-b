@@ -27,7 +27,7 @@ export default function Reg() {
       signature: ""
     };
     const response = await fetch(
-      `${process.env.API_ENDPOINT}/api/get-otp`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/get-otp`,
       {
         cache: "no-store",
         method: "POST",

@@ -59,7 +59,7 @@ export default async function AdminOveriew() {
 
 async function fetchUserOverview() {
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/user/overall`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/user/overall`,
     {
       method: "GET",
       headers: {

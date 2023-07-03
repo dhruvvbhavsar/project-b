@@ -169,7 +169,7 @@ async function sendStatus(setStatus: string, taskId: string) {
     status: setStatus,
   }
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
     {
       method: "PUT",
       headers: {

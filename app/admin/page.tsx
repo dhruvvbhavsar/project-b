@@ -22,7 +22,7 @@ export default function Reg() {
       number: data.get("mobile")?.toString(),
     };
     const response = await fetch(
-      `${process.env.API_ENDPOINT}/api/admin/login`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/login`,
       {
         cache: "no-store",
         method: "POST",

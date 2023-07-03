@@ -43,7 +43,7 @@ export default async function Page() {
 
 async function fetchCardDetails() {
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/client/cards/pending`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/cards/pending`,
     {
       method: "GET",
       cache: "no-store",

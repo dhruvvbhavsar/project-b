@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 async function fetchCardDetails(taskId: string, clientId: string) {
   const response = await fetch(
-    `${process.env.API_ENDPOINT}/api/admin/client/${clientId}/cards`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/${clientId}/cards`,
     {
       method: "POST",
       headers: {

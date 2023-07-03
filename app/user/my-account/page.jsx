@@ -45,7 +45,7 @@ export default function MyAccount() {
       signature: "",
     };
     const response = await fetch(
-      `${process.env.API_ENDPOINT}/api/get-otp`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/get-otp`,
       {
         cache: "no-store",
         method: "POST",
@@ -69,7 +69,7 @@ export default function MyAccount() {
       otp: otp,
     };
     const response = await fetch(
-      `${process.env.API_ENDPOINT}/api/verify-otp`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/verify-otp`,
       {
         cache: "no-store",
         method: "POST",
@@ -98,7 +98,7 @@ export default function MyAccount() {
 
     try {
       const response = await fetch(
-        `${process.env.API_ENDPOINT}/api/client/${id}/edit-profile`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/client/${id}/edit-profile`,
         {
           method: "PUT",
           headers: {
