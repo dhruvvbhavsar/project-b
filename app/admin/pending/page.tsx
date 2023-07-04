@@ -18,22 +18,28 @@ export default async function Page() {
             </p>
           </div>
           <div className="space-y-6 py-4">
-            {pendingCards.map((card: any) => {
-              return (
-                <Cage
-                  platform={card["platform"]}
-                  activity={card["activity"]}
-                  taskUrl={card["taskUrl"]}
-                  goal={card["goal"]}
-                  budget={card["budget"]}
-                  imageUrl={card["imageUrl"]}
-                  status={card["status"]}
-                  totalSpent={card["totalSpent"]}
-                  name={card["clientId"]["name"]}
-                  taskId={card["_id"]}
-                />
-              );
-            })}
+            {pendingCards.length === 0 ? (
+              <p className="text-center text-2xl mt-8 text-white glow">
+                No new cards available.
+              </p>
+            ) : (
+              pendingCards.map((card: any) => {
+                return (
+                  <Cage
+                    platform={card["platform"]}
+                    activity={card["activity"]}
+                    taskUrl={card["taskUrl"]}
+                    goal={card["goal"]}
+                    budget={card["budget"]}
+                    imageUrl={card["imageUrl"]}
+                    status={card["status"]}
+                    totalSpent={card["totalSpent"]}
+                    name={card["clientId"]["name"]}
+                    taskId={card["_id"]}
+                  />
+                );
+              })
+            )}
           </div>
         </div>
       </main>
