@@ -120,7 +120,7 @@
   .mobile-button {
     position: fixed;
     z-index: 10;
-    bottom: 16px;
+    bottom: 25px;
     right: 12px;
   }
 }

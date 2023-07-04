@@ -5,6 +5,7 @@ import { Socials } from "./socials";
 import { SideBar } from "@/components/ui/sidebar";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import DashboardCards from "./dashboardCards";
 
 type Card = {
   clientId: string;
@@ -60,24 +61,7 @@ export default async function Dashboard() {
               </div>
             </div>
 
-            <div className="w-full flex flex-col gap-8 mt-4">
-              {cardProps.length === 0 ? (
-                <p className="text-center text-2xl mt-8 glow">
-                  No new cards available.
-                </p>
-              ) : (
-                cardProps.map((card: Card) => (
-                  <Card
-                    key={card.clientId}
-                    clientId={card.clientId}
-                    platform={card.platform}
-                    activity={card.activity}
-                    current={card.current}
-                    goal={card.goal}
-                    budget={card.budget} imageUrl={card.imageUrl} status={card.status}                 />
-                ))
-              )}
-            </div>
+            <DashboardCards cardProps={cardProps} />
           </div>
         </div>
       </main>

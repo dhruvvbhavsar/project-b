@@ -3,6 +3,7 @@ import { Insta } from "@/components/icons/insta";
 import { Like } from "@/components/icons/like";
 import { Progress } from "@/components/ui/progress";
 
+
 type Card = {
   clientId: string;
   platform: string;
@@ -42,7 +43,7 @@ export const Card = (card: Card) => {
       </div>
       <div className="flex mt-4 items-center gap-3">
         <Insta className={"w-8 h-8"} />
-        <p className="text-lg">
+        <p className="text-base sm:text-lg">
           {card.platform.charAt(0).toUpperCase() + card.platform.slice(1)}{" "}
           {card.activity}
         </p>

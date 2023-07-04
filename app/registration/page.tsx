@@ -68,6 +68,7 @@ export default async function Reg() {
         name: "name",
         value: clientName,
         path: "/",
+        maxAge: expirationDate.getTime() - currentDate.getTime(),
       });
 
       cookies().set({
