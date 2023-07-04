@@ -8,7 +8,7 @@ export default function AddCardButton() {
         router.push("/dashboard/add-card")
     }
   return (
-    <Button onClick={handleClick} className="bg-[#ba44c5]  hover:bg-[#90049D] h-12 mobile-button">
+    <Button onClick={handleClick} className="bg-[#ba44c5] hover:bg-[#90049D] h-12 mobile-button">
       <Plus className="mr-3" /> Add New Card
     </Button>
   );
