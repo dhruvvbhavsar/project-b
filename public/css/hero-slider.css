@@ -52,16 +52,16 @@ Hero Slider - by CodyHouse.co
   left: 0;
   width: 100%;
   -webkit-transform: translateY(-100%);
-      -ms-transform: translateY(-100%);
-          transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .cd-header__nav ul.cd-is-visible {
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
   -webkit-transform: translateY(50px);
-      -ms-transform: translateY(50px);
-          transform: translateY(50px);
+  -ms-transform: translateY(50px);
+  transform: translateY(50px);
 }
 
 .cd-header__nav a {
@@ -81,23 +81,27 @@ Hero Slider - by CodyHouse.co
     height: auto;
     background: none;
   }
+
   .cd-header__nav ul {
     position: static;
     width: auto;
     -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-            transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
     line-height: 70px;
   }
+
   .cd-header__nav ul.cd-is-visible {
     -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-            transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
   }
+
   .cd-header__nav li {
     display: inline-block;
     margin-left: 1em;
   }
+
   .cd-header__nav a {
     display: inline-block;
     height: auto;
@@ -128,11 +132,11 @@ Hero Slider - by CodyHouse.co
   height: 100%;
   /* Force Hardware Acceleration */
   -webkit-transform: translateZ(0px);
-          transform: translateZ(0px);
+  transform: translateZ(0px);
   will-change: transform;
   -webkit-transform: translateX(100%);
-      -ms-transform: translateX(100%);
-          transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -140,15 +144,15 @@ Hero Slider - by CodyHouse.co
 .cd-hero__slide.cd-hero__slide--selected {
   /* this is the visible slide */
   -webkit-transform: translateX(0);
-      -ms-transform: translateX(0);
-          transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
 }
 
 .cd-hero__slide.cd-hero__slide--move-left {
   /* slide hidden on the left */
   -webkit-transform: translateX(-100%);
-      -ms-transform: translateX(-100%);
-          transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .cd-hero__slide.cd-hero__slide--is-moving,
@@ -182,7 +186,29 @@ Hero Slider - by CodyHouse.co
 .cd-hero__slide:first-of-type {
   background-color: #BA44C5;
   background-image: url(../images/Intro1.png);
+  /* height: 700px; */
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
+@media (max-width: 768px) {
+  .cd-hero__content--half-width {
+    min-height: 100vh;
+    padding-bottom: 50px;
+    /* width: 100%; */
+    /* Adjust the height as needed */
+  }
+}
+
+/* .cd-hero__slide:first-of-type {
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+} */
 
 .cd-hero__slide:nth-of-type(2) {
   background-color: #BA44C5;
@@ -204,6 +230,8 @@ Hero Slider - by CodyHouse.co
   background-image: url(../uploads/slider-05.jpg);
 }
 
+
+
 .cd-hero__content.cd-hero__content--full-width,
 .cd-hero__content.cd-hero__content--half-width {
   position: absolute;
@@ -212,38 +240,49 @@ Hero Slider - by CodyHouse.co
   z-index: 1;
   left: 0;
   top: 0;
-  /* this padding is used to align the text */
-  padding-top: 100px;
   text-align: center;
-  /* Force Hardware Acceleration */
   -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  transform: translateZ(0);
   will-change: transform;
 }
 
-.cd-hero__content h2, .cd-hero__content p, .cd-hero__btn, .cd-hero__content--img img {
-  /* Force Hardware Acceleration */
+
+.cd-hero__content h2,
+.cd-hero__content p,
+.cd-hero__btn,
+.cd-hero__content--img img {
   -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  transform: translateZ(0);
   will-change: transform;
 }
 
-.cd-hero__content.cd-hero__content--img {
-  /* hide image on mobile device */
-  display: none;
-}
 
 .cd-hero__content--img img {
   position: absolute;
   left: 50%;
-  top: 55%;
+  top: 50%;
   bottom: auto;
   right: auto;
   width: 60%;
   -webkit-transform: translateX(-50%) translateY(-50%);
-      -ms-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  max-width: 100%;
+  height: auto;
 }
+
+/* .cd-hero__content--img img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+} */
+
+
 
 .cd-hero__content.cd-hero__content--bg-video {
   /* hide video on mobile device */
@@ -270,11 +309,12 @@ Hero Slider - by CodyHouse.co
   bottom: auto;
   right: auto;
   -webkit-transform: translateX(-50%) translateY(-50%);
-      -ms-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
 }
 
-.cd-hero__content h2, .cd-hero__content p {
+.cd-hero__content h2,
+.cd-hero__content p {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   line-height: 1.2;
   margin: 0 auto 14px;
@@ -306,7 +346,7 @@ Hero Slider - by CodyHouse.co
   color: #ffffff;
   text-transform: uppercase;
   -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
@@ -323,50 +363,102 @@ Hero Slider - by CodyHouse.co
   background-color: #161a1e;
 }
 
+/* @media (min-width: 992px) {
+  .cd-hero__content--img1 {
+    display: none;
+  }
+} */
+.cd-hero__content--half-width {
+  order: 1;
+  flex-basis: 100%;
+}
+
+.cd-hero__content--img {
+  order: 2;
+  flex-basis: 100%;
+}
+
+@media (max-width: 767px) {
+  .cd-hero__content.cd-hero__content--half-width{
+    order: 2;
+    flex-basis: 50%;
+  }
+  .cd-hero__content--img {
+    display: block;
+    order: 1;
+    flex-basis: 50%;
+    padding-left: 425px;
+    padding-bottom: 100px;
+  }
+}
+
+
 @media only screen and (min-width: 768px) {
+
   .cd-hero__content.cd-hero__content--full-width,
   .cd-hero__content.cd-hero__content--half-width {
+    /* height: 1500px;
+    padding-top: 0px; */
     padding-top: 150px;
+    
   }
+
   .cd-hero__content.cd-hero__content--bg-video {
     display: block;
   }
+
   .cd-hero__content.cd-hero__content--half-width {
     width: 50%;
+    /* height: 1500px; */
   }
+
   .cd-hero__content.cd-hero__content--half-width:first-of-type {
     left: 5%;
   }
+
   .cd-hero__content.cd-hero__content--half-width:nth-of-type(2) {
     right: 5%;
     left: auto;
   }
+
   .cd-hero__content.cd-hero__content--img {
     display: block;
+    /* padding-left: 500px; */
   }
-  .cd-hero__content h2, .cd-hero__content p {
+
+
+
+  .cd-hero__content h2,
+  .cd-hero__content p {
     max-width: 520px;
   }
+
   .cd-hero__content h2 {
     font-size: 2.4em;
     font-weight: 500;
   }
+
   .cd-hero__btn {
     font-size: 18px;
   }
 }
 
 @media only screen and (min-width: 1170px) {
+
   .cd-hero__content.cd-hero__content--full-width,
   .cd-hero__content.cd-hero__content--half-width {
     padding-top: 220px;
   }
-  .cd-hero__content h2, .cd-hero__content p {
+
+  .cd-hero__content h2,
+  .cd-hero__content p {
     margin-bottom: 20px;
   }
+
   .cd-hero__content h2 {
     font-size: 2.2em;
   }
+
   .cd-hero__content p {
     font-size: 1.6rem;
   }
@@ -377,21 +469,24 @@ Hero Slider - by CodyHouse.co
   .cd-hero__content.cd-hero__content--half-width {
     opacity: 0;
     -webkit-transform: translateX(40px);
-        -ms-transform: translateX(40px);
-            transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
   }
+
   .cd-hero__slide--move-left .cd-hero__content.cd-hero__content--half-width {
     -webkit-transform: translateX(-40px);
-        -ms-transform: translateX(-40px);
-            transform: translateX(-40px);
+    -ms-transform: translateX(-40px);
+    transform: translateX(-40px);
   }
+
   .cd-hero__slide--selected .cd-hero__content.cd-hero__content--half-width {
     /* this is the visible slide */
     opacity: 1;
     -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-            transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
   }
+
   .cd-hero__slide--is-moving .cd-hero__content.cd-hero__content--half-width {
     /* this is the slide moving outside the viewport 
     wait for the end of the transition on the <li> parent before set opacity to 0 and translate to 40px/-40px */
@@ -400,6 +495,7 @@ Hero Slider - by CodyHouse.co
     transition: opacity 0s 0.5s, transform 0s 0.5s;
     transition: opacity 0s 0.5s, transform 0s 0.5s, -webkit-transform 0s 0.5s;
   }
+
   .cd-hero__slide--from-left.cd-hero__slide--selected .cd-hero__content.cd-hero__content--half-width:nth-of-type(2),
   .cd-hero__slide--from-right.cd-hero__slide--selected .cd-hero__content.cd-hero__content--half-width:first-of-type {
     /* this is the selected slide - different animation if it's entering from left or right */
@@ -408,6 +504,7 @@ Hero Slider - by CodyHouse.co
     transition: opacity 0.4s 0.2s, transform 0.5s 0.2s;
     transition: opacity 0.4s 0.2s, transform 0.5s 0.2s, -webkit-transform 0.5s 0.2s;
   }
+
   .cd-hero__slide--from-left.cd-hero__slide--selected .cd-hero__content.cd-hero__content--half-width:first-of-type,
   .cd-hero__slide--from-right.cd-hero__slide--selected .cd-hero__content.cd-hero__content--half-width:nth-of-type(2) {
     /* this is the selected slide - different animation if it's entering from left or right */
@@ -416,28 +513,32 @@ Hero Slider - by CodyHouse.co
     transition: opacity 0.4s 0.4s, transform 0.5s 0.4s;
     transition: opacity 0.4s 0.4s, transform 0.5s 0.4s, -webkit-transform 0.5s 0.4s;
   }
+
   .cd-hero__content--full-width h2,
   .cd-hero__content--full-width p,
   .cd-hero__content--full-width .cd-hero__btn {
     -webkit-transform: translateX(100px);
-        -ms-transform: translateX(100px);
-            transform: translateX(100px);
+    -ms-transform: translateX(100px);
+    transform: translateX(100px);
   }
+
   .cd-hero__slide--move-left .cd-hero__content--full-width h2,
   .cd-hero__slide--move-left .cd-hero__content--full-width p,
   .cd-hero__slide--move-left .cd-hero__content--full-width .cd-hero__btn {
     -webkit-transform: translateX(-100px);
-        -ms-transform: translateX(-100px);
-            transform: translateX(-100px);
+    -ms-transform: translateX(-100px);
+    transform: translateX(-100px);
   }
+
   .cd-hero__slide--selected .cd-hero__content--full-width h2,
   .cd-hero__slide--selected .cd-hero__content--full-width p,
   .cd-hero__slide--selected .cd-hero__content--full-width .cd-hero__btn {
     /* this is the visible slide */
     -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
-            transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
   }
+
   .cd-hero__slide--is-moving .cd-hero__content--full-width h2,
   .cd-hero__slide--is-moving .cd-hero__content--full-width p,
   .cd-hero__slide--is-moving .cd-hero__content--full-width .cd-hero__btn {
@@ -448,18 +549,21 @@ Hero Slider - by CodyHouse.co
     transition: transform 0s 0.5s;
     transition: transform 0s 0.5s, -webkit-transform 0s 0.5s;
   }
+
   .cd-hero__slide--selected h2 {
     -webkit-transition: -webkit-transform 0.5s 0.2s;
     transition: -webkit-transform 0.5s 0.2s;
     transition: transform 0.5s 0.2s;
     transition: transform 0.5s 0.2s, -webkit-transform 0.5s 0.2s;
   }
+
   .cd-hero__slide--selected p {
     -webkit-transition: -webkit-transform 0.5s 0.3s;
     transition: -webkit-transform 0.5s 0.3s;
     transition: transform 0.5s 0.3s;
     transition: transform 0.5s 0.3s, -webkit-transform 0.5s 0.3s;
   }
+
   .cd-hero__slide--selected .cd-hero__btn {
     -webkit-transition: background-color 0.2s 0s, -webkit-transform 0.5s 0.4s;
     transition: background-color 0.2s 0s, -webkit-transform 0.5s 0.4s;
@@ -477,7 +581,10 @@ Hero Slider - by CodyHouse.co
   text-align: center;
 }
 
-.cd-hero__nav nav, .cd-hero__nav ul, .cd-hero__nav li, .cd-hero__nav a {
+.cd-hero__nav nav,
+.cd-hero__nav ul,
+.cd-hero__nav li,
+.cd-hero__nav a {
   height: 100%;
 }
 
@@ -495,7 +602,7 @@ Hero Slider - by CodyHouse.co
   color: #2D3234;
   background-color: #ffffff;
   -webkit-box-shadow: inset 0 2px 0 currentColor;
-          box-shadow: inset 0 2px 0 currentColor;
+  box-shadow: inset 0 2px 0 currentColor;
   -webkit-transition: -webkit-transform 0.2s, -webkit-box-shadow 0.2s;
   transition: -webkit-transform 0.2s, -webkit-box-shadow 0.2s;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -504,26 +611,26 @@ Hero Slider - by CodyHouse.co
 
 .cd-hero__marker.cd-hero__marker--item-2 {
   -webkit-transform: translateX(100%);
-      -ms-transform: translateX(100%);
-          transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .cd-hero__marker.cd-hero__marker--item-3 {
   -webkit-transform: translateX(200%);
-      -ms-transform: translateX(200%);
-          transform: translateX(200%);
+  -ms-transform: translateX(200%);
+  transform: translateX(200%);
 }
 
 .cd-hero__marker.cd-hero__marker--item-4 {
   -webkit-transform: translateX(300%);
-      -ms-transform: translateX(300%);
-          transform: translateX(300%);
+  -ms-transform: translateX(300%);
+  transform: translateX(300%);
 }
 
 .cd-hero__marker.cd-hero__marker--item-5 {
   -webkit-transform: translateX(400%);
-      -ms-transform: translateX(400%);
-          transform: translateX(400%);
+  -ms-transform: translateX(400%);
+  transform: translateX(400%);
 }
 
 .cd-hero__nav ul::after {
@@ -605,16 +712,19 @@ Hero Slider - by CodyHouse.co
   .cd-hero__nav {
     height: 30px;
   }
+
   .cd-hero__marker,
   .cd-hero__nav li {
     width: 45px;
   }
+
   .cd-hero__nav a {
     padding-top: 0px;
     font-size: 1.1rem;
     text-transform: uppercase;
-	line-height: 34px;
+    line-height: 34px;
   }
+
   .cd-hero__nav a::before {
     top: 18px;
   }
@@ -639,6 +749,7 @@ Hero Slider - by CodyHouse.co
   .cd-main-content {
     padding: 3em 0;
   }
+
   .cd-main-content p {
     font-size: 1.6rem;
   }
