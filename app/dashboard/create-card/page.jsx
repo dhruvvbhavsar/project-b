@@ -328,6 +328,7 @@ async function fetchImageUrl(url) {
       body: JSON.stringify(obj),
       headers: {
         "Content-Type": " application/json",
+        'Access-Control-Allow-Origin': 'no-cors'
       },
       cache: "no-store",
     }

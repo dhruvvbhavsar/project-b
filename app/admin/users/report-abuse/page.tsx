@@ -14,15 +14,7 @@ import AbuseOveriew from "./abuseOverview";
 import Search from "../search";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import AbuseCard from "./abuseCard";
 
 export default async function Page() {
@@ -84,26 +76,34 @@ export default async function Page() {
                       </TableCell>
                       <TableCell>{card["reportCount"]}</TableCell>
                       <TableCell>
-                        <Dialog>
-                          <DialogTrigger>
-                            <Button className="h-7 text-xs">Take Action</Button>
-                          </DialogTrigger>
-                          <DialogContent className="p-0 min-w-[50%]">
-                            <AbuseCard
-                              taskId={"649e728d1ee23bf370a77432/"}
-                              name={card["taskId"]["clientId"]["name"]}
-                              platform={card["taskId"]["platform"]}
-                              activity={card["taskId"]["activity"]}
-                              taskUrl={card["taskId"]["taskUrl"]}
-                              goal={card["taskId"]["goal"]}
-                              budget={card["taskId"]["budget"]}
-                              imageUrl={card["taskId"]["imageUrl"]}
-                              status={"pending"}
-                              totalSpent={0}
-                              type={card["taskId"]["type"]}
-                            />
-                          </DialogContent>
-                        </Dialog>
+                        {card["reviewed"] === false ? (
+                          <Dialog>
+                            <DialogTrigger>
+                              <Button className="h-7 text-xs">
+                                Take Action
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="p-0 min-w-[50%]">
+                              <AbuseCard
+                                taskId={card["taskId"]["_id"]}
+                                name={card["taskId"]["clientId"]["name"]}
+                                platform={card["taskId"]["platform"]}
+                                activity={card["taskId"]["activity"]}
+                                taskUrl={card["taskId"]["taskUrl"]}
+                                goal={card["taskId"]["goal"]}
+                                budget={card["taskId"]["budget"]}
+                                imageUrl={card["taskId"]["imageUrl"]}
+                                status={"pending"}
+                                totalSpent={card["taskId"]["totalSpent"]}
+                                type={card["taskId"]["type"]}
+                              />
+                            </DialogContent>
+                          </Dialog>
+                        ) : card["taskId"]["isBanned"] ? (
+                          <p className="approved text-red-500 w-fit p-2">Banned</p>
+                        ) : (
+                          <p className="approved text-green-500 w-fit p-2">Resolved</p>
+                        )}
                       </TableCell>
                       <TableCell>
                         <Link
@@ -131,6 +131,7 @@ async function fetchReportedCards() {
     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/user/reports`,
     {
       method: "GET",
+      cache: "no-store"
     }
   );
   const res = await response.json();
