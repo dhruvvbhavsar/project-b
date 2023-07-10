@@ -2,13 +2,12 @@
 "use client";
 import { Like } from "@/components/icons/like";
 import { Progress } from "@/components/ui/progress";
-import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 
-type AdminCard = {  
-  type: string,
+type AdminCard = {
+  type: string;
   taskId: string;
   name: string;
   platform: string;
@@ -22,9 +21,8 @@ type AdminCard = {
 };
 export default function AbuseCard(card: AdminCard) {
   const [isLoading, setIsLoading] = useState(false);
-  const stat = "pending";
   const cardId = card.taskId;
-  const [cardStatus, setCardStatus] = useState(stat);
+  const [cardStatus, setCardStatus] = useState("pending");
   return (
     <>
       <section className={`bg-[#202527] rounded-[6px] p-3`}>
@@ -59,32 +57,32 @@ export default function AbuseCard(card: AdminCard) {
             cardStatus === "pending" && (
               <div className="justify-self-end w-56 flex gap-4">
                 <Button
-                  // onClick={async () => {
-                  //   setIsLoading(true);
-                  //   const status = await sendStatus("success", cardId);
-                  //   console.log(status);
-                  //   if (status) {
-                  //     console.log(status);
-                  //     setIsLoading(false);
-                  //     setCardStatus(status);
-                  //     console.log(cardStatus);
-                  //   }
-                  // }}
+                  onClick={async () => {
+                    setIsLoading(true);
+                    const message = await reportCard("resolved", cardId);
+                    console.log(message);
+                    if (message) {
+                      console.log(message);
+                      setIsLoading(false);
+                      setCardStatus("success");
+                      console.log(cardStatus);
+                    }
+                  }}
                   className="approved hover:bg-sky-100 w-full grid place-items-center"
                 >
                   <p className="text-green-500 glow text-xs">No Issue</p>
                 </Button>
                 <Button
-                  // onClick={async () => {
-                  //   setIsLoading(true);
-                  //   const status = await sendStatus("rejected", cardId);
-                  //   console.log(status);
-                  //   if (status === "success") {
-                  //     setIsLoading(false);
-                  //     setCardStatus(status);
-                  //     console.log(cardStatus);
-                  //   }
-                  // }}
+                  onClick={async () => {
+                    setIsLoading(true);
+                    const message = await reportCard("banned", cardId);
+                    console.log(message);
+                    if (!message) {
+                      setIsLoading(false);
+                      setCardStatus("rejected");
+                      console.log(cardStatus);
+                    }
+                  }}
                   className="approved hover:bg-sky-100 w-full grid place-items-center"
                 >
                   <p className="text-red-400 glow text-xs">Ban Card</p>
@@ -116,7 +114,9 @@ export default function AbuseCard(card: AdminCard) {
             </ul>
 
             <ul className="flex flex-col items-end gap-4 text-white">
-              <li>{card.platform} {card.type}</li>
+              <li>
+                {card.platform} {card.type}
+              </li>
               <li>
                 {card.goal} {card.activity}
               </li>
@@ -132,15 +132,11 @@ export default function AbuseCard(card: AdminCard) {
         <article className="grid grid-cols-3 w-full  mt-4 gap-6">
           <div className="bg-[#181D1F] w-full h-full rounded-[6px] pt-4 pl-4">
             <p className="text-sm text-[#A3A3A3]">Allocated Budget</p>
-            <p className="text-lg  glow text-white mt-6">
-              ₹{card.budget}
-            </p>
+            <p className="text-lg  glow text-white mt-6">₹{card.budget}</p>
           </div>
           <div className="bg-[#181D1F] w-full h-full rounded-[6px] pt-4 pl-4">
             <p className="text-sm text-[#A3A3A3]">Spent</p>
-            <p className="text-lg  glow text-white mt-6">
-              ₹{card.totalSpent}
-            </p>
+            <p className="text-lg  glow text-white mt-6">₹{card.totalSpent}</p>
           </div>
           <div className="bg-[#181D1F] w-full h-full rounded-[6px] relative pt-4 pl-4">
             <p className="text-sm text-[#A3A3A3]">Progress</p>
@@ -158,22 +154,26 @@ export default function AbuseCard(card: AdminCard) {
   );
 }
 
-// async function sendStatus(setStatus: string, taskId: string) {
-//   const obj = {
-//     status: setStatus,
-//   };
-//   const response = await fetch(
-//     `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/client/card/${taskId}/status`,
-//     {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       cache: "no-store",
-//       body: JSON.stringify(obj),
-//     }
-//   );
-//   const data = await response.json();
-//   console.log(data);
-//   return data[0]["data"]["status"];
-// }
+async function reportCard(setStatus: string, taskId: string) {
+  const obj = {
+    status: setStatus,
+  };
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/admin/user/reports/${taskId}/status`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+      body: JSON.stringify(obj),
+    }
+  );
+  const data = await response.json();
+  console.log(data);
+  if (data[0]["message"] === "Card was successfully resolved") {
+    return true;
+  } else {
+    return false;
+  }
+}
