@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { SideBar } from "@/components/ui/sidebar";
+import { saveAs } from "file-saver";
 import { ArrowLeft, Edit, Heart } from "lucide-react";
 import { Insta } from "@/components/icons/insta";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,8 @@ import { redirect, useSearchParams, useRouter } from "next/navigation";
 import ConfettiExplosion from "react-confetti-explosion";
 import { getCookie, hasCookie } from "cookies-next";
 import { Success, Fail, Process } from "@/components/ui/success";
+import { useAtom } from "jotai";
+import { fileAtom } from "@/storage/atoms";
 
 export default async function AddCard() {
   if (!hasCookie("id")) {
@@ -34,6 +37,10 @@ export default async function AddCard() {
 
   const cookie = getCookie("id");
   const name = getCookie("name");
+  const [imageFile, setImageFile] = useAtom(fileAtom);
+  const image = new Image();
+  image.src = `data:image/png;base64,${imageFile}`;
+  console.log(typeof image);
 
   const router = useRouter();
   const [paymentStatus, setPaymentStatus] = useState("success"); // Payment status state variable
@@ -45,12 +52,9 @@ export default async function AddCard() {
     target: results["target"],
   };
 
-  const imageUrl = await fetchImageUrl(card.url);
-
   async function createCard() {
-    console.log(card);
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/${cookie}/create-card`,
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/client/${cookie}/create-card`,
       {
         method: "POST",
         headers: {
@@ -59,19 +63,20 @@ export default async function AddCard() {
         body: JSON.stringify({
           platform: card.platform,
           activity: card.activity,
-          imageUrl: imageUrl,
+          image: imageFile,
           taskUrl: card.url,
           goal: parseInt(card.target),
           budget: parseInt(card.budget),
+          type: "Reel"
         }),
         cache: "no-store",
       }
     );
-    console.log(response);
     const data = await response.json();
     console.log(data);
-    console.log(card);
   }
+
+ 
 
   // Function to simulate the payment process
   const processPayment = async () => {
@@ -121,7 +126,7 @@ export default async function AddCard() {
     const ress = await result.json();
 
     const options = {
-      key:  `${process.env.NEXT_PUBLIC_RAZORPAY_SECRET}`, // Enter the Key ID generated from the Dashboard
+      key: `${process.env.NEXT_PUBLIC_RAZORPAY_SECRET}`, // Enter the Key ID generated from the Dashboard
       amount: ress[0]["data"]["amount"],
       currency: ress[0]["data"]["currency"],
       name: "Project B",
@@ -210,14 +215,19 @@ export default async function AddCard() {
                   duration={3000}
                 />
                 <img
-                  src={imageUrl}
+                  src={
+                    imageFile
+                      ? image.src
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+                  }
                   className="rounded-[16px] h-full object-cover"
                   alt="card picture"
                 />
                 <div className="absolute bottom-4 left-4 flex flex-col gap-1 justify-start">
                   <p className="text-base font-semibold">{name}</p>
                   <p className="text-xs flex items-center gap-1">
-                    <Insta className={"w-4 h-4"} /> {card.activity} on {card.platform}
+                    <Insta className={"w-4 h-4"} /> {card.activity} on{" "}
+                    {card.platform}
                   </p>
                 </div>
                 <div className="rounded-full w-12 h-12 like-button grid place-content-around absolute right-4 bottom-4 ">
@@ -316,24 +326,25 @@ export default async function AddCard() {
   );
 }
 
-async function fetchImageUrl(url) {
-  const obj = {
-    taskUrl: url,
-  };
+async function convertImageToJPEG(imageElement) {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/image-url`,
-    {
-      method: "POST",
-      body: JSON.stringify(obj),
-      headers: {
-        "Content-Type": " application/json",
-        'Access-Control-Allow-Origin': 'no-cors'
+    // Set the canvas dimensions to match the image
+    canvas.width = imageElement.width;
+    canvas.height = imageElement.height;
+
+    // Draw the image onto the canvas
+    context.drawImage(imageElement, 0, 0);
+
+    // Convert the canvas content to a data URL
+    canvas.toBlob(
+      (blob) => {
+        resolve(blob);
       },
-      cache: "no-store",
-    }
-  );
-  const data = await response.json();
-  console.log(data);
-  return data[0]["data"]["imageUrl"];
+      "image/jpeg",
+      1
+    );
+  });
 }

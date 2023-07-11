@@ -10,6 +10,8 @@ import { ChevronLeft } from "lucide-react";
 import { hasCookie } from "cookies-next";
 import { redirect } from "next/navigation";
 import { RotatingLines } from "react-loader-spinner";
+import { useAtom } from "jotai";
+import { fileAtom } from "@/storage/atoms";
 
 export default function AddCard() {
   if (!hasCookie("id")) {
@@ -22,7 +24,7 @@ export default function AddCard() {
   const [targetValue, setTargetValue] = useState("");
   const [taskUrl, settaskUrl] = useState("");
   const [isValidUrl, setIsValidUrl] = useState(true);
-
+  const [selectedFile, setSelectedFile] = useAtom(fileAtom);
   useEffect(() => {
     console.log(selectedPlatform, selectedActivity);
   }, [selectedPlatform, selectedActivity]);
@@ -63,6 +65,20 @@ export default function AddCard() {
     setisClicked(false);
     setBudget(null);
   }
+
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files[0];
+  
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64Data = reader.result?.toString()?.split(',')[1]; // Extract base64 data from the result
+      setSelectedFile(base64Data as string); // Set the base64 data using setSelectedFile
+      console.log(base64Data)
+    };
+  
+    reader.readAsDataURL(selectedFile);
+  };
+  
 
   function handleTargetValueChange(value: any) {
     setTargetValue(value);
@@ -137,6 +153,20 @@ export default function AddCard() {
                   />
                 </div>
               </article>
+
+              <article className="flex flex-col sm:flex-row">
+                <div className="flex flex-col mx-3 sm:ml-8 mt-[32px]">
+                  <p className="text-[#F3F3F3] text-sm">
+                    Upload your thumbnail image
+                  </p>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    className="px-[12px] text-sm sm:text-base py-[14px] rounded-[6px] overflow-x-visible h-12 min-w-[294px] max-w-[345px] bg-[#24292C] hover:bg-[#202223] mt-4  placeholder:text-[#878787] placeholder:text-xs"
+                    placeholder="Image should be clear"
+                  />
+                </div>
+              </article>
             </section>
 
             {isClicked && (
@@ -165,6 +195,7 @@ export default function AddCard() {
                   target={targetValue}
                   budget={budget}
                   url={taskUrl}
+                  file={selectedFile}
                 />
               </section>
             )}
