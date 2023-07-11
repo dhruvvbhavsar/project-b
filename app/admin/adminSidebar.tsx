@@ -35,7 +35,7 @@ export default function AdminSidebar() {
           <Link href={"/admin/pending"}>
             <p className="flex items-center hover:text-xl">Pending</p>
           </Link>
-          <Link href={"/users/report-abuse"}>
+          <Link href={"/admin/users/report-abuse"}>
             <p className="flex items-center hover:text-xl">Report Abuse</p>
           </Link>
           <Link href={"/admin/clients/bulk-upload"}>
