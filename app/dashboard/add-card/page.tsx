@@ -68,17 +68,16 @@ export default function AddCard() {
 
   const handleFileChange = (event: any) => {
     const selectedFile = event.target.files[0];
-  
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      const base64Data = reader.result?.toString()?.split(',')[1]; // Extract base64 data from the result
+      const base64Data = reader.result?.toString()?.split(",")[1]; // Extract base64 data from the result
       setSelectedFile(base64Data as string); // Set the base64 data using setSelectedFile
-      console.log(base64Data)
+      console.log(base64Data);
     };
-  
+
     reader.readAsDataURL(selectedFile);
   };
-  
 
   function handleTargetValueChange(value: any) {
     setTargetValue(value);
@@ -166,6 +165,16 @@ export default function AddCard() {
                     placeholder="Image should be clear"
                   />
                 </div>
+
+                {!isClicked && (
+                  <Button
+                    disabled={!isValidUrl}
+                    onClick={handleClick}
+                    className="mt-16 purple-glow w-[212px] self-center h-12 px-[36px] py-[12px] bg-[#BA44C5] hover:bg-[#90049D]"
+                  >
+                    Calculate budget
+                  </Button>
+                )}
               </article>
             </section>
 
@@ -200,7 +209,7 @@ export default function AddCard() {
               </section>
             )}
 
-            {!isClicked && (
+            {/* {!isClicked && (
               <Button
                 disabled={!isValidUrl}
                 onClick={handleClick}
@@ -208,7 +217,7 @@ export default function AddCard() {
               >
                 Calculate budget
               </Button>
-            )}
+            )} */}
           </div>
         </section>
       </main>

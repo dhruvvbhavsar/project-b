@@ -38,6 +38,9 @@ export default function AdminSidebar() {
           <Link href={"/users/report-abuse"}>
             <p className="flex items-center hover:text-xl">Report Abuse</p>
           </Link>
+          <Link href={"/admin/clients/bulk-upload"}>
+            <p className="flex items-center hover:text-xl">Bulk Upload</p>
+          </Link>
         </div>
       </div>
     </>
